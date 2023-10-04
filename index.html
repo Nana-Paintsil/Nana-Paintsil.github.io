@@ -330,7 +330,7 @@
         animation-fill-mode: forwards;
       }
       .delayed-fade-in-3 {
-        animation-name: fade-in;
+        animation-name: fade-in-with-scale;
         animation-duration: 1s;
         animation-delay: 0.5s;
         animation-timing-function: linear;
@@ -378,6 +378,19 @@
         to {
           opacity: 0.96;
           visibility: visible;
+        }
+      }
+      @keyframes fade-in-with-scale {
+        from {
+          opacity: 0;
+          transform: scale(0);
+          transform-origin: center;
+        }
+        to {
+          opacity: 0.96;
+          transform: scale(1);
+          visibility: visible;
+          transform-origin: center;
         }
       }
 
