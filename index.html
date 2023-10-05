@@ -132,32 +132,54 @@
         border-color: transparent white transparent transparent;
       }
 
+      .risk-factors-container {
+        display: flex; 
+        justify-content: center; 
+        position: absolute; 
+        top: 25vh;
+        left: -15px; 
+        width: 100%; 
+        height: 60vh;
+      }
+
+      .risk-factors-text {
+        color:#8b1137; 
+        text-align:center; 
+        margin-top:10px;
+      }
+
       .grid-container {
         display: grid;
         grid-template-columns: 30% 30% 30%;
-
-        padding: 10px;
-        gap: 100px;
+        align-items: center;
+        padding: 30px;
+        gap: 30px;
       }
-      .fade-in-glow {
+
+      .fade-in {
         opacity: 0;
-        animation: fadeInGlow 5s ease forwards;
+        animation: fade-in-animation 5s ease forwards;
       }
 
-      @keyframes fadeInGlow {
+      @keyframes fade-in-animation {
         0% {
           opacity: 0;
-          visibility: hidden;
-        }
-        50% {
-          opacity: 1;
-          box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
         }
         100% {
           opacity: 1;
-          box-shadow: none;
-
+        }
+      }
+      @keyframes fade-in-with-scale {
+        from {
+          opacity: 0;
+          transform: scale(0);
+          transform-origin: center;
+        }
+        to {
+          opacity: 0.96;
+          transform: scale(1);
           visibility: visible;
+          transform-origin: center;
         }
       }
       @keyframes pulsate {
@@ -173,7 +195,21 @@
           transform: scale(1);
           opacity: 0.8;
         }
+      }  @keyframes reverse-pulsate {
+        0% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(0.8);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
       }
+
 
       @keyframes pulsate1 {
         0% {
@@ -193,6 +229,11 @@
       /* Apply the animation to the path element */
       .pulsating {
         animation: pulsate 2s infinite;
+
+        transform-origin: center;
+      }
+      .reverse-pulsating {
+        animation: reverse-pulsate 2s infinite;
 
         transform-origin: center;
       }
@@ -371,6 +412,7 @@
         animation-name: fade-in;
         animation-duration: 0.8s;
       }
+
       @keyframes fade-in {
         from {
           opacity: 0;
@@ -378,19 +420,6 @@
         to {
           opacity: 0.96;
           visibility: visible;
-        }
-      }
-      @keyframes fade-in-with-scale {
-        from {
-          opacity: 0;
-          transform: scale(0);
-          transform-origin: center;
-        }
-        to {
-          opacity: 0.96;
-          transform: scale(1);
-          visibility: visible;
-          transform-origin: center;
         }
       }
 
@@ -540,6 +569,11 @@
   <body>
     <script>
       let index = 0;
+      let timeouts = []; // Initialize an array to store the timeouts
+      let revertedToInnerLining = false;
+      let revertedToMetastaticCancer = false;
+
+
       // Function to update the class
       function updateClassAfterDelay() {
         var element = document.getElementById("next_button_and_tooltip");
@@ -611,8 +645,21 @@
           "tooltip breastCancer-text hide"
         );
       }
+
+      // Function to create and store a timeout with a callback
+      function createTimeout(callback, delay) {
+          const timeoutId = setTimeout(callback, delay);
+          timeouts.push(timeoutId); // Store the timeout ID in the array
+        }
+
+        function fadeIn(elementId) {
+          if (!revertedToInnerLining) {
+            play(elementId, "", "fade-in");
+          }
+        }
+
       function showBreastCancerTooltip() {
-        stop("nextButton", "pulse");
+        stop("nextButtonContainer", "pulse");
 
         var breastCancerTooltip = document.getElementById(
           "breastCancerTooltip"
@@ -921,7 +968,7 @@
 
         index = 7;
       }
-      let timeouts = []; // Initialize an array to store the timeouts
+     
 
       function proceedToStage4() {
         var stage3Tooltip = document.getElementById("stage3Tooltip");
@@ -1074,9 +1121,34 @@
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
         play("lobuleTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+        
+        play("lobule1", "", "reverse-pulsating");
+        play("lobule2", "", "reverse-pulsating");
+        play("lobule3", "", "reverse-pulsating");
+        play("lobule4", "", "reverse-pulsating");
+        
+        play("lobule5", "", "reverse-pulsating");
+        play("lobule6", "", "reverse-pulsating");
+        play("lobule7", "", "reverse-pulsating");
+        play("lobule8", "", "reverse-pulsating");
+        
+        play("lobule9", "", "reverse-pulsating");
+        play("lobule10", "", "reverse-pulsating");
         index = 11;
       }
       function showDuctTooltip() {
+        stop("lobule1", "reverse-pulsating");
+        stop("lobule2", "reverse-pulsating");
+        stop("lobule3", "reverse-pulsating");
+        stop("lobule4",  "reverse-pulsating");
+        
+        stop("lobule5", "reverse-pulsating");
+        stop("lobule6", "reverse-pulsating");
+        stop("lobule7", "reverse-pulsating");
+        stop("lobule8", "reverse-pulsating");
+        
+        stop("lobule9",  "reverse-pulsating");
+        stop("lobule10",  "reverse-pulsating");
         hideTooltip("lobuleTooltip");
         var causesSlide1Tooltip = document.getElementById("ductTooltip");
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
@@ -1170,7 +1242,7 @@
 
         index = 14;
       }
-      let revertedToInnerLining = false;
+      
 
       function showMetastaticBreastCancer() {
         revertedToInnerLining = false;
@@ -1232,50 +1304,37 @@
         var darkBreastOutline = document.getElementById("darkBreastOutline");
         darkBreastOutline.setAttribute("visibility", "hidden");
 
-        var metastaticBreastCancer = document.getElementById(
-          "metastaticBreastCancer"
-        );
-
-        function fadeInAndGlow(elementId) {
-          if (!revertedToInnerLining) {
-            play(elementId, "", "fade-in-glow");
-          }
-        }
-
-        // Function to create and store a timeout with a callback
-        function createTimeout(callback, delay) {
-          const timeoutId = setTimeout(callback, delay);
-          timeouts.push(timeoutId); // Store the timeout ID in the array
-        }
-
+        var metastaticBreastCancer = document.getElementById("metastaticBreastCancer");
+        metastaticBreastCancer.setAttribute("class", "");
+        
         // Call createTimeout instead of setTimeout
         createTimeout(() => {
           if (!revertedToInnerLining) {
-            fadeInAndGlow("bonesGroup");
+            fadeIn("bonesGroup");
           }
         }, 0);
 
         createTimeout(() => {
           if (!revertedToInnerLining) {
-            fadeInAndGlow("lungsGroup");
+            fadeIn("lungsGroup");
           }
         }, 1200);
 
         createTimeout(() => {
           if (!revertedToInnerLining) {
-            fadeInAndGlow("liverGroup");
+            fadeIn("liverGroup");
           }
         }, 2400);
 
         createTimeout(() => {
           if (!revertedToInnerLining) {
-            fadeInAndGlow("brainGroup");
+            fadeIn("brainGroup");
           }
         }, 3600);
 
         createTimeout(() => {
           if (!revertedToInnerLining) {
-            fadeInAndGlow("metastaticGroup");
+            fadeIn("metastaticGroup");
           }
         }, 4800);
 
@@ -1301,19 +1360,24 @@
       }
 
       function showRiskFactors() {
-        hideTooltip("metastaticBreastCancer");
         hideTooltip("metastaticTooltip");
+        document.getElementById("metastaticBreastCancer").setAttribute("class", "");
         // Set the visibility attribute to hidden for elements with specific IDs
         document.getElementById("metastaticGroup").setAttribute("class", "");
         document.getElementById("brainGroup").setAttribute("class", "");
         document.getElementById("liverGroup").setAttribute("class", "");
         document.getElementById("lungsGroup").setAttribute("class", "");
         document.getElementById("bonesGroup").setAttribute("class", "");
+
+        var previousButton = document.getElementById("previousButton");
+        var nextButton = document.getElementById("nextButton");
+        previousButton.setAttribute("visibility", "hidden");
+        nextButton.setAttribute("visibility", "hidden");
         var corner_div = document.getElementById("corner-div");
-        corner_div.setAttribute("class", "corner-div");
+        corner_div.setAttribute("class", "corner-div hide");
 
         var risk_factors = document.getElementById("risk-factors");
-        risk_factors.setAttribute("visibility", "visible");
+        risk_factors.setAttribute("class", "risk-factors-container");
         var causesSlide1Tooltip = document.getElementById("riskFactorsTooltip");
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
@@ -1322,6 +1386,61 @@
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorBeingWoman");
+          }
+        }, 1200);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorAging");
+          }
+        }, 2400);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorGenetics");
+          }
+        }, 3600);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorOverweight");
+          }
+        }, 4800);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorAlcoholism");
+          }
+        }, 6000);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorSmoking");
+          }
+        }, 7200);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorFHOBC");
+          }
+        }, 8400);
+
+        createTimeout(() => {
+          if (!revertedToInnerLining) {
+            fadeIn("riskFactorExposureToRadioactivity");
+          }
+        }, 9600);
+
+        createTimeout(() => {
+          var previousButton = document.getElementById("previousButton");
+          var nextButton = document.getElementById("nextButton");
+          previousButton.setAttribute("visibility", "visible");
+          nextButton.setAttribute("visibility", "visible");
+        }, 10800);
 
         index = 16;
       }
@@ -1351,14 +1470,23 @@
         hideTooltip("riskFactorsTooltip");
 
         var risk_factors = document.getElementById("risk-factors");
-        risk_factors.setAttribute("visibility", "hidden");
+        risk_factors.setAttribute("class", "risk-factors-container hide");
+
+        document.getElementById("riskFactorBeingWoman").setAttribute("class", "");
+        document.getElementById("riskFactorAging").setAttribute("class", "");
+        document.getElementById("riskFactorGenetics").setAttribute("class", "");
+        document.getElementById("riskFactorOverweight").setAttribute("class", "");
+        document.getElementById("riskFactorAlcoholism").setAttribute("class", "");
+        document.getElementById("riskFactorSmoking").setAttribute("class", "");
+        document.getElementById("riskFactorFHOBC").setAttribute("class", "");
+        document.getElementById("riskFactorExposureToRadioactivity").setAttribute("class", "");
 
         var breastCancerSymptoms = document.getElementById(
           "breastCancerSymptoms"
         );
         breastCancerSymptoms.setAttribute("visibility", "visible");
-        var causesSlide1Tooltip = document.getElementById("symptomsSlideIntro");
-        causesSlide1Tooltip.className = "tooltip breastCancer-text";
+        var symptomsSlideIntro = document.getElementById("symptomsSlideIntro");
+        symptomsSlideIntro.className = "tooltip breastCancer-text";
 
         play(
           "symptomsSlideIntroText",
@@ -1772,6 +1900,20 @@
         index = 9;
       }
       function revertToCausesSlide2() {
+        
+        
+        stop("lobule1", "reverse-pulsating");
+        stop("lobule2", "reverse-pulsating");
+        stop("lobule3", "reverse-pulsating");
+        stop("lobule4",  "reverse-pulsating");
+        
+        stop("lobule5", "reverse-pulsating");
+        stop("lobule6", "reverse-pulsating");
+        stop("lobule7", "reverse-pulsating");
+        stop("lobule8", "reverse-pulsating");
+        
+        stop("lobule9",  "reverse-pulsating");
+        stop("lobule10",  "reverse-pulsating");
         hideTooltip("lobuleTooltipText");
         var causesSlide1Tooltip = document.getElementById(
           "causesSlide1Tooltip"
@@ -1808,6 +1950,19 @@
         disappearElement("nippleZoomedLabelAndLine");
         play("lobuleTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
 
+        
+        play("lobule1", "", "reverse-pulsating");
+        play("lobule2", "", "reverse-pulsating");
+        play("lobule3", "", "reverse-pulsating");
+        play("lobule4", "", "reverse-pulsating");
+        
+        play("lobule5", "", "reverse-pulsating");
+        play("lobule6", "", "reverse-pulsating");
+        play("lobule7", "", "reverse-pulsating");
+        play("lobule8", "", "reverse-pulsating");
+        
+        play("lobule9", "", "reverse-pulsating");
+        play("lobule10", "", "reverse-pulsating");
         index = 11;
       }
       function revertToDuctTooltip() {
@@ -1925,11 +2080,14 @@
           }
         }
 
-        hideElementById("bonesGroup");
-        hideElementById("lungsGroup");
-        hideElementById("liverGroup");
-        hideElementById("brainGroup");
-        hideElementById("metastaticGroup");
+        var metastaticBreastCancer = document.getElementById("metastaticBreastCancer");
+        metastaticBreastCancer.setAttribute("class", "hide");
+        document.getElementById("bonesGroup").setAttribute("class", "");
+        document.getElementById("lungsGroup").setAttribute("class", "");
+        document.getElementById("liverGroup").setAttribute("class", "");
+        document.getElementById("brainGroup").setAttribute("class", "");
+        document.getElementById("metastaticGroup").setAttribute("class", "");
+
 
         var fattyTissue = document.getElementById("fattyTissue");
         fattyTissue.setAttribute("visibility", "visible");
@@ -1955,10 +2113,7 @@
         var innerLiningLobule = document.getElementById("innerLiningLobule");
         innerLiningLobule.setAttribute("visibility", "visible");
         innerLiningLobule.setAttribute("class", "delayed-fade-in-4");
-        var metastaticBreastCancer = document.getElementById(
-          "metastaticBreastCancer"
-        );
-        metastaticBreastCancer.setAttribute("visibility", "hidden");
+
         var innerLiningTooltip = document.getElementById("innerLiningTooltip");
         innerLiningTooltip.setAttribute("class", "tooltip breastCancer-text");
         play(
@@ -1972,7 +2127,17 @@
         hideTooltip("riskFactorsTooltip");
 
         var risk_factors = document.getElementById("risk-factors");
-        risk_factors.setAttribute("visibility", "hidden");
+        risk_factors.setAttribute("class", "risk-factors-container hide");
+        document.getElementById("riskFactorBeingWoman").setAttribute("class", "");
+        document.getElementById("riskFactorAging").setAttribute("class", "");
+        document.getElementById("riskFactorGenetics").setAttribute("class", "");
+        document.getElementById("riskFactorOverweight").setAttribute("class", "");
+        document.getElementById("riskFactorAlcoholism").setAttribute("class", "");
+        document.getElementById("riskFactorSmoking").setAttribute("class", "");
+        document.getElementById("riskFactorFHOBC").setAttribute("class", "");
+        document.getElementById("riskFactorExposureToRadioactivity").setAttribute("class", "");
+
+
         showMetastaticBreastCancer();
         index = 15;
       }
@@ -1988,16 +2153,10 @@
         );
         gradient_background.style.opacity = "0.75";
 
-        var risk_factors = document.getElementById("risk-factors");
-        risk_factors.setAttribute("visibility", "visible");
         var causesSlide1Tooltip = document.getElementById("riskFactorsTooltip");
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
-        play(
-          "riskFactorsTooltipText",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
+        showRiskFactors();
 
         index = 16;
       }
@@ -2012,6 +2171,15 @@
           "breastCancerSymptoms"
         );
         breastCancerSymptoms.setAttribute("visibility", "visible");
+
+        var symptomsSlideIntro = document.getElementById("symptomsSlideIntro");
+        symptomsSlideIntro.className = "tooltip breastCancer-text";
+
+        play(
+          "symptomsSlideIntroText",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
 
         index = 17;
       }
@@ -2348,8 +2516,7 @@
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="riskFactorsTooltipText"
-        >The following are likely to put you at risk of getting breast cancer,
-        tap the icons to know more...</span
+        >The following are likely to put you at risk of getting breast cancer:</span
       >
     </div>
 
@@ -5180,9 +5347,8 @@
       <g
         id="metastaticBreastCancer"
         style="transform: translateY(-500px)"
-        visibility="hidden"
-      >
-        <g id="bonesGroup">
+        class="hide">
+        <g id="bonesGroup" opacity="0">
           <circle
             cx="260.5"
             cy="1120.5"
@@ -5264,7 +5430,7 @@
             <tspan x="0" y="0">Bones</tspan>
           </text>
         </g>
-        <g id="lungsGroup">
+        <g id="lungsGroup" opacity="0">
           <circle
             cx="433.5"
             cy="1338.5"
@@ -5294,7 +5460,7 @@
             <tspan x="0" y="0">Lungs</tspan>
           </text>
         </g>
-        <g id="liverGroup">
+        <g id="liverGroup" opacity="0">
           <circle
             cx="696.5"
             id="liverCircle"
@@ -5324,7 +5490,7 @@
             <tspan x="0" y="0">Liver</tspan>
           </text>
         </g>
-        <g id="brainGroup">
+        <g id="brainGroup" opacity="0">
           <circle
             cx="595.5"
             id="brainCircle"
@@ -5373,7 +5539,7 @@
             <tspan x="0" y="0">Brain</tspan>
           </text>
         </g>
-        <g id="metastaticGroup">
+        <g id="metastaticGroup" opacity="0">
           <circle
             cx="293.5"
             cy="2032.5"
@@ -7529,459 +7695,420 @@
           </g>
         </g>
       </g>
-
-      <foreignObject
-        id="risk-factors"
-        width="100%"
-        height="80%"
-        visibility="hidden"
-      >
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-          "
-        >
-          <div style="width: 80%; height: 100%" class="grid-container">
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-              class="pulse-white"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g>
-                    <path
-                      d="M112.5,175.62c-17.19-.24-32.18-5.24-45.46-15.33-1.85-1.41-2.57-2.81-2.26-5.24,2.05-15.82,14.22-29.2,29.82-32.54,2.68-.57,3.71,.21,4.04,2.95,.81,6.65,4.36,11.52,9.96,14.97,2.46,1.51,4.99,1.31,7.36-.27,5.42-3.62,8.68-8.64,9.64-15.12,.3-2.06,1.08-2.75,3.18-2.69,2.71,.07,5.21,.99,7.59,2.16,10.72,5.25,18.32,13.29,21.92,24.82,.76,2.44,1.25,4.94,1.37,7.51,.05,1.07-.35,1.85-1.16,2.5-10.71,8.48-22.81,13.71-36.36,15.58-3.4,.47-6.82,.51-9.65,.7Zm.81-4.68c1.8-.14,4.84-.24,7.84-.65,11.54-1.58,22-5.85,31.47-12.65,1.61-1.15,2.11-2.24,1.66-4.19-2.9-12.54-10.35-21.04-22.36-25.6-1.15-.44-1.75-.35-2.13,1.05-1.62,5.97-4.97,10.8-9.88,14.56-4.46,3.42-10.8,3.53-15.38,.25-5.18-3.71-8.64-8.59-10.22-14.78-.23-.89-.54-1.14-1.49-.87-11.89,3.34-21.27,14.19-22.94,26.51-.15,1.14,.14,1.78,1.01,2.42,12.23,9.09,25.96,13.73,42.42,13.95Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                        stroke-width: 2px;
-                      "
-                    />
-                    <path
-                      d="M78.62,81.75c.09,12.41,1.15,23.94,4.37,35.19,.64,2.23-.66,3.89-2.69,3.54-1.29-.22-1.79-1.16-2.1-2.29-1.35-4.88-2.43-9.82-3.15-14.83-1.09-7.6-1.45-15.25-1.4-22.91,.04-5.6,.76-11.14,2.61-16.48,3.29-9.49,10.15-15.58,19.23-18.96,15.68-5.83,30.5-4.15,43.8,6.53,5.44,4.36,8.13,10.42,9.6,17.06,1.24,5.57,1.53,11.23,1.29,16.94-.21,4.96-.34,9.91-.93,14.84-.72,6.09-1.9,12.08-3.59,17.97-.5,1.73-1.74,2.5-3.23,2.09-1.35-.38-1.99-1.71-1.52-3.39,2.61-9.37,3.91-18.93,4.22-28.65,.18-5.65,.23-11.26-.65-16.85-1.73-11.05-8.05-18.45-18.36-22.22-11.31-4.14-22.49-3.63-33.2,2.32-8.24,4.58-12.44,11.79-13.71,20.93-.46,3.3-.68,6.61-.6,9.18Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                        stroke-width: 2px;
-                      "
-                    />
-                    <path
-                      d="M84.59,82.17c-.1-1.49,.07-2.93,.27-4.36,.22-1.57,1.36-2.6,2.68-2.47,1.52,.15,2.4,1.41,2.2,3.14-.03,.24-.06,.48-.08,.72-.12,1.73,.12,2.02,1.82,1.75,11.24-1.82,19.47-7.67,24.14-18.2,.73-1.65,.87-3.5,1.61-5.19,.53-1.22,1.15-2.19,2.53-2.2,1.31-.01,2.15,.8,2.41,2.08,.15,.74,.59,1.04,1.25,1.19,10.04,2.34,15.13,9.99,15.72,19.95,.65,11.03-2.81,20.72-9.86,29.09-4.48,5.32-10.2,8.54-17.34,8.47-7.2-.07-12.78-3.52-17.34-8.83-3.93-4.57-6.38-9.91-8.28-15.6-1.04-3.14-1.84-6.25-1.72-9.52Zm49.74-1.17c.09-1.46-.13-2.89-.31-4.33-.9-6.89-5.11-11.66-11.56-13.25-1.25-.31-1.78,0-2.28,1.17-2.84,6.64-7.21,12.04-13.36,15.91-4.55,2.87-9.5,4.66-14.85,5.29-1.29,.15-1.82,.49-1.49,1.98,1.27,5.79,3.48,11.11,7.18,15.77,8.03,10.11,20.75,10.18,28.8,.09,5.28-6.61,7.6-14.29,7.88-22.65Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                        stroke-width: 2px;
-                      "
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <text
-                    transform="translate(70.18 121.73)"
-                    style="fill: #e83062; font-size: 38.32px; font-weight: 700"
-                    ><tspan x="0" y="0" style="letter-spacing: -0.04em"
-                      >AGE</tspan
-                    ></text
-                  >
-                  <path
-                    d="M163.95,66.04c.17-2.56,.35-5.12,.49-7.68,.16-2.86,1.66-4.57,4.08-4.61,2.3-.04,4.15,1.78,4.25,4.54,.11,2.97-.02,5.95-.1,8.93-.1,3.93-.24,7.87-.39,11.8-.15,3.9-1.92,5.52-5.79,5.48-6.53-.07-13.06-.08-19.6-.15-3.46-.04-5.39-1.58-5.45-4.22-.06-2.61,1.94-4.17,5.41-4.18,3.27,0,6.53,.07,9.8,.04,.92,0,2.16,.47,2.67-.47,.54-.98-.58-1.71-1.13-2.43-7.29-9.57-16.78-16-28.32-19.26-32.18-9.1-63.76,10.35-70.29,43.19-6.23,31.31,16.89,62.19,48.68,65,25.67,2.27,47.91-11.43,57.42-35.37,.14-.36,.27-.72,.44-1.07,1.24-2.62,3.37-3.7,5.5-2.79,2.22,.95,3.14,3.17,2.21,5.81-1.7,4.81-3.86,9.4-6.69,13.68-14.78,22.37-42.03,32.97-68.55,26.63-25.24-6.04-44.71-28.2-47.76-54.36-4.16-35.74,21.25-67.51,56.91-70.91,21.31-2.03,39.23,5.14,53.81,20.74,.58,.62,1.07,1.33,1.61,2,.26-.12,.51-.24,.77-.36Z"
-                    style="fill: #e83062"
-                  />
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g id="z10NsH">
-                    <g>
-                      <path
-                        d="M107.86,52.67c.49,7.57-1.82,14.6-4.63,21.49-1.09,2.68-.77,3.81,2.37,4.15,5.09,.55,10.08,1.71,14.97,3.34,12.69,4.23,23.68,18.1,17.87,35.15-1.33,3.91-2.59,7.86-4.24,11.63-1.23,2.8-.51,3.6,2.35,4.09,6.18,1.05,12.27,2.52,17.98,5.25,5.47,2.61,10.33,6.03,14.13,10.81,1.1,1.39,2.07,2.98,.35,4.52-1.69,1.5-3.25,.59-4.42-.82-7.62-9.17-18.21-12.2-29.27-14.39-3.41-.68-5.2,.41-6.37,3.78-3.73,10.69-6.08,21.38-2.08,32.53,.66,1.85,.47,3.54-1.62,4.16-2.14,.64-3.08-.99-3.71-2.66-3.21-8.44-2.91-17.03-.9-25.63,.81-3.46,1.91-6.86,3.13-10.2,.95-2.62,.21-3.6-2.49-3.93-5.65-.69-11.29-1.6-16.66-3.6-13.44-5-19.91-18.05-16.59-33.39,.96-4.47,2.43-8.79,4.25-12.97,1.1-2.52,1.13-3.63-2.21-4.04-11.23-1.39-21.72-4.7-29.81-13.26-.97-1.03-1.85-2.16-2.62-3.35-.8-1.23-.6-2.5,.54-3.45,1.15-.95,2.39-.81,3.5,.12,.65,.55,1.21,1.2,1.78,1.84,7.86,8.75,18.26,11.62,29.44,12.74,2.39,.24,3.63-.85,4.53-2.95,4.56-10.61,7.01-21.38,2.9-32.74-.6-1.67-.6-3.22,1.13-4.04,2.03-.96,3.21,.4,4.01,2.06,2.1,4.34,2.63,8.98,2.39,13.77Zm26.63,54.15c-.35-4.98-2.25-9.61-5.84-13.55-4.45-4.89-10.34-7.11-16.54-8.14-15.49-2.58-11.62-4.67-17.08,9.49-.51,1.32-.87,2.71-1.25,4.08-3.93,14.4,2.86,27.35,18.16,29.91,4.2,.7,8.41,1.35,12.61,2.07,1.35,.23,2.58,.35,3.23-1.19,3.06-7.2,6.09-14.42,6.71-22.66Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M132.92,170.9c-1.38-.03-2.21-.5-2.7-1.47-.6-1.21-.2-2.34,.75-3.05,1.59-1.18,3.31-2.19,5.02-3.19,6.14-3.57,12.3-7.11,18.47-10.64,1.61-.92,3.35-1.32,4.46,.61,1.12,1.95-.14,3.23-1.74,4.15-7.38,4.28-14.76,8.54-22.16,12.77-.72,.41-1.57,.62-2.1,.82Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M97.17,46.47c-.16,1.77-1.29,2.63-2.54,3.35-7.25,4.2-14.51,8.39-21.78,12.57-1.57,.9-3.35,1.51-4.55-.33-1.37-2.1,.08-3.44,1.81-4.44,7.38-4.27,14.76-8.54,22.17-12.74,2.19-1.24,4.09-1.17,4.89,1.6Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M99.02,58.39c.01,1.59-.87,2.5-2.02,3.16-4.91,2.84-9.84,5.66-14.78,8.46-1.58,.9-3.34,1.47-4.5-.43-1.3-2.14,.2-3.45,1.9-4.44,4.79-2.78,9.58-5.54,14.41-8.26,2.18-1.23,4.08-1.23,4.99,1.51Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M131.81,158.83c-2.02,.17-2.95-.41-3.49-1.53-.57-1.2-.21-2.43,.81-3.03,5.75-3.38,11.54-6.68,17.38-9.89,1.09-.6,2.25,.02,2.94,1.07,.59,.91,.72,2.15-.06,2.78-5.58,4.44-12.08,7.32-17.57,10.59Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M101.96,117.03c-1.47,0-2.29-.53-2.76-1.48-.49-.98-.36-1.98,.39-2.76,.58-.6,1.27-1.13,2-1.55,6.98-4.07,13.97-8.13,20.98-12.14,1.74-1,3.8-2.16,5.19,.24,1.4,2.42-.68,3.57-2.41,4.58-6.98,4.06-13.98,8.1-21,12.11-.84,.48-1.8,.76-2.39,1Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M100.53,105.01c-1.84,.02-2.69-.47-3.12-1.45-.59-1.33-.28-2.64,.93-3.37,5.46-3.25,10.96-6.44,16.5-9.57,1.23-.7,2.5-.34,3.4,.83,.67,.87,.89,2.06,.09,2.73-5.53,4.7-12.2,7.49-17.8,10.83Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M129.97,112.14c-.07,1.84-.86,2.64-1.86,3.23-5.01,2.92-10.02,5.83-15.06,8.7-1.66,.94-3.35,1.08-4.38-.86-.93-1.75,.15-3.01,1.58-3.85,5.13-3,10.26-5.99,15.46-8.85,2.26-1.24,3.7-.25,4.25,1.63Z"
-                        style="fill: #e83062"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g>
-                    <path
-                      d="M54.66,110.42c2.51-7.93,9.21-9.94,16.24-11.29,2.89-.55,5.9-.43,8.85-.73,2.12-.21,3.09,.69,3.5,2.73,2.69,13.18,5.44,26.35,8.17,39.52,.47,2.28,.97,4.56,1.47,6.84,.31,1.43,.33,2.9-1.35,3.3-1.77,.42-2.24-1-2.53-2.41-2.45-11.76-4.9-23.53-7.36-35.29-.73-3.51-1.48-7.01-2.28-10.75-5.95,.09-11.68,.76-16.86,3.84-2.78,1.65-3.93,4.2-3.91,7.47,.07,12.77,.05,25.54-.03,38.31,0,.92-.52,2.34-1.18,2.62-.66,.28-1.8-.58-2.73-.94,0-14.4,0-28.81,0-43.21Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M176.19,153.63c-.93,.36-2.07,1.23-2.73,.95-.66-.27-1.17-1.69-1.18-2.61-.08-9.8-.05-19.6-.05-29.4,0-10.04-6.07-16-16.3-15.92-.41,1.31-.79,2.67-1.28,3.99-1.32,3.56-3.65,6.08-7.32,7.38-.67,.24-1.44,1.26-1.49,1.98-.19,2.41-.05,4.85-.08,7.28-.02,1.44,.15,3.14-1.94,3.2-2.08,.05-2.06-1.62-2.07-3.08-.03-2.43,.12-4.87-.09-7.28-.07-.77-.9-1.84-1.63-2.12-5.15-1.99-8.99-8.05-8.22-13.53,.11-.76,1.09-1.39,1.67-2.07,.72,.66,1.8,1.18,2.09,2,.61,1.65,.62,3.52,1.19,5.19,1.12,3.24,3.59,4.92,6.98,4.92,3.39,0,5.83-1.71,7.01-4.91,.55-1.49,.6-3.17,1.16-4.66,.36-.95,1.09-2.26,1.89-2.45,8.41-2.02,19.7,5.2,21.81,13.77,.15,.59,.37,1.16,.56,1.74v35.65Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M91.34,53.55c2.14,.18,4.32,.14,6.41,.57,5.24,1.07,8.75,5.11,9.37,10.45,.07,.62,0,1.49,.36,1.8,2.67,2.29,2.42,5.63,1.58,8.03-1.89,5.38-4,10.97-7.37,15.47-5.03,6.73-17.67,5.65-22.39-1.31-1.39-2.05-2.29-4.44-3.33-6.72-.91-1.98-1.95-3.95-2.49-6.04-.75-2.92-1.33-5.96,.67-8.75,.39-.55,.74-1.21,.84-1.87,1.15-7.62,5.62-11.47,13.37-11.48,.99,0,1.98,0,2.97,0v-.16Zm-.24,4.1s0-.01,0-.02c-.72,0-1.44,0-2.16,0-6.75,.02-9.59,2.75-10.02,9.47-.06,.86-.57,1.84-1.16,2.5-1.24,1.39-1.2,3.29,.11,4.75,.54,.6,.81,1.5,1.08,2.3,.91,2.69,1.6,5.47,2.67,8.09,1.06,2.6,3.05,4.43,5.88,5.09,6.82,1.58,11.33-.62,14.09-7.04,.8-1.87,1.06-3.96,1.68-5.91,.3-.94,1.08-1.75,1.27-2.7,.28-1.39,.46-2.89,.24-4.27-.2-1.26-1.39-2.41-1.46-3.65-.27-4.97-3.24-8.24-8.21-8.59-1.34-.09-2.69-.01-4.04-.01Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M163.78,95.74c.04,.72,.3,1.53,.05,2.13-.35,.85-1.08,1.54-1.65,2.3-.73-.73-2.01-1.4-2.1-2.2-.55-4.55-.82-9.13-1.16-13.7-.25-3.41-.51-6.81-.68-10.23-.29-5.74-3.56-9.47-8.57-11.33-4.74-1.77-9.7-1.69-14.21,1.26-3.67,2.4-5.88,5.61-6.14,10.17-.45,7.72-1.12,15.42-1.69,23.13-.01,.18,.06,.43-.03,.53-.74,.81-1.52,1.59-2.29,2.37-.54-.87-1.57-1.78-1.53-2.62,.33-6.46,.86-12.92,1.34-19.37,.09-1.25,.24-2.51,.29-3.76,.34-9.35,7.68-16.27,17.07-16.6,6.14-.22,11.3,1.44,15.54,5.92,2.31,2.44,3.76,5.27,4.03,8.61,.63,7.8,1.17,15.6,1.76,23.4Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M119.56,114.26c2.28,.37,4.68,.43,6.83,1.19,3.93,1.4,6.32,4.49,6.93,8.56,.63,4.18,.52,8.42-1.14,12.45-2.18,5.29-6.79,8.34-12.64,8.37-5.96,.04-11.1-2.93-12.7-8.5-1.14-3.94-1.51-8.33-1.13-12.42,.51-5.44,5.03-8.92,10.58-9.27,1.07-.07,2.15,0,3.23,0,.02-.12,.03-.25,.05-.37Zm-.03,4.26c-.81,0-1.62-.02-2.43,0-4.44,.13-7.56,2.93-7.78,7.31-.12,2.4,.04,4.87,.5,7.23,.96,4.86,4.22,7.5,9.01,7.69,5.28,.21,8.82-2.07,10.08-7.03,2.08-8.17,.77-16.04-9.39-15.2Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M155.84,84.06c.3,4.13-.56,8.63-3.24,12.7-4.88,7.41-12.91,7.38-17.71-.04-2.54-3.93-3.36-8.26-3.17-12.86,.06-1.35,.12-2.71-.01-4.04-.24-2.51,.76-3.48,3.27-4.2,1.87-.54,3.47-2.54,4.81-4.2,1.41-1.74,2.74-2.13,3.7-.25,1.66,3.26,4.63,4.1,7.76,4.6,4.59,.72,4.6,.63,4.6,5.2,0,.81,0,1.62,0,3.1Zm-14.13-7.56c-1.73,1.07-3.76,2.34-5.97,3.71-.11,4.74-.61,9.78,2.38,14.31,3.28,4.96,7.84,5.01,11.18,.1,3.1-4.56,2.74-9.62,2.45-14.18-3.61-1.42-6.82-2.68-10.04-3.94Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M139.93,156.88c-.7,.68-1.43,1.39-2.16,2.1-.7-.78-1.84-1.47-2.03-2.36-.97-4.69-7.08-7.33-11.15-4.68-.08,.05-.17,.07-.23,.13-3.25,3.18-6.25,2.94-9.82,.1-4.05-3.23-10.28-.39-11.36,4.65-.18,.82-1.28,1.45-1.95,2.16-.64-.82-1.93-1.78-1.8-2.44,.42-2.03,.94-4.31,2.22-5.84,3.38-4.05,11.03-4.99,15.16-1.78,2.57,1.99,4.09,.75,6.06-.6,4.41-3.03,13.46-.6,15.78,4.22,.57,1.18,.77,2.55,1.28,4.33Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M102.95,102.16c-.64,2.98-1.22,5.51-1.7,8.06-.28,1.47-1.05,2.55-2.49,1.94-.72-.31-1.43-1.83-1.32-2.69,.39-3.02,1.01-6.02,1.83-8.95,.24-.84,1.45-1.99,2.25-2.01,6.33-.21,12.66,.27,18.34,3.31,2.35,1.26,4.27,3.43,6.15,5.4,.38,.4-.03,2.03-.58,2.63-.31,.34-2.05,.06-2.46-.47-5.13-6.63-12.63-6.28-20.03-7.22Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M160.11,140.94c0-5.04,0-10.08,0-15.12,0-1.5,.05-3.1,2.11-3.04,1.88,.06,1.92,1.58,1.91,2.97-.07,10.17-.1,20.34-.31,30.5-.02,.93-1.17,1.83-1.79,2.74-.69-.98-1.92-1.94-1.96-2.94-.2-5.03-.09-10.07-.09-15.11,.04,0,.08,0,.13,0Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M70.86,140.71c0,5.04-.02,10.07,.01,15.11,0,1.57-.2,3.12-2.1,3.1-1.82-.01-1.85-1.58-1.85-3,.01-10.07,0-20.15,.01-30.22,0-1.35-.16-2.94,1.85-2.92,2.04,.02,2.08,1.58,2.08,3.09,0,4.95,0,9.89,0,14.84Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M89.17,113.64c0-1.79,.15-3.61-.05-5.38-.14-1.23-.59-2.51-1.22-3.57-1.21-2.01-1.1-3.81,.6-5.32,1.6-1.42,3.52-1.43,5.15-.05,1.73,1.46,1.9,3.25,.75,5.3-.65,1.15-1.21,2.52-1.27,3.82-.17,3.76-.07,7.53-.05,11.3,0,1.38-.21,2.62-1.91,2.65-1.69,.03-2.01-1.16-1.99-2.57,.02-2.06,0-4.13,0-6.19Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M96.2,74.95c-1.36-1.39-2.75-2.15-2.85-3.06-.2-1.72,1.34-1.99,2.82-1.99,1.48,0,3,.24,2.78,2.01-.12,.91-1.44,1.67-2.74,3.05Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M86.13,74.95c-1.35-1.36-2.69-2.08-2.83-2.99-.28-1.75,1.28-2.34,2.7-1.97,1.09,.29,2.02,1.22,3.02,1.87-.79,.84-1.57,1.69-2.88,3.09Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M115.38,125.62c.98,1.52,1.86,2.29,1.87,3.08,0,.6-1.09,1.68-1.7,1.69-.67,0-1.85-.96-1.89-1.55-.05-.79,.8-1.62,1.71-3.21Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                    <path
-                      d="M123.34,131.52c-.83-1.52-1.68-2.37-1.58-3.1,.09-.66,1.22-1.18,1.89-1.75,.6,.73,1.54,1.41,1.68,2.22,.1,.55-.93,1.29-2,2.63Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                      "
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g id="Za6fY7">
-                    <g>
-                      <path
-                        d="M128.01,70.17c12.06,1.23,21.89,6.15,29.62,15.11,4.78,5.54,7.45,12.17,9.69,19,1.08,3.3,2.09,6.63,3.07,9.97,1.36,4.64,.1,8.59-3.53,11.66-3.47,2.94-7.39,2.91-12.01,.23-.26-.15-.55-.25-1.13-.51-.59,6.82-1.63,13.41-3.81,19.79-1.81,5.33-4.14,10.36-7.45,14.91-1.01,1.39-1.57,2.25,.63,3.24,2.67,1.2,3.66,3.72,3.23,6.6-.44,2.96-2.4,4.58-5.21,5.25-.61,.14-1.26,.17-1.88,.17-16.55,0-33.1,.02-49.65-.02-1.03,0-2.13-.2-3.06-.61-2.28-.99-3.77-2.76-4.01-5.27-.25-2.67,1.05-4.73,3.3-6.03,1.46-.85,2.07-1.46,.87-3.09-7.03-9.54-9.99-20.55-11.17-32.12-.25-2.44-.44-3.26-2.92-1.69-3.35,2.11-6.88,1.79-10.12-.4-3.33-2.25-5.3-5.68-4.42-9.5,2.84-12.36,6.24-24.55,15.47-34.06,7.38-7.61,16.54-11.4,27.51-12.65-5.15-6.28-7.42-12.96-4.62-20.62,1.5-4.11,4.15-7.33,7.82-9.65,7.78-4.92,17.34-3.79,23.75,2.74,7.32,7.45,7.42,16.16,.06,27.57Zm-13.48,52.74c10.23,0,20.45-.08,30.68,.05,2.85,.04,3.83-1.03,3.47-3.73-.24-1.77-.3-3.56-.55-5.33-.24-1.74-.12-3.03,2.01-3.55,2.37-.58,2.95,.81,3.46,2.56,.5,1.71,1.11,3.39,1.6,5.1,1,3.44,3.75,5.39,6.74,4.72,3.06-.69,4.57-3.61,3.58-7.3-1.58-5.91-3.44-11.74-5.89-17.35-3.44-7.85-8.81-13.96-16.38-18.24-6.1-3.45-12.64-4.56-19.44-4.64-6.42-.08-12.85,.31-19.27,.17-14.36-.31-25.21,5.93-32.75,17.79-4.32,6.8-6.47,14.62-8.52,22.36-.97,3.64,.49,6.45,3.32,7.17,3.15,.79,5.67-.8,6.92-4.44,.82-2.39,1.63-4.79,2.34-7.21,.53-1.83,1.75-1.82,3.22-1.46,1.43,.35,2.19,1.06,1.95,2.68-.33,2.19-.52,4.39-.75,6.59-.39,3.64-.08,4.03,3.59,4.04,10.23,.03,20.45,0,30.68,.01Zm0,5.2c-10.22,0-20.45,.05-30.67-.04-2.53-.02-3.48,.84-3.02,3.36,.72,3.94,1.35,7.89,2.61,11.71,2.79,8.46,7.18,15.9,13.78,21.98,.57,.52,1.6,1.04,1.15,2.01-.41,.88-1.45,.64-2.28,.65-1.89,.03-3.79,.03-5.68,.12-.98,.05-2.46-.24-2.43,1.27,.03,1.49,1.5,1.2,2.48,1.2,6.01,.04,12.02-.09,18.02,.08,2.86,.08,3.57-1.04,3.54-3.72-.13-9.27-.06-18.55-.02-27.82,0-1.68-.59-3.82,2.33-3.85,2.81-.03,2.49,1.93,2.49,3.72,0,8.01,0,16.02,0,24.03q.01,7.56,7.44,7.59c4.85,.02,9.7,.01,14.54-.04,.9,0,2.14,.03,2.05-1.34-.07-1.08-1.16-1.08-1.99-1.11-1.58-.06-3.16,0-4.74-.07-1.23-.06-2.98,.57-3.54-.59-.69-1.45,1.12-2.31,2.01-3.14,9.33-8.6,13.33-19.74,15.33-31.83,.62-3.76,.16-4.18-3.7-4.18-9.91-.01-19.81,0-29.72,0Zm.02-86.09c-7.93-.08-14.2,5.95-14.26,13.72-.06,8.14,6.17,14.47,14.27,14.5,7.49,.02,13.79-6.28,13.91-13.91,.13-8.11-5.83-14.23-13.93-14.31Z"
-                        style="
-                          fill: #e83062;
-                          stroke: #e83062;
-                          stroke-miterlimit: 10;
-                          stroke-width: 2px;
-                        "
-                      />
-                      <path
-                        d="M167.5,132.93c1.05,0,2.13,.12,3.16-.03,1.41-.21,4.35,1.26,2.82-2.55-.37-.94,1-1.99,1.99-2.6,.91-.56,1.59,.11,2.2,.69,.76,.73,1.61,1.4,2.23,2.24,1.33,1.79,4.79,2.95,3.89,5.19-1.22,3.02-4.11,5.39-6.93,7.15-1.75,1.09-3.44-1.07-3.38-2.57,.1-2.44-1.36-2.32-2.74-2.38-2.42-.11-4.84,0-7.27,.03-1.87,.01-3.35-.33-3.3-2.74,.05-2.28,1.48-2.47,3.21-2.43,1.37,.03,2.74,0,4.11,0Z"
-                        style="
-                          fill: #e83062;
-                          stroke: #e83062;
-                          stroke-miterlimit: 10;
-                          stroke-width: 2px;
-                        "
-                      />
-                      <path
-                        d="M53.99,138.01c2.19,1.9,1.49,3.32-.28,4.75-2,1.62-2.72-.33-3.81-1.26-.32-.27-.62-.58-.85-.92-1.31-1.93-4.93-3.13-4.04-5.45,1.16-3.01,4.36-4.98,6.82-7.26,.7-.65,1.47-.27,1.91,.36,.65,.94,2.31,1.53,1.42,3.11-.83,1.48,.03,1.58,1.14,1.58,2.52,0,5.04,.06,7.56,0,1.91-.05,2.89,.59,2.97,2.68,.08,2.15-1.04,2.37-2.75,2.37-3.24-.02-6.48,.55-10.08,.03Z"
-                        style="
-                          fill: #e83062;
-                          stroke: #e83062;
-                          stroke-miterlimit: 10;
-                          stroke-width: 2px;
-                        "
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g>
-                    <path
-                      d="M124.89,117.65c.82-10.76-.54-20.9-6.58-29.84-2.89-4.28-5.44-8.63-6.5-13.67-1.16-5.48-2.19-11-2.88-16.56-.33-2.62,.28-5.36,.45-8.04,.08-1.15,0-2.16-.98-3.07-.53-.5-.69-1.53-.77-2.35-.12-1.31-.03-2.64-.03-4.03h-4.54c-.07,1.36,0,2.74-.24,4.06-.19,1.01-.8,1.95-1.23,2.91-.16,.36-.51,.71-.52,1.07-.05,2.19-.2,4.4,0,6.56,.9,9.19-1.67,17.74-4.76,26.18-.61,1.67-1.63,3.23-2.69,4.68-5.7,7.76-8.27,16.5-8.27,26.05,0,19.8,.03,39.6,.04,59.4,0,.47,0,.93,0,1.53h25.59v5.81c-.5,0-1,0-1.5,0-8.52,0-17.04,0-25.56,0-3.07,0-4.29-1.25-4.29-4.35-.02-20.94-.05-41.89-.03-62.83,0-10.58,2.93-20.27,9.26-28.82,2.83-3.82,3.94-8.3,4.97-12.79,.72-3.15,1.22-6.35,1.66-9.55,.16-1.18-.17-2.43-.18-3.65-.03-3.62-.07-7.24,.03-10.85,.02-.78,.6-1.54,.93-2.31,.3-.69,.73-1.36,.87-2.08,.17-.83,.09-1.71,.12-2.56,.11-2.52,1.52-4.11,4.06-4.24,2.61-.13,5.24-.13,7.85,0,2.52,.13,3.92,1.73,4.06,4.27,.03,.62,.07,1.24,.05,1.86-.04,1.15,.07,2.14,1.07,3.03,.55,.48,.8,1.53,.82,2.33,.09,3.33,.26,6.68,0,9.99-.62,7.78,1.53,15.03,4.03,22.2,.67,1.93,2,3.66,3.18,5.37,6.07,8.86,8.69,18.68,8.48,29.36-.12,6.52-.05,13.04-.06,19.56,0,.52,0,1.03,0,1.64h-5.74v-10.44h-27.85v23.85h13.78v5.73c-.41,.03-.83,.08-1.24,.08-4.81,0-9.61,.01-14.42,0-2.58,0-3.97-1.38-3.97-3.97-.01-9.19-.01-18.37,0-27.56,0-2.6,1.35-3.96,3.96-3.97,9.04-.01,18.09,0,27.13,0,.8,0,1.6,0,2.45,0Z"
-                      style="fill: #e83062"
-                    />
-                    <path
-                      d="M136.6,178.34c-5.81,0-11.62,0-17.42,0-2.78,0-4.11-1.34-4.11-4.11,0-10.71,0-21.42,0-32.13,0-2.72,1.41-4.1,4.15-4.1,11.66,0,23.33,0,34.99,0,3.02,0,4.28,1.23,4.28,4.21,0,10.71,0,21.42,0,32.13,0,2.71-1.3,3.99-4.04,4-5.95,.01-11.9,0-17.85,0Zm16.06-14.65v-19.83h-31.72v28.61h31.73v-3.07h-26.09v-5.72h26.08Z"
-                      style="fill: #e83062"
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g>
-                    <path
-                      d="M112.5,175.62c-17.19-.24-32.18-5.24-45.46-15.33-1.85-1.41-2.57-2.81-2.26-5.24,2.05-15.82,14.22-29.2,29.82-32.54,2.68-.57,3.71,.21,4.04,2.95,.81,6.65,4.36,11.52,9.96,14.97,2.46,1.51,4.99,1.31,7.36-.27,5.42-3.62,8.68-8.64,9.64-15.12,.3-2.06,1.08-2.75,3.18-2.69,2.71,.07,5.21,.99,7.59,2.16,10.72,5.25,18.32,13.29,21.92,24.82,.76,2.44,1.25,4.94,1.37,7.51,.05,1.07-.35,1.85-1.16,2.5-10.71,8.48-22.81,13.71-36.36,15.58-3.4,.47-6.82,.51-9.65,.7Zm.81-4.68c1.8-.14,4.84-.24,7.84-.65,11.54-1.58,22-5.85,31.47-12.65,1.61-1.15,2.11-2.24,1.66-4.19-2.9-12.54-10.35-21.04-22.36-25.6-1.15-.44-1.75-.35-2.13,1.05-1.62,5.97-4.97,10.8-9.88,14.56-4.46,3.42-10.8,3.53-15.38,.25-5.18-3.71-8.64-8.59-10.22-14.78-.23-.89-.54-1.14-1.49-.87-11.89,3.34-21.27,14.19-22.94,26.51-.15,1.14,.14,1.78,1.01,2.42,12.23,9.09,25.96,13.73,42.42,13.95Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                        stroke-width: 2px;
-                      "
-                    />
-                    <path
-                      d="M78.62,81.75c.09,12.41,1.15,23.94,4.37,35.19,.64,2.23-.66,3.89-2.69,3.54-1.29-.22-1.79-1.16-2.1-2.29-1.35-4.88-2.43-9.82-3.15-14.83-1.09-7.6-1.45-15.25-1.4-22.91,.04-5.6,.76-11.14,2.61-16.48,3.29-9.49,10.15-15.58,19.23-18.96,15.68-5.83,30.5-4.15,43.8,6.53,5.44,4.36,8.13,10.42,9.6,17.06,1.24,5.57,1.53,11.23,1.29,16.94-.21,4.96-.34,9.91-.93,14.84-.72,6.09-1.9,12.08-3.59,17.97-.5,1.73-1.74,2.5-3.23,2.09-1.35-.38-1.99-1.71-1.52-3.39,2.61-9.37,3.91-18.93,4.22-28.65,.18-5.65,.23-11.26-.65-16.85-1.73-11.05-8.05-18.45-18.36-22.22-11.31-4.14-22.49-3.63-33.2,2.32-8.24,4.58-12.44,11.79-13.71,20.93-.46,3.3-.68,6.61-.6,9.18Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                        stroke-width: 2px;
-                      "
-                    />
-                    <path
-                      d="M84.59,82.17c-.1-1.49,.07-2.93,.27-4.36,.22-1.57,1.36-2.6,2.68-2.47,1.52,.15,2.4,1.41,2.2,3.14-.03,.24-.06,.48-.08,.72-.12,1.73,.12,2.02,1.82,1.75,11.24-1.82,19.47-7.67,24.14-18.2,.73-1.65,.87-3.5,1.61-5.19,.53-1.22,1.15-2.19,2.53-2.2,1.31-.01,2.15,.8,2.41,2.08,.15,.74,.59,1.04,1.25,1.19,10.04,2.34,15.13,9.99,15.72,19.95,.65,11.03-2.81,20.72-9.86,29.09-4.48,5.32-10.2,8.54-17.34,8.47-7.2-.07-12.78-3.52-17.34-8.83-3.93-4.57-6.38-9.91-8.28-15.6-1.04-3.14-1.84-6.25-1.72-9.52Zm49.74-1.17c.09-1.46-.13-2.89-.31-4.33-.9-6.89-5.11-11.66-11.56-13.25-1.25-.31-1.78,0-2.28,1.17-2.84,6.64-7.21,12.04-13.36,15.91-4.55,2.87-9.5,4.66-14.85,5.29-1.29,.15-1.82,.49-1.49,1.98,1.27,5.79,3.48,11.11,7.18,15.77,8.03,10.11,20.75,10.18,28.8,.09,5.28-6.61,7.6-14.29,7.88-22.65Z"
-                      style="
-                        fill: #e83062;
-                        stroke: #e83062;
-                        stroke-miterlimit: 10;
-                        stroke-width: 2px;
-                      "
-                    />
-                  </g>
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <text
-                    transform="translate(70.18 121.73)"
-                    style="fill: #e83062; font-size: 38.32px; font-weight: 700"
-                    ><tspan x="0" y="0" style="letter-spacing: -0.04em"
-                      >AGE</tspan
-                    ></text
-                  >
-                  <path
-                    d="M163.95,66.04c.17-2.56,.35-5.12,.49-7.68,.16-2.86,1.66-4.57,4.08-4.61,2.3-.04,4.15,1.78,4.25,4.54,.11,2.97-.02,5.95-.1,8.93-.1,3.93-.24,7.87-.39,11.8-.15,3.9-1.92,5.52-5.79,5.48-6.53-.07-13.06-.08-19.6-.15-3.46-.04-5.39-1.58-5.45-4.22-.06-2.61,1.94-4.17,5.41-4.18,3.27,0,6.53,.07,9.8,.04,.92,0,2.16,.47,2.67-.47,.54-.98-.58-1.71-1.13-2.43-7.29-9.57-16.78-16-28.32-19.26-32.18-9.1-63.76,10.35-70.29,43.19-6.23,31.31,16.89,62.19,48.68,65,25.67,2.27,47.91-11.43,57.42-35.37,.14-.36,.27-.72,.44-1.07,1.24-2.62,3.37-3.7,5.5-2.79,2.22,.95,3.14,3.17,2.21,5.81-1.7,4.81-3.86,9.4-6.69,13.68-14.78,22.37-42.03,32.97-68.55,26.63-25.24-6.04-44.71-28.2-47.76-54.36-4.16-35.74,21.25-67.51,56.91-70.91,21.31-2.03,39.23,5.14,53.81,20.74,.58,.62,1.07,1.33,1.61,2,.26-.12,.51-.24,.77-.36Z"
-                    style="fill: #e83062"
-                  />
-                </g>
-              </g>
-            </svg>
-            <svg
-              width="100%"
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_2"
-              data-name="Layer 2"
-              viewBox="0 0 231 231"
-            >
-              <g id="Layer_1-2" data-name="Layer 1">
-                <g>
-                  <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                  <g id="z10NsH">
-                    <g>
-                      <path
-                        d="M107.86,52.67c.49,7.57-1.82,14.6-4.63,21.49-1.09,2.68-.77,3.81,2.37,4.15,5.09,.55,10.08,1.71,14.97,3.34,12.69,4.23,23.68,18.1,17.87,35.15-1.33,3.91-2.59,7.86-4.24,11.63-1.23,2.8-.51,3.6,2.35,4.09,6.18,1.05,12.27,2.52,17.98,5.25,5.47,2.61,10.33,6.03,14.13,10.81,1.1,1.39,2.07,2.98,.35,4.52-1.69,1.5-3.25,.59-4.42-.82-7.62-9.17-18.21-12.2-29.27-14.39-3.41-.68-5.2,.41-6.37,3.78-3.73,10.69-6.08,21.38-2.08,32.53,.66,1.85,.47,3.54-1.62,4.16-2.14,.64-3.08-.99-3.71-2.66-3.21-8.44-2.91-17.03-.9-25.63,.81-3.46,1.91-6.86,3.13-10.2,.95-2.62,.21-3.6-2.49-3.93-5.65-.69-11.29-1.6-16.66-3.6-13.44-5-19.91-18.05-16.59-33.39,.96-4.47,2.43-8.79,4.25-12.97,1.1-2.52,1.13-3.63-2.21-4.04-11.23-1.39-21.72-4.7-29.81-13.26-.97-1.03-1.85-2.16-2.62-3.35-.8-1.23-.6-2.5,.54-3.45,1.15-.95,2.39-.81,3.5,.12,.65,.55,1.21,1.2,1.78,1.84,7.86,8.75,18.26,11.62,29.44,12.74,2.39,.24,3.63-.85,4.53-2.95,4.56-10.61,7.01-21.38,2.9-32.74-.6-1.67-.6-3.22,1.13-4.04,2.03-.96,3.21,.4,4.01,2.06,2.1,4.34,2.63,8.98,2.39,13.77Zm26.63,54.15c-.35-4.98-2.25-9.61-5.84-13.55-4.45-4.89-10.34-7.11-16.54-8.14-15.49-2.58-11.62-4.67-17.08,9.49-.51,1.32-.87,2.71-1.25,4.08-3.93,14.4,2.86,27.35,18.16,29.91,4.2,.7,8.41,1.35,12.61,2.07,1.35,.23,2.58,.35,3.23-1.19,3.06-7.2,6.09-14.42,6.71-22.66Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M132.92,170.9c-1.38-.03-2.21-.5-2.7-1.47-.6-1.21-.2-2.34,.75-3.05,1.59-1.18,3.31-2.19,5.02-3.19,6.14-3.57,12.3-7.11,18.47-10.64,1.61-.92,3.35-1.32,4.46,.61,1.12,1.95-.14,3.23-1.74,4.15-7.38,4.28-14.76,8.54-22.16,12.77-.72,.41-1.57,.62-2.1,.82Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M97.17,46.47c-.16,1.77-1.29,2.63-2.54,3.35-7.25,4.2-14.51,8.39-21.78,12.57-1.57,.9-3.35,1.51-4.55-.33-1.37-2.1,.08-3.44,1.81-4.44,7.38-4.27,14.76-8.54,22.17-12.74,2.19-1.24,4.09-1.17,4.89,1.6Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M99.02,58.39c.01,1.59-.87,2.5-2.02,3.16-4.91,2.84-9.84,5.66-14.78,8.46-1.58,.9-3.34,1.47-4.5-.43-1.3-2.14,.2-3.45,1.9-4.44,4.79-2.78,9.58-5.54,14.41-8.26,2.18-1.23,4.08-1.23,4.99,1.51Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M131.81,158.83c-2.02,.17-2.95-.41-3.49-1.53-.57-1.2-.21-2.43,.81-3.03,5.75-3.38,11.54-6.68,17.38-9.89,1.09-.6,2.25,.02,2.94,1.07,.59,.91,.72,2.15-.06,2.78-5.58,4.44-12.08,7.32-17.57,10.59Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M101.96,117.03c-1.47,0-2.29-.53-2.76-1.48-.49-.98-.36-1.98,.39-2.76,.58-.6,1.27-1.13,2-1.55,6.98-4.07,13.97-8.13,20.98-12.14,1.74-1,3.8-2.16,5.19,.24,1.4,2.42-.68,3.57-2.41,4.58-6.98,4.06-13.98,8.1-21,12.11-.84,.48-1.8,.76-2.39,1Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M100.53,105.01c-1.84,.02-2.69-.47-3.12-1.45-.59-1.33-.28-2.64,.93-3.37,5.46-3.25,10.96-6.44,16.5-9.57,1.23-.7,2.5-.34,3.4,.83,.67,.87,.89,2.06,.09,2.73-5.53,4.7-12.2,7.49-17.8,10.83Z"
-                        style="fill: #e83062"
-                      />
-                      <path
-                        d="M129.97,112.14c-.07,1.84-.86,2.64-1.86,3.23-5.01,2.92-10.02,5.83-15.06,8.7-1.66,.94-3.35,1.08-4.38-.86-.93-1.75,.15-3.01,1.58-3.85,5.13-3,10.26-5.99,15.46-8.85,2.26-1.24,3.7-.25,4.25,1.63Z"
-                        style="fill: #e83062"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
-      </foreignObject>
     </svg>
+   <div id="risk-factors" class="risk-factors-container hide">
+    <div style="width: 80%;" class="grid-container">
+      <div id="riskFactorBeingWoman" style="opacity: 0;">
+        <svg
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        id="Layer_2"
+        data-name="Layer 2"
+        viewBox="0 0 231 231"
+      >
+        <g id="Layer_1-2" data-name="Layer 1">
+          <g>
+            <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+            <g>
+              <path
+                d="M112.5,175.62c-17.19-.24-32.18-5.24-45.46-15.33-1.85-1.41-2.57-2.81-2.26-5.24,2.05-15.82,14.22-29.2,29.82-32.54,2.68-.57,3.71,.21,4.04,2.95,.81,6.65,4.36,11.52,9.96,14.97,2.46,1.51,4.99,1.31,7.36-.27,5.42-3.62,8.68-8.64,9.64-15.12,.3-2.06,1.08-2.75,3.18-2.69,2.71,.07,5.21,.99,7.59,2.16,10.72,5.25,18.32,13.29,21.92,24.82,.76,2.44,1.25,4.94,1.37,7.51,.05,1.07-.35,1.85-1.16,2.5-10.71,8.48-22.81,13.71-36.36,15.58-3.4,.47-6.82,.51-9.65,.7Zm.81-4.68c1.8-.14,4.84-.24,7.84-.65,11.54-1.58,22-5.85,31.47-12.65,1.61-1.15,2.11-2.24,1.66-4.19-2.9-12.54-10.35-21.04-22.36-25.6-1.15-.44-1.75-.35-2.13,1.05-1.62,5.97-4.97,10.8-9.88,14.56-4.46,3.42-10.8,3.53-15.38,.25-5.18-3.71-8.64-8.59-10.22-14.78-.23-.89-.54-1.14-1.49-.87-11.89,3.34-21.27,14.19-22.94,26.51-.15,1.14,.14,1.78,1.01,2.42,12.23,9.09,25.96,13.73,42.42,13.95Z"
+                style="
+                  fill: #e83062;
+                  stroke: #e83062;
+                  stroke-miterlimit: 10;
+                  stroke-width: 2px;
+                "
+              />
+              <path
+                d="M78.62,81.75c.09,12.41,1.15,23.94,4.37,35.19,.64,2.23-.66,3.89-2.69,3.54-1.29-.22-1.79-1.16-2.1-2.29-1.35-4.88-2.43-9.82-3.15-14.83-1.09-7.6-1.45-15.25-1.4-22.91,.04-5.6,.76-11.14,2.61-16.48,3.29-9.49,10.15-15.58,19.23-18.96,15.68-5.83,30.5-4.15,43.8,6.53,5.44,4.36,8.13,10.42,9.6,17.06,1.24,5.57,1.53,11.23,1.29,16.94-.21,4.96-.34,9.91-.93,14.84-.72,6.09-1.9,12.08-3.59,17.97-.5,1.73-1.74,2.5-3.23,2.09-1.35-.38-1.99-1.71-1.52-3.39,2.61-9.37,3.91-18.93,4.22-28.65,.18-5.65,.23-11.26-.65-16.85-1.73-11.05-8.05-18.45-18.36-22.22-11.31-4.14-22.49-3.63-33.2,2.32-8.24,4.58-12.44,11.79-13.71,20.93-.46,3.3-.68,6.61-.6,9.18Z"
+                style="
+                  fill: #e83062;
+                  stroke: #e83062;
+                  stroke-miterlimit: 10;
+                  stroke-width: 2px;
+                "
+              />
+              <path
+                d="M84.59,82.17c-.1-1.49,.07-2.93,.27-4.36,.22-1.57,1.36-2.6,2.68-2.47,1.52,.15,2.4,1.41,2.2,3.14-.03,.24-.06,.48-.08,.72-.12,1.73,.12,2.02,1.82,1.75,11.24-1.82,19.47-7.67,24.14-18.2,.73-1.65,.87-3.5,1.61-5.19,.53-1.22,1.15-2.19,2.53-2.2,1.31-.01,2.15,.8,2.41,2.08,.15,.74,.59,1.04,1.25,1.19,10.04,2.34,15.13,9.99,15.72,19.95,.65,11.03-2.81,20.72-9.86,29.09-4.48,5.32-10.2,8.54-17.34,8.47-7.2-.07-12.78-3.52-17.34-8.83-3.93-4.57-6.38-9.91-8.28-15.6-1.04-3.14-1.84-6.25-1.72-9.52Zm49.74-1.17c.09-1.46-.13-2.89-.31-4.33-.9-6.89-5.11-11.66-11.56-13.25-1.25-.31-1.78,0-2.28,1.17-2.84,6.64-7.21,12.04-13.36,15.91-4.55,2.87-9.5,4.66-14.85,5.29-1.29,.15-1.82,.49-1.49,1.98,1.27,5.79,3.48,11.11,7.18,15.77,8.03,10.11,20.75,10.18,28.8,.09,5.28-6.61,7.6-14.29,7.88-22.65Z"
+                style="
+                  fill: #e83062;
+                  stroke: #e83062;
+                  stroke-miterlimit: 10;
+                  stroke-width: 2px;
+                "
+              />
+            </g>
+          </g>
+        </g>
+      </svg>
+      <p class="risk-factors-text">Being Woman</p>
+      </div>
+     <div id="riskFactorAging" style="opacity: 0; margin-bottom: 15px;">
+      <svg
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 231 231"
+    >
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+          <text
+            transform="translate(70.18 121.73)"
+            style="fill: #e83062; font-size: 38.32px; font-weight: 700"
+            ><tspan x="0" y="0" style="letter-spacing: -0.04em"
+              >AGE</tspan
+            ></text
+          >
+          <path
+            d="M163.95,66.04c.17-2.56,.35-5.12,.49-7.68,.16-2.86,1.66-4.57,4.08-4.61,2.3-.04,4.15,1.78,4.25,4.54,.11,2.97-.02,5.95-.1,8.93-.1,3.93-.24,7.87-.39,11.8-.15,3.9-1.92,5.52-5.79,5.48-6.53-.07-13.06-.08-19.6-.15-3.46-.04-5.39-1.58-5.45-4.22-.06-2.61,1.94-4.17,5.41-4.18,3.27,0,6.53,.07,9.8,.04,.92,0,2.16,.47,2.67-.47,.54-.98-.58-1.71-1.13-2.43-7.29-9.57-16.78-16-28.32-19.26-32.18-9.1-63.76,10.35-70.29,43.19-6.23,31.31,16.89,62.19,48.68,65,25.67,2.27,47.91-11.43,57.42-35.37,.14-.36,.27-.72,.44-1.07,1.24-2.62,3.37-3.7,5.5-2.79,2.22,.95,3.14,3.17,2.21,5.81-1.7,4.81-3.86,9.4-6.69,13.68-14.78,22.37-42.03,32.97-68.55,26.63-25.24-6.04-44.71-28.2-47.76-54.36-4.16-35.74,21.25-67.51,56.91-70.91,21.31-2.03,39.23,5.14,53.81,20.74,.58,.62,1.07,1.33,1.61,2,.26-.12,.51-.24,.77-.36Z"
+            style="fill: #e83062"
+          />
+        </g>
+      </g>
+    </svg>
+    <p class="risk-factors-text">Aging</p>
+     </div>
+     <div id="riskFactorGenetics" style="opacity: 0; margin-bottom: 15px;">
+      <svg
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 231 231"
+    >
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+          <g id="z10NsH">
+            <g>
+              <path
+                d="M107.86,52.67c.49,7.57-1.82,14.6-4.63,21.49-1.09,2.68-.77,3.81,2.37,4.15,5.09,.55,10.08,1.71,14.97,3.34,12.69,4.23,23.68,18.1,17.87,35.15-1.33,3.91-2.59,7.86-4.24,11.63-1.23,2.8-.51,3.6,2.35,4.09,6.18,1.05,12.27,2.52,17.98,5.25,5.47,2.61,10.33,6.03,14.13,10.81,1.1,1.39,2.07,2.98,.35,4.52-1.69,1.5-3.25,.59-4.42-.82-7.62-9.17-18.21-12.2-29.27-14.39-3.41-.68-5.2,.41-6.37,3.78-3.73,10.69-6.08,21.38-2.08,32.53,.66,1.85,.47,3.54-1.62,4.16-2.14,.64-3.08-.99-3.71-2.66-3.21-8.44-2.91-17.03-.9-25.63,.81-3.46,1.91-6.86,3.13-10.2,.95-2.62,.21-3.6-2.49-3.93-5.65-.69-11.29-1.6-16.66-3.6-13.44-5-19.91-18.05-16.59-33.39,.96-4.47,2.43-8.79,4.25-12.97,1.1-2.52,1.13-3.63-2.21-4.04-11.23-1.39-21.72-4.7-29.81-13.26-.97-1.03-1.85-2.16-2.62-3.35-.8-1.23-.6-2.5,.54-3.45,1.15-.95,2.39-.81,3.5,.12,.65,.55,1.21,1.2,1.78,1.84,7.86,8.75,18.26,11.62,29.44,12.74,2.39,.24,3.63-.85,4.53-2.95,4.56-10.61,7.01-21.38,2.9-32.74-.6-1.67-.6-3.22,1.13-4.04,2.03-.96,3.21,.4,4.01,2.06,2.1,4.34,2.63,8.98,2.39,13.77Zm26.63,54.15c-.35-4.98-2.25-9.61-5.84-13.55-4.45-4.89-10.34-7.11-16.54-8.14-15.49-2.58-11.62-4.67-17.08,9.49-.51,1.32-.87,2.71-1.25,4.08-3.93,14.4,2.86,27.35,18.16,29.91,4.2,.7,8.41,1.35,12.61,2.07,1.35,.23,2.58,.35,3.23-1.19,3.06-7.2,6.09-14.42,6.71-22.66Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M132.92,170.9c-1.38-.03-2.21-.5-2.7-1.47-.6-1.21-.2-2.34,.75-3.05,1.59-1.18,3.31-2.19,5.02-3.19,6.14-3.57,12.3-7.11,18.47-10.64,1.61-.92,3.35-1.32,4.46,.61,1.12,1.95-.14,3.23-1.74,4.15-7.38,4.28-14.76,8.54-22.16,12.77-.72,.41-1.57,.62-2.1,.82Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M97.17,46.47c-.16,1.77-1.29,2.63-2.54,3.35-7.25,4.2-14.51,8.39-21.78,12.57-1.57,.9-3.35,1.51-4.55-.33-1.37-2.1,.08-3.44,1.81-4.44,7.38-4.27,14.76-8.54,22.17-12.74,2.19-1.24,4.09-1.17,4.89,1.6Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M99.02,58.39c.01,1.59-.87,2.5-2.02,3.16-4.91,2.84-9.84,5.66-14.78,8.46-1.58,.9-3.34,1.47-4.5-.43-1.3-2.14,.2-3.45,1.9-4.44,4.79-2.78,9.58-5.54,14.41-8.26,2.18-1.23,4.08-1.23,4.99,1.51Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M131.81,158.83c-2.02,.17-2.95-.41-3.49-1.53-.57-1.2-.21-2.43,.81-3.03,5.75-3.38,11.54-6.68,17.38-9.89,1.09-.6,2.25,.02,2.94,1.07,.59,.91,.72,2.15-.06,2.78-5.58,4.44-12.08,7.32-17.57,10.59Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M101.96,117.03c-1.47,0-2.29-.53-2.76-1.48-.49-.98-.36-1.98,.39-2.76,.58-.6,1.27-1.13,2-1.55,6.98-4.07,13.97-8.13,20.98-12.14,1.74-1,3.8-2.16,5.19,.24,1.4,2.42-.68,3.57-2.41,4.58-6.98,4.06-13.98,8.1-21,12.11-.84,.48-1.8,.76-2.39,1Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M100.53,105.01c-1.84,.02-2.69-.47-3.12-1.45-.59-1.33-.28-2.64,.93-3.37,5.46-3.25,10.96-6.44,16.5-9.57,1.23-.7,2.5-.34,3.4,.83,.67,.87,.89,2.06,.09,2.73-5.53,4.7-12.2,7.49-17.8,10.83Z"
+                style="fill: #e83062"
+              />
+              <path
+                d="M129.97,112.14c-.07,1.84-.86,2.64-1.86,3.23-5.01,2.92-10.02,5.83-15.06,8.7-1.66,.94-3.35,1.08-4.38-.86-.93-1.75,.15-3.01,1.58-3.85,5.13-3,10.26-5.99,15.46-8.85,2.26-1.24,3.7-.25,4.25,1.63Z"
+                style="fill: #e83062"
+              />
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <p class="risk-factors-text">Genetics</p>
+     </div>
+    
+     <div id="riskFactorOverweight" style="opacity: 0;">
+      <svg
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 231 231"
+    >
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+          <g id="Za6fY7">
+            <g>
+              <path
+                d="M128.01,70.17c12.06,1.23,21.89,6.15,29.62,15.11,4.78,5.54,7.45,12.17,9.69,19,1.08,3.3,2.09,6.63,3.07,9.97,1.36,4.64,.1,8.59-3.53,11.66-3.47,2.94-7.39,2.91-12.01,.23-.26-.15-.55-.25-1.13-.51-.59,6.82-1.63,13.41-3.81,19.79-1.81,5.33-4.14,10.36-7.45,14.91-1.01,1.39-1.57,2.25,.63,3.24,2.67,1.2,3.66,3.72,3.23,6.6-.44,2.96-2.4,4.58-5.21,5.25-.61,.14-1.26,.17-1.88,.17-16.55,0-33.1,.02-49.65-.02-1.03,0-2.13-.2-3.06-.61-2.28-.99-3.77-2.76-4.01-5.27-.25-2.67,1.05-4.73,3.3-6.03,1.46-.85,2.07-1.46,.87-3.09-7.03-9.54-9.99-20.55-11.17-32.12-.25-2.44-.44-3.26-2.92-1.69-3.35,2.11-6.88,1.79-10.12-.4-3.33-2.25-5.3-5.68-4.42-9.5,2.84-12.36,6.24-24.55,15.47-34.06,7.38-7.61,16.54-11.4,27.51-12.65-5.15-6.28-7.42-12.96-4.62-20.62,1.5-4.11,4.15-7.33,7.82-9.65,7.78-4.92,17.34-3.79,23.75,2.74,7.32,7.45,7.42,16.16,.06,27.57Zm-13.48,52.74c10.23,0,20.45-.08,30.68,.05,2.85,.04,3.83-1.03,3.47-3.73-.24-1.77-.3-3.56-.55-5.33-.24-1.74-.12-3.03,2.01-3.55,2.37-.58,2.95,.81,3.46,2.56,.5,1.71,1.11,3.39,1.6,5.1,1,3.44,3.75,5.39,6.74,4.72,3.06-.69,4.57-3.61,3.58-7.3-1.58-5.91-3.44-11.74-5.89-17.35-3.44-7.85-8.81-13.96-16.38-18.24-6.1-3.45-12.64-4.56-19.44-4.64-6.42-.08-12.85,.31-19.27,.17-14.36-.31-25.21,5.93-32.75,17.79-4.32,6.8-6.47,14.62-8.52,22.36-.97,3.64,.49,6.45,3.32,7.17,3.15,.79,5.67-.8,6.92-4.44,.82-2.39,1.63-4.79,2.34-7.21,.53-1.83,1.75-1.82,3.22-1.46,1.43,.35,2.19,1.06,1.95,2.68-.33,2.19-.52,4.39-.75,6.59-.39,3.64-.08,4.03,3.59,4.04,10.23,.03,20.45,0,30.68,.01Zm0,5.2c-10.22,0-20.45,.05-30.67-.04-2.53-.02-3.48,.84-3.02,3.36,.72,3.94,1.35,7.89,2.61,11.71,2.79,8.46,7.18,15.9,13.78,21.98,.57,.52,1.6,1.04,1.15,2.01-.41,.88-1.45,.64-2.28,.65-1.89,.03-3.79,.03-5.68,.12-.98,.05-2.46-.24-2.43,1.27,.03,1.49,1.5,1.2,2.48,1.2,6.01,.04,12.02-.09,18.02,.08,2.86,.08,3.57-1.04,3.54-3.72-.13-9.27-.06-18.55-.02-27.82,0-1.68-.59-3.82,2.33-3.85,2.81-.03,2.49,1.93,2.49,3.72,0,8.01,0,16.02,0,24.03q.01,7.56,7.44,7.59c4.85,.02,9.7,.01,14.54-.04,.9,0,2.14,.03,2.05-1.34-.07-1.08-1.16-1.08-1.99-1.11-1.58-.06-3.16,0-4.74-.07-1.23-.06-2.98,.57-3.54-.59-.69-1.45,1.12-2.31,2.01-3.14,9.33-8.6,13.33-19.74,15.33-31.83,.62-3.76,.16-4.18-3.7-4.18-9.91-.01-19.81,0-29.72,0Zm.02-86.09c-7.93-.08-14.2,5.95-14.26,13.72-.06,8.14,6.17,14.47,14.27,14.5,7.49,.02,13.79-6.28,13.91-13.91,.13-8.11-5.83-14.23-13.93-14.31Z"
+                style="
+                  fill: #e83062;
+                  stroke: #e83062;
+                  stroke-miterlimit: 10;
+                  stroke-width: 2px;
+                "
+              />
+              <path
+                d="M167.5,132.93c1.05,0,2.13,.12,3.16-.03,1.41-.21,4.35,1.26,2.82-2.55-.37-.94,1-1.99,1.99-2.6,.91-.56,1.59,.11,2.2,.69,.76,.73,1.61,1.4,2.23,2.24,1.33,1.79,4.79,2.95,3.89,5.19-1.22,3.02-4.11,5.39-6.93,7.15-1.75,1.09-3.44-1.07-3.38-2.57,.1-2.44-1.36-2.32-2.74-2.38-2.42-.11-4.84,0-7.27,.03-1.87,.01-3.35-.33-3.3-2.74,.05-2.28,1.48-2.47,3.21-2.43,1.37,.03,2.74,0,4.11,0Z"
+                style="
+                  fill: #e83062;
+                  stroke: #e83062;
+                  stroke-miterlimit: 10;
+                  stroke-width: 2px;
+                "
+              />
+              <path
+                d="M53.99,138.01c2.19,1.9,1.49,3.32-.28,4.75-2,1.62-2.72-.33-3.81-1.26-.32-.27-.62-.58-.85-.92-1.31-1.93-4.93-3.13-4.04-5.45,1.16-3.01,4.36-4.98,6.82-7.26,.7-.65,1.47-.27,1.91,.36,.65,.94,2.31,1.53,1.42,3.11-.83,1.48,.03,1.58,1.14,1.58,2.52,0,5.04,.06,7.56,0,1.91-.05,2.89,.59,2.97,2.68,.08,2.15-1.04,2.37-2.75,2.37-3.24-.02-6.48,.55-10.08,.03Z"
+                style="
+                  fill: #e83062;
+                  stroke: #e83062;
+                  stroke-miterlimit: 10;
+                  stroke-width: 2px;
+                "
+              />
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <p class="risk-factors-text">Overweight</p>
+     </div>
+     <div id="riskFactorAlcoholism" style="opacity: 0;">
+      <svg
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 231 231"
+    >
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+          <g>
+            <path
+              d="M124.89,117.65c.82-10.76-.54-20.9-6.58-29.84-2.89-4.28-5.44-8.63-6.5-13.67-1.16-5.48-2.19-11-2.88-16.56-.33-2.62,.28-5.36,.45-8.04,.08-1.15,0-2.16-.98-3.07-.53-.5-.69-1.53-.77-2.35-.12-1.31-.03-2.64-.03-4.03h-4.54c-.07,1.36,0,2.74-.24,4.06-.19,1.01-.8,1.95-1.23,2.91-.16,.36-.51,.71-.52,1.07-.05,2.19-.2,4.4,0,6.56,.9,9.19-1.67,17.74-4.76,26.18-.61,1.67-1.63,3.23-2.69,4.68-5.7,7.76-8.27,16.5-8.27,26.05,0,19.8,.03,39.6,.04,59.4,0,.47,0,.93,0,1.53h25.59v5.81c-.5,0-1,0-1.5,0-8.52,0-17.04,0-25.56,0-3.07,0-4.29-1.25-4.29-4.35-.02-20.94-.05-41.89-.03-62.83,0-10.58,2.93-20.27,9.26-28.82,2.83-3.82,3.94-8.3,4.97-12.79,.72-3.15,1.22-6.35,1.66-9.55,.16-1.18-.17-2.43-.18-3.65-.03-3.62-.07-7.24,.03-10.85,.02-.78,.6-1.54,.93-2.31,.3-.69,.73-1.36,.87-2.08,.17-.83,.09-1.71,.12-2.56,.11-2.52,1.52-4.11,4.06-4.24,2.61-.13,5.24-.13,7.85,0,2.52,.13,3.92,1.73,4.06,4.27,.03,.62,.07,1.24,.05,1.86-.04,1.15,.07,2.14,1.07,3.03,.55,.48,.8,1.53,.82,2.33,.09,3.33,.26,6.68,0,9.99-.62,7.78,1.53,15.03,4.03,22.2,.67,1.93,2,3.66,3.18,5.37,6.07,8.86,8.69,18.68,8.48,29.36-.12,6.52-.05,13.04-.06,19.56,0,.52,0,1.03,0,1.64h-5.74v-10.44h-27.85v23.85h13.78v5.73c-.41,.03-.83,.08-1.24,.08-4.81,0-9.61,.01-14.42,0-2.58,0-3.97-1.38-3.97-3.97-.01-9.19-.01-18.37,0-27.56,0-2.6,1.35-3.96,3.96-3.97,9.04-.01,18.09,0,27.13,0,.8,0,1.6,0,2.45,0Z"
+              style="fill: #e83062"
+            />
+            <path
+              d="M136.6,178.34c-5.81,0-11.62,0-17.42,0-2.78,0-4.11-1.34-4.11-4.11,0-10.71,0-21.42,0-32.13,0-2.72,1.41-4.1,4.15-4.1,11.66,0,23.33,0,34.99,0,3.02,0,4.28,1.23,4.28,4.21,0,10.71,0,21.42,0,32.13,0,2.71-1.3,3.99-4.04,4-5.95,.01-11.9,0-17.85,0Zm16.06-14.65v-19.83h-31.72v28.61h31.73v-3.07h-26.09v-5.72h26.08Z"
+              style="fill: #e83062"
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+    <p class="risk-factors-text">Alcoholism</p>
+     </div>
+     <div id="riskFactorSmoking" style="opacity: 0;">
+      <svg
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 231 231"
+    >
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+          <g>
+            <path
+              d="M112.5,175.62c-17.19-.24-32.18-5.24-45.46-15.33-1.85-1.41-2.57-2.81-2.26-5.24,2.05-15.82,14.22-29.2,29.82-32.54,2.68-.57,3.71,.21,4.04,2.95,.81,6.65,4.36,11.52,9.96,14.97,2.46,1.51,4.99,1.31,7.36-.27,5.42-3.62,8.68-8.64,9.64-15.12,.3-2.06,1.08-2.75,3.18-2.69,2.71,.07,5.21,.99,7.59,2.16,10.72,5.25,18.32,13.29,21.92,24.82,.76,2.44,1.25,4.94,1.37,7.51,.05,1.07-.35,1.85-1.16,2.5-10.71,8.48-22.81,13.71-36.36,15.58-3.4,.47-6.82,.51-9.65,.7Zm.81-4.68c1.8-.14,4.84-.24,7.84-.65,11.54-1.58,22-5.85,31.47-12.65,1.61-1.15,2.11-2.24,1.66-4.19-2.9-12.54-10.35-21.04-22.36-25.6-1.15-.44-1.75-.35-2.13,1.05-1.62,5.97-4.97,10.8-9.88,14.56-4.46,3.42-10.8,3.53-15.38,.25-5.18-3.71-8.64-8.59-10.22-14.78-.23-.89-.54-1.14-1.49-.87-11.89,3.34-21.27,14.19-22.94,26.51-.15,1.14,.14,1.78,1.01,2.42,12.23,9.09,25.96,13.73,42.42,13.95Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+              "
+            />
+            <path
+              d="M78.62,81.75c.09,12.41,1.15,23.94,4.37,35.19,.64,2.23-.66,3.89-2.69,3.54-1.29-.22-1.79-1.16-2.1-2.29-1.35-4.88-2.43-9.82-3.15-14.83-1.09-7.6-1.45-15.25-1.4-22.91,.04-5.6,.76-11.14,2.61-16.48,3.29-9.49,10.15-15.58,19.23-18.96,15.68-5.83,30.5-4.15,43.8,6.53,5.44,4.36,8.13,10.42,9.6,17.06,1.24,5.57,1.53,11.23,1.29,16.94-.21,4.96-.34,9.91-.93,14.84-.72,6.09-1.9,12.08-3.59,17.97-.5,1.73-1.74,2.5-3.23,2.09-1.35-.38-1.99-1.71-1.52-3.39,2.61-9.37,3.91-18.93,4.22-28.65,.18-5.65,.23-11.26-.65-16.85-1.73-11.05-8.05-18.45-18.36-22.22-11.31-4.14-22.49-3.63-33.2,2.32-8.24,4.58-12.44,11.79-13.71,20.93-.46,3.3-.68,6.61-.6,9.18Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+              "
+            />
+            <path
+              d="M84.59,82.17c-.1-1.49,.07-2.93,.27-4.36,.22-1.57,1.36-2.6,2.68-2.47,1.52,.15,2.4,1.41,2.2,3.14-.03,.24-.06,.48-.08,.72-.12,1.73,.12,2.02,1.82,1.75,11.24-1.82,19.47-7.67,24.14-18.2,.73-1.65,.87-3.5,1.61-5.19,.53-1.22,1.15-2.19,2.53-2.2,1.31-.01,2.15,.8,2.41,2.08,.15,.74,.59,1.04,1.25,1.19,10.04,2.34,15.13,9.99,15.72,19.95,.65,11.03-2.81,20.72-9.86,29.09-4.48,5.32-10.2,8.54-17.34,8.47-7.2-.07-12.78-3.52-17.34-8.83-3.93-4.57-6.38-9.91-8.28-15.6-1.04-3.14-1.84-6.25-1.72-9.52Zm49.74-1.17c.09-1.46-.13-2.89-.31-4.33-.9-6.89-5.11-11.66-11.56-13.25-1.25-.31-1.78,0-2.28,1.17-2.84,6.64-7.21,12.04-13.36,15.91-4.55,2.87-9.5,4.66-14.85,5.29-1.29,.15-1.82,.49-1.49,1.98,1.27,5.79,3.48,11.11,7.18,15.77,8.03,10.11,20.75,10.18,28.8,.09,5.28-6.61,7.6-14.29,7.88-22.65Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+              "
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+    <p class="risk-factors-text">Smoking</p>
+     </div>
+     <div id="riskFactorFHOBC" style="opacity: 0;">
+      <svg
+      width="100%"
+      xmlns="http://www.w3.org/2000/svg"
+      id="Layer_2"
+      data-name="Layer 2"
+      viewBox="0 0 231 231"
+    >
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+          <g>
+            <path
+              d="M54.66,110.42c2.51-7.93,9.21-9.94,16.24-11.29,2.89-.55,5.9-.43,8.85-.73,2.12-.21,3.09,.69,3.5,2.73,2.69,13.18,5.44,26.35,8.17,39.52,.47,2.28,.97,4.56,1.47,6.84,.31,1.43,.33,2.9-1.35,3.3-1.77,.42-2.24-1-2.53-2.41-2.45-11.76-4.9-23.53-7.36-35.29-.73-3.51-1.48-7.01-2.28-10.75-5.95,.09-11.68,.76-16.86,3.84-2.78,1.65-3.93,4.2-3.91,7.47,.07,12.77,.05,25.54-.03,38.31,0,.92-.52,2.34-1.18,2.62-.66,.28-1.8-.58-2.73-.94,0-14.4,0-28.81,0-43.21Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M176.19,153.63c-.93,.36-2.07,1.23-2.73,.95-.66-.27-1.17-1.69-1.18-2.61-.08-9.8-.05-19.6-.05-29.4,0-10.04-6.07-16-16.3-15.92-.41,1.31-.79,2.67-1.28,3.99-1.32,3.56-3.65,6.08-7.32,7.38-.67,.24-1.44,1.26-1.49,1.98-.19,2.41-.05,4.85-.08,7.28-.02,1.44,.15,3.14-1.94,3.2-2.08,.05-2.06-1.62-2.07-3.08-.03-2.43,.12-4.87-.09-7.28-.07-.77-.9-1.84-1.63-2.12-5.15-1.99-8.99-8.05-8.22-13.53,.11-.76,1.09-1.39,1.67-2.07,.72,.66,1.8,1.18,2.09,2,.61,1.65,.62,3.52,1.19,5.19,1.12,3.24,3.59,4.92,6.98,4.92,3.39,0,5.83-1.71,7.01-4.91,.55-1.49,.6-3.17,1.16-4.66,.36-.95,1.09-2.26,1.89-2.45,8.41-2.02,19.7,5.2,21.81,13.77,.15,.59,.37,1.16,.56,1.74v35.65Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M91.34,53.55c2.14,.18,4.32,.14,6.41,.57,5.24,1.07,8.75,5.11,9.37,10.45,.07,.62,0,1.49,.36,1.8,2.67,2.29,2.42,5.63,1.58,8.03-1.89,5.38-4,10.97-7.37,15.47-5.03,6.73-17.67,5.65-22.39-1.31-1.39-2.05-2.29-4.44-3.33-6.72-.91-1.98-1.95-3.95-2.49-6.04-.75-2.92-1.33-5.96,.67-8.75,.39-.55,.74-1.21,.84-1.87,1.15-7.62,5.62-11.47,13.37-11.48,.99,0,1.98,0,2.97,0v-.16Zm-.24,4.1s0-.01,0-.02c-.72,0-1.44,0-2.16,0-6.75,.02-9.59,2.75-10.02,9.47-.06,.86-.57,1.84-1.16,2.5-1.24,1.39-1.2,3.29,.11,4.75,.54,.6,.81,1.5,1.08,2.3,.91,2.69,1.6,5.47,2.67,8.09,1.06,2.6,3.05,4.43,5.88,5.09,6.82,1.58,11.33-.62,14.09-7.04,.8-1.87,1.06-3.96,1.68-5.91,.3-.94,1.08-1.75,1.27-2.7,.28-1.39,.46-2.89,.24-4.27-.2-1.26-1.39-2.41-1.46-3.65-.27-4.97-3.24-8.24-8.21-8.59-1.34-.09-2.69-.01-4.04-.01Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M163.78,95.74c.04,.72,.3,1.53,.05,2.13-.35,.85-1.08,1.54-1.65,2.3-.73-.73-2.01-1.4-2.1-2.2-.55-4.55-.82-9.13-1.16-13.7-.25-3.41-.51-6.81-.68-10.23-.29-5.74-3.56-9.47-8.57-11.33-4.74-1.77-9.7-1.69-14.21,1.26-3.67,2.4-5.88,5.61-6.14,10.17-.45,7.72-1.12,15.42-1.69,23.13-.01,.18,.06,.43-.03,.53-.74,.81-1.52,1.59-2.29,2.37-.54-.87-1.57-1.78-1.53-2.62,.33-6.46,.86-12.92,1.34-19.37,.09-1.25,.24-2.51,.29-3.76,.34-9.35,7.68-16.27,17.07-16.6,6.14-.22,11.3,1.44,15.54,5.92,2.31,2.44,3.76,5.27,4.03,8.61,.63,7.8,1.17,15.6,1.76,23.4Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M119.56,114.26c2.28,.37,4.68,.43,6.83,1.19,3.93,1.4,6.32,4.49,6.93,8.56,.63,4.18,.52,8.42-1.14,12.45-2.18,5.29-6.79,8.34-12.64,8.37-5.96,.04-11.1-2.93-12.7-8.5-1.14-3.94-1.51-8.33-1.13-12.42,.51-5.44,5.03-8.92,10.58-9.27,1.07-.07,2.15,0,3.23,0,.02-.12,.03-.25,.05-.37Zm-.03,4.26c-.81,0-1.62-.02-2.43,0-4.44,.13-7.56,2.93-7.78,7.31-.12,2.4,.04,4.87,.5,7.23,.96,4.86,4.22,7.5,9.01,7.69,5.28,.21,8.82-2.07,10.08-7.03,2.08-8.17,.77-16.04-9.39-15.2Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M155.84,84.06c.3,4.13-.56,8.63-3.24,12.7-4.88,7.41-12.91,7.38-17.71-.04-2.54-3.93-3.36-8.26-3.17-12.86,.06-1.35,.12-2.71-.01-4.04-.24-2.51,.76-3.48,3.27-4.2,1.87-.54,3.47-2.54,4.81-4.2,1.41-1.74,2.74-2.13,3.7-.25,1.66,3.26,4.63,4.1,7.76,4.6,4.59,.72,4.6,.63,4.6,5.2,0,.81,0,1.62,0,3.1Zm-14.13-7.56c-1.73,1.07-3.76,2.34-5.97,3.71-.11,4.74-.61,9.78,2.38,14.31,3.28,4.96,7.84,5.01,11.18,.1,3.1-4.56,2.74-9.62,2.45-14.18-3.61-1.42-6.82-2.68-10.04-3.94Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M139.93,156.88c-.7,.68-1.43,1.39-2.16,2.1-.7-.78-1.84-1.47-2.03-2.36-.97-4.69-7.08-7.33-11.15-4.68-.08,.05-.17,.07-.23,.13-3.25,3.18-6.25,2.94-9.82,.1-4.05-3.23-10.28-.39-11.36,4.65-.18,.82-1.28,1.45-1.95,2.16-.64-.82-1.93-1.78-1.8-2.44,.42-2.03,.94-4.31,2.22-5.84,3.38-4.05,11.03-4.99,15.16-1.78,2.57,1.99,4.09,.75,6.06-.6,4.41-3.03,13.46-.6,15.78,4.22,.57,1.18,.77,2.55,1.28,4.33Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M102.95,102.16c-.64,2.98-1.22,5.51-1.7,8.06-.28,1.47-1.05,2.55-2.49,1.94-.72-.31-1.43-1.83-1.32-2.69,.39-3.02,1.01-6.02,1.83-8.95,.24-.84,1.45-1.99,2.25-2.01,6.33-.21,12.66,.27,18.34,3.31,2.35,1.26,4.27,3.43,6.15,5.4,.38,.4-.03,2.03-.58,2.63-.31,.34-2.05,.06-2.46-.47-5.13-6.63-12.63-6.28-20.03-7.22Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M160.11,140.94c0-5.04,0-10.08,0-15.12,0-1.5,.05-3.1,2.11-3.04,1.88,.06,1.92,1.58,1.91,2.97-.07,10.17-.1,20.34-.31,30.5-.02,.93-1.17,1.83-1.79,2.74-.69-.98-1.92-1.94-1.96-2.94-.2-5.03-.09-10.07-.09-15.11,.04,0,.08,0,.13,0Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M70.86,140.71c0,5.04-.02,10.07,.01,15.11,0,1.57-.2,3.12-2.1,3.1-1.82-.01-1.85-1.58-1.85-3,.01-10.07,0-20.15,.01-30.22,0-1.35-.16-2.94,1.85-2.92,2.04,.02,2.08,1.58,2.08,3.09,0,4.95,0,9.89,0,14.84Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M89.17,113.64c0-1.79,.15-3.61-.05-5.38-.14-1.23-.59-2.51-1.22-3.57-1.21-2.01-1.1-3.81,.6-5.32,1.6-1.42,3.52-1.43,5.15-.05,1.73,1.46,1.9,3.25,.75,5.3-.65,1.15-1.21,2.52-1.27,3.82-.17,3.76-.07,7.53-.05,11.3,0,1.38-.21,2.62-1.91,2.65-1.69,.03-2.01-1.16-1.99-2.57,.02-2.06,0-4.13,0-6.19Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M96.2,74.95c-1.36-1.39-2.75-2.15-2.85-3.06-.2-1.72,1.34-1.99,2.82-1.99,1.48,0,3,.24,2.78,2.01-.12,.91-1.44,1.67-2.74,3.05Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M86.13,74.95c-1.35-1.36-2.69-2.08-2.83-2.99-.28-1.75,1.28-2.34,2.7-1.97,1.09,.29,2.02,1.22,3.02,1.87-.79,.84-1.57,1.69-2.88,3.09Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M115.38,125.62c.98,1.52,1.86,2.29,1.87,3.08,0,.6-1.09,1.68-1.7,1.69-.67,0-1.85-.96-1.89-1.55-.05-.79,.8-1.62,1.71-3.21Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+            <path
+              d="M123.34,131.52c-.83-1.52-1.68-2.37-1.58-3.1,.09-.66,1.22-1.18,1.89-1.75,.6,.73,1.54,1.41,1.68,2.22,.1,.55-.93,1.29-2,2.63Z"
+              style="
+                fill: #e83062;
+                stroke: #e83062;
+                stroke-miterlimit: 10;
+              "
+            />
+          </g>
+        </g>
+      </g>
+    </svg>
+    <p class="risk-factors-text">Family History of Breast Cancer</p>
+     </div>
+      <div id="riskFactorExposureToRadioactivity" style="opacity: 0; margin-bottom: 15px;">
+        <svg
+        width="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        id="Layer_2"
+        data-name="Layer 2"
+        viewBox="0 0 231 231"
+      >
+        <g id="Layer_1-2" data-name="Layer 1">
+          <g>
+            <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+            <text
+              transform="translate(70.18 121.73)"
+              style="fill: #e83062; font-size: 38.32px; font-weight: 700"
+              ><tspan x="0" y="0" style="letter-spacing: -0.04em"
+                >AGE</tspan
+              ></text
+            >
+            <path
+              d="M163.95,66.04c.17-2.56,.35-5.12,.49-7.68,.16-2.86,1.66-4.57,4.08-4.61,2.3-.04,4.15,1.78,4.25,4.54,.11,2.97-.02,5.95-.1,8.93-.1,3.93-.24,7.87-.39,11.8-.15,3.9-1.92,5.52-5.79,5.48-6.53-.07-13.06-.08-19.6-.15-3.46-.04-5.39-1.58-5.45-4.22-.06-2.61,1.94-4.17,5.41-4.18,3.27,0,6.53,.07,9.8,.04,.92,0,2.16,.47,2.67-.47,.54-.98-.58-1.71-1.13-2.43-7.29-9.57-16.78-16-28.32-19.26-32.18-9.1-63.76,10.35-70.29,43.19-6.23,31.31,16.89,62.19,48.68,65,25.67,2.27,47.91-11.43,57.42-35.37,.14-.36,.27-.72,.44-1.07,1.24-2.62,3.37-3.7,5.5-2.79,2.22,.95,3.14,3.17,2.21,5.81-1.7,4.81-3.86,9.4-6.69,13.68-14.78,22.37-42.03,32.97-68.55,26.63-25.24-6.04-44.71-28.2-47.76-54.36-4.16-35.74,21.25-67.51,56.91-70.91,21.31-2.03,39.23,5.14,53.81,20.74,.58,.62,1.07,1.33,1.61,2,.26-.12,.51-.24,.77-.36Z"
+              style="fill: #e83062"
+            />
+          </g>
+        </g>
+      </svg>
+      <p class="risk-factors-text">Exposure to Radioactivity</p>
+      </div>
+     
+    </div>
+   </div>
     <div class="corner-div" id="corner-div">
       <a class="noSelect" onclick="onPreviousButtonPressed()">
         <svg
@@ -8021,10 +8148,9 @@
       </a>
       <a class="noSelect" onclick="onNextButtonPressed()">
         <div class="tooltip" id="next_button_and_tooltip">
-          <svg
+          <div id="nextButtonContainer" class="pulse">
+            <svg
             id="nextButton"
-            class="pulse"
-            data-name="Layer 2"
             xmlns="http://www.w3.org/2000/svg"
             width="60px"
             viewBox="0 0 146.52 146.52"
@@ -8050,6 +8176,7 @@
               </g>
             </g>
           </svg>
+          </div>
           <span class="tooltiptext tooltip-top up-down" id="startHereTooltip"
             >Start</span
           >
