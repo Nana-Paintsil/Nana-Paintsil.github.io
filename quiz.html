@@ -1,6 +1,8 @@
-<html><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Breast Cancer Quiz</title>
     <style>
       :root {
@@ -8,6 +10,9 @@
         --clr-blue: #00adef;
         --clr-green: #89d297;
         --clr-yellow: #f1bc00;
+        --clr-text-color: #fe4866;
+        --clr-text-color-alpha: #fe48664c;
+        --clr-bg-color: #ffcece;
       }
 
       * {
@@ -32,8 +37,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color: black;
-        background: url("../assets/background_image.jpg");
+        /* background: url("../assets/background_image.jpg"); */
         /* background-color: black; */
         background-repeat: no-repeat;
         background-size: cover;
@@ -68,22 +72,24 @@
         position: relative;
         width: 80%;
         height: 12rem;
-        border: 2px solid darkgray;
+        border: 2px solid var(--clr-bg-color);
         border-radius: 25px;
+        color: var(--clr-text-color);
+        background-color: var(--clr-bg-color);
       }
 
-        .game-header-container::after {
-          width: 125px;
-          height: 125px;
-          content: '';
-          border-radius: 50%;
-          background: transparent;
-          position: absolute;
-          top: 0;
-          left: 50%;
-          transform: translate(-50%,-50%);
-          z-index: -1;
-        }
+      .game-header-container::after {
+        width: 125px;
+        height: 125px;
+        content: "";
+        border-radius: 50%;
+        background-color: var(--clr-bg-color);
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+      }
 
       .game-header-container h1 {
         font-size: 1.1rem;
@@ -98,18 +104,17 @@
         transform: translate(-50%, -50%);
       }
 
-      .output {
+      .circular-progress {
         display: flex;
         justify-content: center;
         align-items: center;
-        /* margin: 0 0 40px; */
       }
 
       .game-quiz-icon {
         position: absolute;
         top: 0;
         width: 50%;
-        opacity: 0.16;
+        opacity: 0.36;
       }
 
       .game-questions-container {
@@ -120,10 +125,13 @@
         align-items: center;
         justify-content: space-between;
       }
+      .game-questions-container #display-question {
+        font-size: 1.2rem;
+      }
 
       .game-options-container {
         width: 80%;
-        height: 12rem;
+        /* height: 12rem; */
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -134,7 +142,7 @@
       .game-options-container span {
         width: 45%;
         height: 5rem;
-        border: 2px solid darkgray;
+        border: 2px solid var(--clr-bg-color);
         border-radius: 20px;
         overflow: hidden;
       }
@@ -148,14 +156,14 @@
         text-align: center;
         transition: transform 0.3s;
         font-weight: 600;
-        color: rgb(22, 22, 22);
+        color: var(--clr-text-color);
       }
 
       span label:hover {
         -ms-transform: scale(1.12);
         -webkit-transform: scale(1.12);
         transform: scale(1.12);
-        color: white;
+        color: black;
       }
 
       input[type="radio"] {
@@ -178,13 +186,13 @@
         height: 3rem;
         border-radius: 50px;
         background: none;
-        color: rgb(25, 25, 25);
+        color: var(--clr-text-color);
         font-weight: 600;
         font-size: medium;
-        /* border: 2px solid gray; */
+        border: transparent;
         cursor: pointer;
         outline: none;
-        background-color: var(--clr-green);
+        background-color: var(--clr-bg-color);
       }
       /* .next-button-container button:hover {
         background-color: rgb(143, 93, 93);
@@ -273,7 +281,7 @@
       @media (min-width: 300px) and (max-width: 350px) {
         .game-quiz-container {
           width: 90%;
-          height: 80vh;
+          height: 90vh;
         }
         .game-details-container h1 {
           font-size: 0.8rem;
@@ -306,7 +314,7 @@
       @media (min-width: 350px) and (max-width: 700px) {
         .game-quiz-container {
           width: 90%;
-          height: 80vh;
+          height: 90vh;
         }
         .game-details-container h1 {
           font-size: 1rem;
@@ -373,28 +381,19 @@
       </div>
 
       <div class="game-quiz-container">
-
-        
-    
         <!-- <div class="game-details-container">
           <h1>Score : <span id="player-score"></span> / 10</h1>
           <h1>Question : <span id="question-number"></span> / 10</h1>
         </div> -->
 
-        <div class="game-header-container" style="border-color: rgb(255, 206, 206); background-color: rgb(255, 206, 206); color: rgb(254, 72, 102);">
+        <div class="game-header-container">
           <div class="game-quiz-progress-container">
-            <div class="output" id="output">
-      <svg width="120" height="120" viewBox="-15 -15 150 150" version="1.1" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(-90deg)">
-        <circle r="50" cx="60" cy="60" fill="transparent" stroke="#fe48664c" stroke-width="16px" stroke-dasharray="408.2px" stroke-dashoffset="0"></circle>
-        <circle r="50" cx="60" cy="60" stroke="#fe4866" stroke-width="16px" stroke-linecap="round" stroke-dashoffset="367px" fill="transparent" stroke-dasharray="408.2px"></circle>
-    <text x="31px" y="75px" fill="#fe4866" font-size="52px" font-weight="bold" style="transform:rotate(90deg) translate(0px, -116px)">10</text>
-      </svg>
-        </div>
+            <div class="circular-progress" id="circular-progress"></div>
           </div>
-          <div class="game-quiz-icon" id="game-quiz-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 320"><title>Breast </title><g style="transform: scale(3.5) translate(-6px,-30px)"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><g opacity="0.08"><image width="90" height="157" xlink:href="data:image/png;base64,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" style="mix-blend-mode:multiply"></image><path d="M27.28,98.2a1.56,1.56,0,0,1,.35-3.1,1.64,1.64,0,0,1,1.47,1.69A1.66,1.66,0,0,1,27.28,98.2Z" fill="#fff"></path><path d="M37.24,64.23a1.37,1.37,0,0,1,1.24,1.59,1.51,1.51,0,0,1-1.64,1.41,1.43,1.43,0,0,1-1.44-1.57A1.56,1.56,0,0,1,37.24,64.23Z" fill="#fff"></path><path d="M57.72,83.13a1.43,1.43,0,0,1-1.46-1.57,1.52,1.52,0,0,1,1.55-1.5,1.57,1.57,0,0,1,1.51,1.66A1.52,1.52,0,0,1,57.72,83.13Z" fill="#fff"></path><path d="M58,68.38a1.36,1.36,0,0,1,1.64-1.17,1.53,1.53,0,0,1-.25,3.05A1.57,1.57,0,0,1,58,68.38Z" fill="#fff"></path><path d="M41.07,49.45a1.49,1.49,0,0,1-1.45-1.59,1.52,1.52,0,0,1,1.7-1.44,1.42,1.42,0,0,1,1.33,1.65C42.6,49.05,42,49.41,41.07,49.45Z" fill="#fff"></path><path d="M40.5,78.86a1.42,1.42,0,0,1-1.56,1.49,1.36,1.36,0,0,1-1.47-1.49,1.61,1.61,0,0,1,1.64-1.54A1.42,1.42,0,0,1,40.5,78.86Z" fill="#fff"></path><path d="M74.66,82.94A1.39,1.39,0,0,1,73,84.17a1.41,1.41,0,0,1-1.36-1.62,1.52,1.52,0,0,1,1.71-1.42A1.62,1.62,0,0,1,74.66,82.94Z" fill="#fff"></path><path d="M65.72,85.83c.84.22,1.44.7,1.31,1.65a1.48,1.48,0,0,1-1.63,1.39,1.53,1.53,0,1,1,.32-3Z" fill="#fff"></path><path d="M47.7,84.6A1.45,1.45,0,0,1,49,86.15a1.49,1.49,0,0,1-1.66,1.46A1.46,1.46,0,0,1,46,86,1.44,1.44,0,0,1,47.7,84.6Z" fill="#fff"></path><path d="M40.43,109.56a1.52,1.52,0,1,1,.18-3A1.41,1.41,0,0,1,42,108.12,1.45,1.45,0,0,1,40.43,109.56Z" fill="#fff"></path><path d="M58.46,93.15c.94.14,1.49.65,1.41,1.58a1.49,1.49,0,0,1-1.59,1.43,1.51,1.51,0,1,1,.18-3Z" fill="#fff"></path><path d="M70.88,95.55c-.93-.14-1.5-.64-1.48-1.57a1.5,1.5,0,1,1,3,.08A1.46,1.46,0,0,1,70.88,95.55Z" fill="#fff"></path><path d="M31.18,86.51c-.91-.19-1.48-.72-1.37-1.65a1.41,1.41,0,0,1,1.66-1.34,1.36,1.36,0,0,1,1.35,1.63A1.45,1.45,0,0,1,31.18,86.51Z" fill="#fff"></path><path d="M48.47,61.29c-.93-.19-1.49-.72-1.39-1.66a1.5,1.5,0,0,1,3,.25A1.5,1.5,0,0,1,48.47,61.29Z" fill="#fff"></path><path d="M66.23,78.1a1.49,1.49,0,0,1-1.46-1.54,1.42,1.42,0,0,1,1.6-1.49,1.39,1.39,0,0,1,1.41,1.56A1.49,1.49,0,0,1,66.23,78.1Z" fill="#fff"></path><path d="M50.13,72.44a1.55,1.55,0,0,1-1.59-1.69A1.32,1.32,0,0,1,50,69.42a1.51,1.51,0,0,1,.09,3Z" fill="#fff"></path><path d="M38.21,91.75a1.52,1.52,0,0,1-.31,3,1.38,1.38,0,0,1-1.43-1.44A1.59,1.59,0,0,1,38.21,91.75Z" fill="#fff"></path><path d="M27.68,74.14a1.51,1.51,0,0,1-3-.49,1.37,1.37,0,0,1,1.54-1.31A1.58,1.58,0,0,1,27.68,74.14Z" fill="#fff"></path><path d="M48,101c-.92-.12-1.47-.61-1.42-1.56A1.36,1.36,0,0,1,48.12,98a1.39,1.39,0,0,1,1.43,1.55A1.42,1.42,0,0,1,48,101Z" fill="#fff"></path><path d="M72.77,68.17a1.44,1.44,0,0,1,1.28,1.67,1.49,1.49,0,0,1-3-.34A1.47,1.47,0,0,1,72.77,68.17Z" fill="#fff"></path><path d="M60.73,103.36c-.15.88-.64,1.48-1.57,1.41a1.42,1.42,0,0,1-1.43-1.58,1.38,1.38,0,0,1,1.57-1.41A1.45,1.45,0,0,1,60.73,103.36Z" fill="#fff"></path></g><path d="M71.81,67.09a1.56,1.56,0,0,1-2.46,1.32c-1.74-.92-3.46-1.89-5.13-2.92a92.35,92.35,0,0,1-18.68-15A76.7,76.7,0,0,1,29.63,26.74a4.4,4.4,0,0,1-.27-.77,1.57,1.57,0,0,1,1-1.9,1.55,1.55,0,0,1,2,.86c.38.83.71,1.69,1.08,2.53a74.19,74.19,0,0,0,11.2,17.26A86.61,86.61,0,0,0,60.51,59.19a83.14,83.14,0,0,0,9.75,6.08C71,65.66,71.81,66,71.81,67.09Z" fill="#fff"></path><path d="M81.75,73.12a3.52,3.52,0,0,1-1,2.68,3.18,3.18,0,0,0-.84,1.9c-.16,1.57-1,2.09-2.53,1.71a6,6,0,0,1-3.91-2.69,1.72,1.72,0,0,1,.35-2.51c.79-.51,1.61-.27,2.3.74.39.58.7.79,1.16,0,.27-.42.66-.77,1-1.18.67-.9.34-1.84-.76-1.91A8.79,8.79,0,0,1,74.1,70.8C73,70.3,72.61,69.43,73,68.62a1.66,1.66,0,0,1,2.48-.74,11.14,11.14,0,0,0,3,1A4.25,4.25,0,0,1,81.75,73.12Z" fill="#fff"></path><path d="M29.88,96.73a1.22,1.22,0,0,1-1.11-1.3A1.24,1.24,0,0,1,30,94.2a1.27,1.27,0,1,1-.12,2.53Z" fill="#fff"></path><path d="M36.2,68.74A1.11,1.11,0,0,1,37.28,70,1.22,1.22,0,0,1,36,71.19,1.17,1.17,0,0,1,34.78,70,1.28,1.28,0,0,1,36.2,68.74Z" fill="#fff"></path><path d="M53.73,83a1.17,1.17,0,0,1-1.27-1.2,1.25,1.25,0,0,1,1.19-1.29A1.27,1.27,0,0,1,55,81.76,1.22,1.22,0,0,1,53.73,83Z" fill="#fff"></path><path d="M53.22,71a1.09,1.09,0,0,1,1.26-1,1.24,1.24,0,0,1,0,2.48A1.27,1.27,0,0,1,53.22,71Z" fill="#fff"></path><path d="M38.53,56.59a1.21,1.21,0,0,1-1.25-1.21,1.24,1.24,0,0,1,1.3-1.25,1.15,1.15,0,0,1,1.16,1.27C39.76,56.19,39.25,56.52,38.53,56.59Z" fill="#fff"></path><path d="M39.58,80.41A1.16,1.16,0,0,1,38.4,81.7a1.12,1.12,0,0,1-1.27-1.14,1.3,1.3,0,0,1,1.25-1.32A1.15,1.15,0,0,1,39.58,80.41Z" fill="#fff"></path><path d="M67.42,82A1.14,1.14,0,0,1,66.16,83,1.15,1.15,0,0,1,65,81.8a1.23,1.23,0,0,1,1.31-1.24A1.31,1.31,0,0,1,67.42,82Z" fill="#fff"></path><path d="M60.34,84.76c.69.13,1.2.49,1.14,1.27a1.2,1.2,0,0,1-1.25,1.2,1.24,1.24,0,1,1,.11-2.47Z" fill="#fff"></path><path d="M45.7,84.69a1.15,1.15,0,0,1,1.14,1.18,1.19,1.19,0,0,1-1.26,1.26,1.22,1.22,0,1,1,.12-2.44Z" fill="#fff"></path><path d="M41.1,105.25a1.22,1.22,0,0,1-1.26-1.19,1.2,1.2,0,0,1,1.25-1.28A1.14,1.14,0,0,1,42.28,104,1.17,1.17,0,0,1,41.1,105.25Z" fill="#fff"></path><path d="M54.84,91c.77.07,1.24.46,1.22,1.22a1.19,1.19,0,0,1-1.21,1.23,1.23,1.23,0,1,1,0-2.45Z" fill="#fff"></path><path d="M65,92.35a1.2,1.2,0,0,1-1.28-1.19,1.21,1.21,0,1,1,2.42-.09A1.18,1.18,0,0,1,65,92.35Z" fill="#fff"></path><path d="M32.44,87.07c-.75-.1-1.23-.5-1.2-1.26a1.16,1.16,0,0,1,1.28-1.17,1.12,1.12,0,0,1,1.18,1.25A1.18,1.18,0,0,1,32.44,87.07Z" fill="#fff"></path><path d="M45.13,65.79c-.77-.11-1.24-.5-1.21-1.27a1.22,1.22,0,1,1,2.43,0C46.34,65.34,45.83,65.69,45.13,65.79Z" fill="#fff"></path><path d="M60.35,78.48a1.2,1.2,0,0,1-1.25-1.17,1.22,1.22,0,1,1,2.43-.1A1.21,1.21,0,0,1,60.35,78.48Z" fill="#fff"></path><path d="M47.05,74.73a1.26,1.26,0,0,1-1.38-1.29,1.06,1.06,0,0,1,1.14-1.15,1.23,1.23,0,0,1,.24,2.44Z" fill="#fff"></path><path d="M38.39,91a1.23,1.23,0,0,1-.09,2.45,1.12,1.12,0,0,1-1.24-1.09A1.3,1.3,0,0,1,38.39,91Z" fill="#fff"></path><path d="M29,77.25A1.22,1.22,0,0,1,26.54,77a1.11,1.11,0,0,1,1.17-1.14A1.28,1.28,0,0,1,29,77.25Z" fill="#fff"></path><path d="M46.79,98c-.75,0-1.22-.42-1.23-1.19a1.11,1.11,0,0,1,1.16-1.25A1.14,1.14,0,0,1,48,96.7,1.17,1.17,0,0,1,46.79,98Z" fill="#fff"></path><path d="M65.13,70.11a1.17,1.17,0,0,1,1.13,1.28,1.22,1.22,0,0,1-2.43-.11A1.21,1.21,0,0,1,65.13,70.11Z" fill="#fff"></path><path d="M57.2,99.19c-.08.72-.44,1.23-1.2,1.22a1.15,1.15,0,0,1-1.23-1.2A1.11,1.11,0,0,1,56,98C56.72,98,57.11,98.44,57.2,99.19Z" fill="#fff"></path><path d="M40,112.7c-2.55-.19-4.94-.11-7.28-.51a1.06,1.06,0,0,0-1.34.6,44.82,44.82,0,0,1-5.57,8.35,30,30,0,0,0-2.75,4.28,1.68,1.68,0,0,1-2.33,1c-.81-.41-1-1.34-.52-2.4a30.42,30.42,0,0,1,3.43-5.28,52.94,52.94,0,0,0,4.44-6.44c.39-.68.31-1-.46-1.22a24.54,24.54,0,0,1-12.56-9.56,1.61,1.61,0,1,1,2.58-1.86A21.92,21.92,0,0,0,33.08,109a50.53,50.53,0,0,0,12.77.09C56,107.78,64.25,103.17,70,94.5a41.18,41.18,0,0,0,5.23-11.2,10.84,10.84,0,0,1,.43-1.25,1.57,1.57,0,0,1,2-1.06,1.68,1.68,0,0,1,1,2.16,45.25,45.25,0,0,1-8.17,16.13,34.91,34.91,0,0,1-18,11.75,38.71,38.71,0,0,1-6.58,1.31C43.9,112.56,41.86,112.59,40,112.7Z" fill="#fff"></path></g></g></g></svg></div>
+          <div class="game-quiz-icon" id="game-quiz-icon"></div>
           <div class="game-questions-container">
-            <h1>Question : <span id="question-number">1</span> / 10</h1>
-            <h1 id="display-question">What is the purpose of hormone therapy in breast cancer treatment?</h1>
+            <h1>Question : <span id="question-number"></span> / 10</h1>
+            <h1 id="display-question"></h1>
           </div>
         </div>
 
@@ -409,38 +408,74 @@
             </div>
           </div>
 
-          <span style="border-color: rgba(254, 72, 102, 0.298);">
-            <input type="radio" id="option-one" name="option" class="radio" value="optionA">
-            <label for="option-one" class="option" id="option-one-label" style="color: rgb(254, 72, 102);">To remove hormones from the body</label>
+          <span>
+            <input
+              type="radio"
+              id="option-one"
+              name="option"
+              class="radio"
+              value="optionA"
+            />
+            <label
+              for="option-one"
+              class="option"
+              id="option-one-label"
+            ></label>
           </span>
 
-          <span style="border-color: rgba(254, 72, 102, 0.298);">
-            <input type="radio" id="option-two" name="option" class="radio" value="optionB">
-            <label for="option-two" class="option" id="option-two-label" style="color: rgb(254, 72, 102);">To stimulate hormone production</label>
+          <span>
+            <input
+              type="radio"
+              id="option-two"
+              name="option"
+              class="radio"
+              value="optionB"
+            />
+            <label
+              for="option-two"
+              class="option"
+              id="option-two-label"
+            ></label>
           </span>
 
-          <span style="border-color: rgba(254, 72, 102, 0.298);">
-            <input type="radio" id="option-three" name="option" class="radio" value="optionC">
-            <label for="option-three" class="option" id="option-three-label" style="color: rgb(254, 72, 102);">To stop hormones from aiding cancer growth</label>
+          <span>
+            <input
+              type="radio"
+              id="option-three"
+              name="option"
+              class="radio"
+              value="optionC"
+            />
+            <label
+              for="option-three"
+              class="option"
+              id="option-three-label"
+            ></label>
           </span>
 
-          <span style="border-color: rgba(254, 72, 102, 0.298);">
-            <input type="radio" id="option-four" name="option" class="radio" value="optionD">
-            <label for="option-four" class="option" id="option-four-label" style="color: rgb(254, 72, 102);">To regulate hormone levels</label>
+          <span>
+            <input
+              type="radio"
+              id="option-four"
+              name="option"
+              class="radio"
+              value="optionD"
+            />
+            <label
+              for="option-four"
+              class="option"
+              id="option-four-label"
+            ></label>
           </span>
         </div>
 
         <div class="next-button-container">
-          <button disabled="" onclick="handleNextQuestion()">Check</button>
+          <button disabled onclick="handleNextQuestion()">Check</button>
         </div>
       </div>
     </main>
 
     <script>
-    const textColor = "#fe4866";
-    const bgColor = "#ffcece";
-    const textColorAlpha = "#fe48664c";
-
       const questions = [
         {
           question: "What is the main characteristic of a malignant tumor?",
@@ -529,137 +564,139 @@
         },
       ];
 
-      const questionContainer = document.querySelector(".game-header-container");
-      questionContainer.style.borderColor = bgColor;
-      questionContainer.style.backgroundColor = bgColor;
-      questionContainer.style.color = textColor;
-
-      let st = document.styleSheets[0].cssRules[9];
-      st.style.backgroundColor = bgColor;
-
       const icon = document.getElementById("game-quiz-icon");
       icon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 320"><title>Breast </title><g style="transform: scale(3.5) translate(-6px,-30px)"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><g opacity="0.08"><image width="90" height="157" xlink:href="data:image/png;base64,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" style="mix-blend-mode:multiply"/><path d="M27.28,98.2a1.56,1.56,0,0,1,.35-3.1,1.64,1.64,0,0,1,1.47,1.69A1.66,1.66,0,0,1,27.28,98.2Z" fill="#fff"/><path d="M37.24,64.23a1.37,1.37,0,0,1,1.24,1.59,1.51,1.51,0,0,1-1.64,1.41,1.43,1.43,0,0,1-1.44-1.57A1.56,1.56,0,0,1,37.24,64.23Z" fill="#fff"/><path d="M57.72,83.13a1.43,1.43,0,0,1-1.46-1.57,1.52,1.52,0,0,1,1.55-1.5,1.57,1.57,0,0,1,1.51,1.66A1.52,1.52,0,0,1,57.72,83.13Z" fill="#fff"/><path d="M58,68.38a1.36,1.36,0,0,1,1.64-1.17,1.53,1.53,0,0,1-.25,3.05A1.57,1.57,0,0,1,58,68.38Z" fill="#fff"/><path d="M41.07,49.45a1.49,1.49,0,0,1-1.45-1.59,1.52,1.52,0,0,1,1.7-1.44,1.42,1.42,0,0,1,1.33,1.65C42.6,49.05,42,49.41,41.07,49.45Z" fill="#fff"/><path d="M40.5,78.86a1.42,1.42,0,0,1-1.56,1.49,1.36,1.36,0,0,1-1.47-1.49,1.61,1.61,0,0,1,1.64-1.54A1.42,1.42,0,0,1,40.5,78.86Z" fill="#fff"/><path d="M74.66,82.94A1.39,1.39,0,0,1,73,84.17a1.41,1.41,0,0,1-1.36-1.62,1.52,1.52,0,0,1,1.71-1.42A1.62,1.62,0,0,1,74.66,82.94Z" fill="#fff"/><path d="M65.72,85.83c.84.22,1.44.7,1.31,1.65a1.48,1.48,0,0,1-1.63,1.39,1.53,1.53,0,1,1,.32-3Z" fill="#fff"/><path d="M47.7,84.6A1.45,1.45,0,0,1,49,86.15a1.49,1.49,0,0,1-1.66,1.46A1.46,1.46,0,0,1,46,86,1.44,1.44,0,0,1,47.7,84.6Z" fill="#fff"/><path d="M40.43,109.56a1.52,1.52,0,1,1,.18-3A1.41,1.41,0,0,1,42,108.12,1.45,1.45,0,0,1,40.43,109.56Z" fill="#fff"/><path d="M58.46,93.15c.94.14,1.49.65,1.41,1.58a1.49,1.49,0,0,1-1.59,1.43,1.51,1.51,0,1,1,.18-3Z" fill="#fff"/><path d="M70.88,95.55c-.93-.14-1.5-.64-1.48-1.57a1.5,1.5,0,1,1,3,.08A1.46,1.46,0,0,1,70.88,95.55Z" fill="#fff"/><path d="M31.18,86.51c-.91-.19-1.48-.72-1.37-1.65a1.41,1.41,0,0,1,1.66-1.34,1.36,1.36,0,0,1,1.35,1.63A1.45,1.45,0,0,1,31.18,86.51Z" fill="#fff"/><path d="M48.47,61.29c-.93-.19-1.49-.72-1.39-1.66a1.5,1.5,0,0,1,3,.25A1.5,1.5,0,0,1,48.47,61.29Z" fill="#fff"/><path d="M66.23,78.1a1.49,1.49,0,0,1-1.46-1.54,1.42,1.42,0,0,1,1.6-1.49,1.39,1.39,0,0,1,1.41,1.56A1.49,1.49,0,0,1,66.23,78.1Z" fill="#fff"/><path d="M50.13,72.44a1.55,1.55,0,0,1-1.59-1.69A1.32,1.32,0,0,1,50,69.42a1.51,1.51,0,0,1,.09,3Z" fill="#fff"/><path d="M38.21,91.75a1.52,1.52,0,0,1-.31,3,1.38,1.38,0,0,1-1.43-1.44A1.59,1.59,0,0,1,38.21,91.75Z" fill="#fff"/><path d="M27.68,74.14a1.51,1.51,0,0,1-3-.49,1.37,1.37,0,0,1,1.54-1.31A1.58,1.58,0,0,1,27.68,74.14Z" fill="#fff"/><path d="M48,101c-.92-.12-1.47-.61-1.42-1.56A1.36,1.36,0,0,1,48.12,98a1.39,1.39,0,0,1,1.43,1.55A1.42,1.42,0,0,1,48,101Z" fill="#fff"/><path d="M72.77,68.17a1.44,1.44,0,0,1,1.28,1.67,1.49,1.49,0,0,1-3-.34A1.47,1.47,0,0,1,72.77,68.17Z" fill="#fff"/><path d="M60.73,103.36c-.15.88-.64,1.48-1.57,1.41a1.42,1.42,0,0,1-1.43-1.58,1.38,1.38,0,0,1,1.57-1.41A1.45,1.45,0,0,1,60.73,103.36Z" fill="#fff"/></g><path d="M71.81,67.09a1.56,1.56,0,0,1-2.46,1.32c-1.74-.92-3.46-1.89-5.13-2.92a92.35,92.35,0,0,1-18.68-15A76.7,76.7,0,0,1,29.63,26.74a4.4,4.4,0,0,1-.27-.77,1.57,1.57,0,0,1,1-1.9,1.55,1.55,0,0,1,2,.86c.38.83.71,1.69,1.08,2.53a74.19,74.19,0,0,0,11.2,17.26A86.61,86.61,0,0,0,60.51,59.19a83.14,83.14,0,0,0,9.75,6.08C71,65.66,71.81,66,71.81,67.09Z" fill="#fff"/><path d="M81.75,73.12a3.52,3.52,0,0,1-1,2.68,3.18,3.18,0,0,0-.84,1.9c-.16,1.57-1,2.09-2.53,1.71a6,6,0,0,1-3.91-2.69,1.72,1.72,0,0,1,.35-2.51c.79-.51,1.61-.27,2.3.74.39.58.7.79,1.16,0,.27-.42.66-.77,1-1.18.67-.9.34-1.84-.76-1.91A8.79,8.79,0,0,1,74.1,70.8C73,70.3,72.61,69.43,73,68.62a1.66,1.66,0,0,1,2.48-.74,11.14,11.14,0,0,0,3,1A4.25,4.25,0,0,1,81.75,73.12Z" fill="#fff"/><path d="M29.88,96.73a1.22,1.22,0,0,1-1.11-1.3A1.24,1.24,0,0,1,30,94.2a1.27,1.27,0,1,1-.12,2.53Z" fill="#fff"/><path d="M36.2,68.74A1.11,1.11,0,0,1,37.28,70,1.22,1.22,0,0,1,36,71.19,1.17,1.17,0,0,1,34.78,70,1.28,1.28,0,0,1,36.2,68.74Z" fill="#fff"/><path d="M53.73,83a1.17,1.17,0,0,1-1.27-1.2,1.25,1.25,0,0,1,1.19-1.29A1.27,1.27,0,0,1,55,81.76,1.22,1.22,0,0,1,53.73,83Z" fill="#fff"/><path d="M53.22,71a1.09,1.09,0,0,1,1.26-1,1.24,1.24,0,0,1,0,2.48A1.27,1.27,0,0,1,53.22,71Z" fill="#fff"/><path d="M38.53,56.59a1.21,1.21,0,0,1-1.25-1.21,1.24,1.24,0,0,1,1.3-1.25,1.15,1.15,0,0,1,1.16,1.27C39.76,56.19,39.25,56.52,38.53,56.59Z" fill="#fff"/><path d="M39.58,80.41A1.16,1.16,0,0,1,38.4,81.7a1.12,1.12,0,0,1-1.27-1.14,1.3,1.3,0,0,1,1.25-1.32A1.15,1.15,0,0,1,39.58,80.41Z" fill="#fff"/><path d="M67.42,82A1.14,1.14,0,0,1,66.16,83,1.15,1.15,0,0,1,65,81.8a1.23,1.23,0,0,1,1.31-1.24A1.31,1.31,0,0,1,67.42,82Z" fill="#fff"/><path d="M60.34,84.76c.69.13,1.2.49,1.14,1.27a1.2,1.2,0,0,1-1.25,1.2,1.24,1.24,0,1,1,.11-2.47Z" fill="#fff"/><path d="M45.7,84.69a1.15,1.15,0,0,1,1.14,1.18,1.19,1.19,0,0,1-1.26,1.26,1.22,1.22,0,1,1,.12-2.44Z" fill="#fff"/><path d="M41.1,105.25a1.22,1.22,0,0,1-1.26-1.19,1.2,1.2,0,0,1,1.25-1.28A1.14,1.14,0,0,1,42.28,104,1.17,1.17,0,0,1,41.1,105.25Z" fill="#fff"/><path d="M54.84,91c.77.07,1.24.46,1.22,1.22a1.19,1.19,0,0,1-1.21,1.23,1.23,1.23,0,1,1,0-2.45Z" fill="#fff"/><path d="M65,92.35a1.2,1.2,0,0,1-1.28-1.19,1.21,1.21,0,1,1,2.42-.09A1.18,1.18,0,0,1,65,92.35Z" fill="#fff"/><path d="M32.44,87.07c-.75-.1-1.23-.5-1.2-1.26a1.16,1.16,0,0,1,1.28-1.17,1.12,1.12,0,0,1,1.18,1.25A1.18,1.18,0,0,1,32.44,87.07Z" fill="#fff"/><path d="M45.13,65.79c-.77-.11-1.24-.5-1.21-1.27a1.22,1.22,0,1,1,2.43,0C46.34,65.34,45.83,65.69,45.13,65.79Z" fill="#fff"/><path d="M60.35,78.48a1.2,1.2,0,0,1-1.25-1.17,1.22,1.22,0,1,1,2.43-.1A1.21,1.21,0,0,1,60.35,78.48Z" fill="#fff"/><path d="M47.05,74.73a1.26,1.26,0,0,1-1.38-1.29,1.06,1.06,0,0,1,1.14-1.15,1.23,1.23,0,0,1,.24,2.44Z" fill="#fff"/><path d="M38.39,91a1.23,1.23,0,0,1-.09,2.45,1.12,1.12,0,0,1-1.24-1.09A1.3,1.3,0,0,1,38.39,91Z" fill="#fff"/><path d="M29,77.25A1.22,1.22,0,0,1,26.54,77a1.11,1.11,0,0,1,1.17-1.14A1.28,1.28,0,0,1,29,77.25Z" fill="#fff"/><path d="M46.79,98c-.75,0-1.22-.42-1.23-1.19a1.11,1.11,0,0,1,1.16-1.25A1.14,1.14,0,0,1,48,96.7,1.17,1.17,0,0,1,46.79,98Z" fill="#fff"/><path d="M65.13,70.11a1.17,1.17,0,0,1,1.13,1.28,1.22,1.22,0,0,1-2.43-.11A1.21,1.21,0,0,1,65.13,70.11Z" fill="#fff"/><path d="M57.2,99.19c-.08.72-.44,1.23-1.2,1.22a1.15,1.15,0,0,1-1.23-1.2A1.11,1.11,0,0,1,56,98C56.72,98,57.11,98.44,57.2,99.19Z" fill="#fff"/><path d="M40,112.7c-2.55-.19-4.94-.11-7.28-.51a1.06,1.06,0,0,0-1.34.6,44.82,44.82,0,0,1-5.57,8.35,30,30,0,0,0-2.75,4.28,1.68,1.68,0,0,1-2.33,1c-.81-.41-1-1.34-.52-2.4a30.42,30.42,0,0,1,3.43-5.28,52.94,52.94,0,0,0,4.44-6.44c.39-.68.31-1-.46-1.22a24.54,24.54,0,0,1-12.56-9.56,1.61,1.61,0,1,1,2.58-1.86A21.92,21.92,0,0,0,33.08,109a50.53,50.53,0,0,0,12.77.09C56,107.78,64.25,103.17,70,94.5a41.18,41.18,0,0,0,5.23-11.2,10.84,10.84,0,0,1,.43-1.25,1.57,1.57,0,0,1,2-1.06,1.68,1.68,0,0,1,1,2.16,45.25,45.25,0,0,1-8.17,16.13,34.91,34.91,0,0,1-18,11.75,38.71,38.71,0,0,1-6.58,1.31C43.9,112.56,41.86,112.59,40,112.7Z" fill="#fff"/></g></g></g></svg>`;
 
-      const output = document.getElementById("output");
+      const circularProgress = document.getElementById("circular-progress");
 
       const svgAttributes = {
-        circumference: "408.2px",
-        percentage: "367px",
+        circumference: "314px",
+        percentage: "283px",
         progress: 10,
         size: 120,
-        circleColor: "#fe48664c",
-        progressColor: "#fe4866",
+        circleColor: "var(--clr-text-color-alpha)",
+        progressColor: "var(--clr-text-color)",
         circleWidth: "16px",
         progressWidth: "16px",
         progressShape: "round",
-        textColor: "#fe4866",
+        textColor: "var(--clr-text-color)",
         textSize: {
-          width: 50,
+          width: 24.5,
           height: 50,
-          fontSize: "52"
+          fontSize: "52",
         },
         valueToggle: true,
-        percentageToggle: false
-      }
+        percentageToggle: false,
+      };
 
-      function getSvg (attributes) {
-      const {
-        circumference,
-        percentage,
-        progress,
-        size,
-        circleColor,
-        progressColor,
-        circleWidth,
-        progressWidth,
-        progressShape,
-        textColor,
-        textSize,
-        valueToggle,
-        percentageToggle
-      } = attributes
+      function getSvg(attributes) {
+        const {
+          circumference,
+          percentage,
+          progress,
+          size,
+          circleColor,
+          progressColor,
+          circleWidth,
+          progressWidth,
+          progressShape,
+          textColor,
+          textSize,
+          valueToggle,
+          percentageToggle,
+        } = attributes;
 
-      const suffix = percentageToggle ? '%' : ''
-      const text = valueToggle ? `\n    <text x="${Math.round((size/2) - (textSize.width/1.75))}px" y="${Math.round((size/2) + (textSize.height/3.25))}px" fill="${textColor}" font-size="${textSize.fontSize}px" font-weight="bold" style="transform:rotate(90deg) translate(0px, -${size - 4}px)">${progress}${suffix}</text>` : ''
+        const suffix = percentageToggle ? "%" : "";
+        const text = valueToggle
+          ? `\n    <text x="${Math.round(
+              size / 2 - textSize.width / 1.75
+            )}px" y="${Math.round(
+              size / 2 + textSize.height / 3.25
+            )}px" fill="${textColor}" font-size="${
+              textSize.fontSize
+            }px" font-weight="bold" style="transform:rotate(90deg) translate(0px, -${
+              size - 4
+            }px)">${progress / 10 }${suffix}</text>`
+          : "";
 
-      return `
-      <svg width="${size}" height="${size}" viewBox="-${size*0.125} -${size*0.125} ${size*1.25} ${size*1.25}" version="1.1" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(-90deg)">
-        <circle r="${(size/2) - 10}" cx="${size/2}" cy="${size/2}" fill="transparent" stroke="${circleColor}" stroke-width="${circleWidth}" stroke-dasharray="${circumference}" stroke-dashoffset="0"></circle>
-        <circle r="${(size/2) - 10}" cx="${size/2}" cy="${size/2}" stroke="${progressColor}" stroke-width="${progressWidth}" stroke-linecap="${progressShape}" stroke-dashoffset="${percentage}" fill="transparent" stroke-dasharray="${circumference}"></circle>${text}
+        return `
+      <svg width="${size}" height="${size}" viewBox="-${size * 0.125} -${
+          size * 0.125
+        } ${size * 1.25} ${
+          size * 1.25
+        }" version="1.1" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(-90deg)">
+        <circle r="${size / 2 - 10}" cx="${size / 2}" cy="${
+          size / 2
+        }" fill="transparent" stroke="${circleColor}" stroke-width="${circleWidth}" stroke-dasharray="${circumference}" stroke-dashoffset="0"></circle>
+        <circle r="${size / 2 - 10}" cx="${size / 2}" cy="${
+          size / 2
+        }" stroke="${progressColor}" stroke-width="${progressWidth}" stroke-linecap="${progressShape}" stroke-dashoffset="${percentage}" fill="transparent" stroke-dasharray="${circumference}"></circle>${text}
       </svg>
-        `
+        `;
       }
 
-      function setTextSize () {
-        const svgText = document.querySelector('text')
-        const textRect = svgText.getBoundingClientRect()
+      function setTextSize() {
+        const svgText = document.querySelector("text");
+        const textRect = svgText.getBoundingClientRect();
         svgAttributes.textSize = {
           width: Math.round(textRect.width),
           height: Math.round(textRect.height),
-          fontSize: svgAttributes.textSize.fontSize
-        }
+          fontSize: svgAttributes.textSize.fontSize,
+        };
       }
 
-      function handleProgressChange (control, value) {
-        let rerender = false
+      function handleProgressChange(control, value) {
+        let rerender = false;
         if (control === "progress") {
-          const radius = (svgAttributes.size/2) - 10
-          const circumference = 3.14*radius*2
-          svgAttributes.percentage = Math.round(circumference*((100-Number(value))/100)) + 'px'
+          const radius = svgAttributes.size / 2 - 10;
+          const circumference = 3.14 * radius * 2;
+          svgAttributes.percentage =
+            Math.round(circumference * ((100 - Number(value)) / 100)) + "px";
           if (Number(value) === 0) {
-            svgAttributes.progressColor = svgAttributes.circleColor
-          } else if (Number(value) > 0 && (svgAttributes.progressColor === svgAttributes.circleColor)) {
-            svgAttributes.progressColor = controls.progressColor.value
+            svgAttributes.progressColor = svgAttributes.circleColor;
+          } else if (
+            Number(value) > 0 &&
+            svgAttributes.progressColor === svgAttributes.circleColor
+          ) {
+            svgAttributes.progressColor = controls.progressColor.value;
+            console.log("Todo");
           }
-          setTextSize()
-          rerender = true
-          console.log(control)
-          console.log(Number(value))
+          setTextSize();
+          rerender = true;
         } else if (control === "size") {
-          const radius = (Number(value)/2) - 10
-          const circumference = 3.14*radius*2
-          svgAttributes.circumference = circumference + "px"
-          svgAttributes.percentage = Math.round(circumference*((100-svgAttributes.progress)/100)) + "px"
+          const radius = Number(value) / 2 - 10;
+          const circumference = 3.14 * radius * 2;
+          svgAttributes.circumference = circumference + "px";
+          svgAttributes.percentage =
+            Math.round(circumference * ((100 - svgAttributes.progress) / 100)) +
+            "px";
         } else if (control === "percentageToggle") {
-          setTextSize()
-          rerender = true
-        }
-          else if (control === "textSize") {
-          const svgText = document.querySelector('text')
-          const textRect = svgText.getBoundingClientRect()
+          setTextSize();
+          rerender = true;
+        } else if (control === "textSize") {
+          const svgText = document.querySelector("text");
+          const textRect = svgText.getBoundingClientRect();
           value = {
             width: Math.round(textRect.width),
             height: Math.round(textRect.height),
-            fontSize: value
-          }
-          rerender = true
+            fontSize: value,
+          };
+          rerender = true;
         }
-        svgAttributes[control] = value
-        console.log(value)
-        setSvg(rerender)
-        console.log(svgAttributes)
+        svgAttributes[control] = value;
+        setSvg(rerender);
       }
 
-      function setSvg (rerender = false) {
-        const html = getSvg(svgAttributes)
-        output.innerHTML = html
+      function setSvg(rerender = false) {
+        const html = getSvg(svgAttributes);
+        circularProgress.innerHTML = html;
         if (rerender) {
-          setTextSize()
-          setSvg(false)
+          setTextSize();
+          setSvg(false);
         }
       }
 
       setSvg(false);
-
-      const radioButtons = document.querySelectorAll('input[type="radio"]');
-
-      radioButtons.forEach((radioBtn) => {
-          // Apply styles to the selected radio button       
-            const siblingLabel = radioBtn.nextElementSibling;
-            const parentSpan = radioBtn.parentNode;
-            siblingLabel.style.color = textColor; // Change text color to disease color
-            parentSpan.style.borderColor = textColorAlpha; // Set border to disease color with 30% opacity
-        });
 
       let shuffledQuestions = []; //empty array to hold shuffled selected questions
 
@@ -682,6 +719,8 @@
 
       const button = document.querySelector(".next-button-container button");
 
+      const radioButtons = document.querySelectorAll('input[type="radio"]');
+
       // Add change event listener to each radio button
       radioButtons.forEach((radioBtn) => {
         radioBtn.addEventListener("change", function () {
@@ -702,6 +741,8 @@
 
             // Remove the disabled attribute
             button.removeAttribute("disabled");
+            button.style.color = ""; // Reset the button text color
+            button.style.backgroundColor = ""; // Reset button background color
           }
         });
       });
@@ -755,10 +796,12 @@
           ) {
             var correctOptionElement = document.getElementById(correctOption);
             correctOptionElement.style.backgroundColor = "var(--clr-green)";
-            correctOptionElement.style.color = ""; // Reset text color
-            correctOptionElement.parentNode.style.borderColor = ""; // Reset border color
+            correctOptionElement.style.color = "#fff"; // Reset text color
+            correctOptionElement.parentNode.style.borderColor =
+              "var(--clr-green)"; // Reset border color
 
-            button.style.backgroundColor = "#89d297";
+            button.style.backgroundColor = "var(--clr-green)";
+            button.style.color = "#fff";
 
             playerScore++;
             indexNumber++;
@@ -770,13 +813,16 @@
             const wrongLabelId = option.labels[0].id;
             var wrongLabel = document.getElementById(wrongLabelId);
             wrongLabel.style.backgroundColor = "var(--clr-red)";
-            wrongLabel.style.color = ""; // Reset text color
-            wrongLabel.parentNode.style.borderColor = ""; // Reset border color
+            wrongLabel.style.color = "#fff"; // Reset text color
+            wrongLabel.parentNode.style.borderColor = "var(--clr-red)"; // Reset border color
 
-            document.getElementById(correctOption).style.backgroundColor =
-              "var(--clr-green)";
+            const correct = document.getElementById(correctOption);
+            correct.style.backgroundColor = "var(--clr-green)";
+            correct.style.color = "#fff";
+            correct.parentNode.style.borderColor = "var(--clr-green)";
 
             button.style.backgroundColor = "var(--clr-red)";
+            button.style.color = "#fff";
 
             wrongAttempt++;
             indexNumber++;
@@ -799,11 +845,14 @@
           setTimeout(() => {
             if (indexNumber <= 9) {
               NextQuestion(indexNumber);
-              handleProgressChange('progress', (questionNumber * 10).toString());
+              handleProgressChange(
+                "progress",
+                (questionNumber * 10).toString()
+              );
             } else {
               handleEndGame();
             }
-            
+
             resetOptionBackground();
             disableNextButton();
           }, 1000);
@@ -815,6 +864,7 @@
         button.setAttribute("disabled", true);
         button.textContent = "Check";
         button.style.backgroundColor = "lightgrey";
+        button.style.color = "darkgrey";
       }
 
       //sets options background back to null after display the right/wrong colors
@@ -823,6 +873,10 @@
         options.forEach((option) => {
           document.getElementById(option.labels[0].id).style.backgroundColor =
             "";
+          const siblingLabel = option.nextElementSibling;
+          const parentSpan = option.parentNode;
+          siblingLabel.style.color = ""; // Reset text color
+          parentSpan.style.borderColor = ""; // Reset border color
         });
       }
 
@@ -834,7 +888,7 @@
         }
       }
 
-      // function for when all questions being answevar(--clr-red)
+      // function for when all questions being answered
       function handleEndGame() {
         let remark = null;
         let remarkColor = null;
@@ -870,6 +924,14 @@
         shuffledQuestions = [];
         NextQuestion(indexNumber);
         document.getElementById("score-modal").style.display = "none";
+        svgAttributes['progress'] = 10,
+        svgAttributes['percentage'] = "283px";
+        svgAttributes['textSize'] = {
+          width: 24.5,
+          height: 50,
+          fontSize: "52",
+        };
+        setSvg(false);
       }
 
       //function to close warning modal
@@ -877,6 +939,5 @@
         document.getElementById("option-modal").style.display = "none";
       }
     </script>
-  
-
-</body></html>
+  </body>
+</html>
