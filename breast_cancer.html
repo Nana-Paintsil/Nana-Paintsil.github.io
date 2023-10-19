@@ -720,7 +720,6 @@
   <body>
     <script>
       let index = 0;
-      let timeouts = [];
       let lastSessionIndex = 15;
       let isJumpingToIndex = false;
       let breastCancerDiagnosisIndex = 0;
@@ -833,17 +832,17 @@
       function createTimeout(callback, delay) {
         
         if((isJumpingToIndex && lastSessionIndex != 14)){
-          delay = 0;
+          callback();
+        }else{
+          setTimeout(callback, delay);
         }
-          const timeoutId = setTimeout(callback, delay);
-          timeouts.push(timeoutId); 
+        
         }
 
         function fadeIn(elementId) {        
           play(elementId, "", "fade-in");
         }
         function fadeDiagnosticIn(elementId) {        
-        //  play(elementId, "", "content-wrapper fade-in");
         var element = document.getElementById(elementId);
         element.setAttribute("class","content-wrapper fade-in");
         }
@@ -1280,7 +1279,14 @@
       }
 
       function proceedToCausesSlide2() {
-        // hideTooltip("causesSlide1Tooltip");
+        var fattyTissue = document.getElementById("fattyTissue");
+        fattyTissue.setAttribute("visibility","visible");
+        fattyTissue.setAttribute("opacity","0.96");
+        stop("fattyTissue","delayed-fade-in-3");
+        
+        var fattyTissueZoomedLabelAndLine = document.getElementById("fattyTissueZoomedLabelAndLine");
+        fattyTissueZoomedLabelAndLine.style.transform ="scale(1)";
+        stop("fattyTissueZoomedLabelAndLine","scale-in");
         var causesSlide1Tooltip = document.getElementById(
           "causesSlide1Tooltip"
         );
@@ -1315,6 +1321,14 @@
       function showLobuleTooltip() {
         hideTooltip("causesSlide1Tooltip");
         hideTooltip("causesSlide2Tooltip");
+
+        var lobules = document.getElementById("lobules");
+        lobules.style.transform ="scale(1)";
+        stop("lobules","scale-in");
+
+        var lobuleZoomedLabelAndLine = document.getElementById("lobuleZoomedLabelAndLine");
+        lobuleZoomedLabelAndLine.style.transform ="scale(1)";
+        stop("lobuleZoomedLabelAndLine","scale-in");
         var causesSlide1Tooltip = document.getElementById("lobuleTooltip");
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
@@ -1363,6 +1377,23 @@
 
       function showuncontrollablyTooltip() {
         hideTooltip("ductTooltip");
+        var ducts = document.getElementById("ducts");
+        ducts.style.transform ="scale(1)";
+        stop("ducts","scale-in");
+
+        var ductZoomedLabelAndLine = document.getElementById("ductZoomedLabelAndLine");
+        ductZoomedLabelAndLine.style.transform ="scale(1)";
+        stop("ductZoomedLabelAndLine","scale-in");
+
+        var nipple = document.getElementById("nipple");
+        nipple.style.transform ="scale(1)";
+        stop("nipple","scale-in");
+
+        var nippleZoomedLabelAndLine = document.getElementById("nippleZoomedLabelAndLine");
+        nippleZoomedLabelAndLine.style.transform ="scale(1)";
+        stop("nippleZoomedLabelAndLine","scale-in");
+
+
         var uncontrollablyTooltip = document.getElementById(
           "uncontrollablyTooltip"
         );
@@ -1421,6 +1452,17 @@
         stop("lobule10", "uncontrollable-set-2");
         stop("duct10", "uncontrollable-set-2");
 
+        var fattyTissueZoomedLabelAndLine = document.getElementById("fattyTissueZoomedLabelAndLine");
+        fattyTissueZoomedLabelAndLine.setAttribute("visibility","hidden");
+
+        var lobuleZoomedLabelAndLine = document.getElementById("lobuleZoomedLabelAndLine");
+        lobuleZoomedLabelAndLine.setAttribute("visibility","hidden");
+
+        var nippleZoomedLabelAndLine = document.getElementById("nippleZoomedLabelAndLine");
+        nippleZoomedLabelAndLine.setAttribute("visibility","hidden");
+
+        var ductZoomedLabelAndLine = document.getElementById("ductZoomedLabelAndLine");
+        ductZoomedLabelAndLine.style.transform ="translateY(-100px)";
         play("breastFigure", "", "scale-translate-animation");
 
         var lobules = document.getElementById("lobules");
@@ -1546,13 +1588,13 @@ play(
 
 function showRiskFactors() {
 hideTooltip("metastaticTooltip");
-document.getElementById("metastaticBreastCancer").setAttribute("class", "");
+document.getElementById("metastaticBreastCancer").setAttribute("class", "hide");
 
-document.getElementById("metastaticGroup").setAttribute("class", "");
-document.getElementById("brainGroup").setAttribute("class", "");
-document.getElementById("liverGroup").setAttribute("class", "");
-document.getElementById("lungsGroup").setAttribute("class", "");
-document.getElementById("bonesGroup").setAttribute("class", "");
+stop("metastaticGroup","fade-in");
+stop("brainGroup","fade-in");
+stop("liverGroup","fade-in");
+stop("bonesGroup","fade-in");
+stop("lungsGroup","fade-in");
 
 var previousButton = document.getElementById("previousButton");
 var nextButton = document.getElementById("nextButton");
@@ -2110,18 +2152,19 @@ createTimeout(() => {
         play("breastCancerTreatmentIcons","","fade-out-to-less-opacity");
 var chemotherapy = document.getElementById("chemotherapy");
 chemotherapy.style.opacity = "0";
-
+chemotherapy.setAttribute("visibility","visible");
 var hormoneTherapy = document.getElementById("hormoneTherapy");
 hormoneTherapy.style.opacity = "0";
-
+hormoneTherapy.setAttribute("visibility","visible");
 var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
 targetedDrugTherapy.style.opacity = "0";
-
+targetedDrugTherapy.setAttribute("visibility","visible");
 var pallativeCare = document.getElementById("pallativeCare");
 pallativeCare.style.opacity = "0";
-
+pallativeCare.setAttribute("visibility","visible");
 var immunoTherapy = document.getElementById("immunoTherapy");
 immunoTherapy.style.opacity = "0";
+immunoTherapy.setAttribute("visibility","visible");
 var radiationTherapy = document.getElementById("radiationTherapy");
 play("radiationTherapy","","radiationTherapy");
         //style="transform: translate(-375px, 600px) scale(1.1)"
@@ -2541,6 +2584,8 @@ play("radiationTherapy","","radiationTherapy");
         );
         breastCancerTreatment.setAttribute("visibility", "hidden");
         fadeIn("lifestyleSection");
+        var lifestyleSection = document.getElementById("lifestyleSection");
+        lifestyleSection.setAttribute("visibility","visible");
   hideTooltip("pallativeCareTooltip1");
   hideTooltip("pallativeCareTooltip2");
     hideTooltip("pallativeCareTooltip3");
@@ -2979,18 +3024,18 @@ function showBreastFeedTooltip(){
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-
+        play("lobules","","scale-in");
+        fadeInAndScale("lobuleZoomedLabelAndLine");
         
       }
       function revertToLobuleTooltip() {
         hideTooltip("ductTooltip");
         var lobuleTooltip = document.getElementById("lobuleTooltip");
         lobuleTooltip.className = "tooltip breastCancer-text";
-
-        disappearElement("ducts");
-        disappearElement("nipple");
-        disappearElement("ductZoomedLabelAndLine");
-        disappearElement("nippleZoomedLabelAndLine");
+        undoFadeInAndScale("ducts");
+        undoFadeInAndScale("nipple");
+        undoFadeInAndScale("ductZoomedLabelAndLine");
+        undoFadeInAndScale("nippleZoomedLabelAndLine");
         play("lobuleTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
 
 
@@ -3053,6 +3098,19 @@ function showBreastFeedTooltip(){
         lobules.style.opacity = "0.96";
         var ducts = document.getElementById("ducts");
         ducts.style.opacity = "0.96";
+
+        var fattyTissueZoomedLabelAndLine = document.getElementById("fattyTissueZoomedLabelAndLine");
+        fattyTissueZoomedLabelAndLine.setAttribute("visibility","visible");
+
+        var lobuleZoomedLabelAndLine = document.getElementById("lobuleZoomedLabelAndLine");
+        lobuleZoomedLabelAndLine.setAttribute("visibility","visible");
+
+        var nippleZoomedLabelAndLine = document.getElementById("nippleZoomedLabelAndLine");
+        nippleZoomedLabelAndLine.setAttribute("visibility","visible");
+
+        var ductZoomedLabelAndLine = document.getElementById("ductZoomedLabelAndLine");
+        ductZoomedLabelAndLine.style ="";
+
         play("breastFigure", "", "anti-scale-translate-animation");
         var uncontrollablyTooltip = document.getElementById(
           "uncontrollablyTooltip"
@@ -3099,30 +3157,21 @@ function showBreastFeedTooltip(){
         var nipple = document.getElementById("nipple");
         nipple.setAttribute("visibility", "visible");
         var ducts = document.getElementById("ducts");
-        ducts.setAttribute("visibility", "visible");
-        var lobuleZoomedLabelAndLine = document.getElementById(
-          "lobuleZoomedLabelAndLine"
-        );
-        lobuleZoomedLabelAndLine.setAttribute("visibility", "visible");
+       ducts.setAttribute("visibility", "visible");
+        // var lobuleZoomedLabelAndLine = document.getElementById(
+        //   "lobuleZoomedLabelAndLine"
+        // );
+        // lobuleZoomedLabelAndLine.setAttribute("visibility", "visible");
         var ductZoomedLabelAndLine = document.getElementById(
           "ductZoomedLabelAndLine"
         );
-        ductZoomedLabelAndLine.setAttribute("visibility", "visible");
+         ductZoomedLabelAndLine.setAttribute("visibility", "visible");
         var dark_background_breastOutlines = document.getElementById(
           "dark-background-breastOutlines"
         );
         dark_background_breastOutlines.setAttribute("visibility", "visible");
-        for (let i = 0; i < timeouts.length; i++) {
-          clearTimeout(timeouts[i]);
-        }
-        timeouts = []; // Clear the timeouts array
-        function hideElementById(elementId) {
-          var element = document.getElementById(elementId);
-          if (element) {
-            element.setAttribute("class", "");
-          }
-        }
-
+    
+    
         var metastaticBreastCancer = document.getElementById("metastaticBreastCancer");
         metastaticBreastCancer.setAttribute("class", "hide");
         document.getElementById("bonesGroup").setAttribute("class", "");
@@ -3134,19 +3183,9 @@ function showBreastFeedTooltip(){
 
         var fattyTissue = document.getElementById("fattyTissue");
         fattyTissue.setAttribute("visibility", "visible");
-        fattyTissue.setAttribute("class", "delayed-fade-in-3");
-
-        var nippleZoomedLabelAndLine = document.getElementById(
-          "nippleZoomedLabelAndLine"
-        );
-        nippleZoomedLabelAndLine.setAttribute("visibility", "visible");
-
+        
         var areola = document.getElementById("areola");
         areola.setAttribute("visibility", "visible");
-        var fattyTissueZoomedLabelAndLine = document.getElementById(
-          "fattyTissueZoomedLabelAndLine"
-        );
-        fattyTissueZoomedLabelAndLine.setAttribute("visibility", "visible");
         /*
         var lightBreastOutline = document.getElementById("lightBreastOutline");
         lightBreastOutline.setAttribute("visibility", "visible");
@@ -3188,6 +3227,13 @@ function showBreastFeedTooltip(){
       function revertToRiskFactors() {
            window.location.href = "goto://prev";
            hideTooltip(previousSymptomTooltip);
+           if (previousSymptomTooltip != "symptomsSlideIntro"){
+            
+            stop(previousSymptomId, previousSymptomAnimation);
+           previousSymptomTooltip = "symptomsSlideIntro";
+           }
+      previousSymptomId = "";
+      previousSymptomAnimation = "";
         var breastCancerSymptoms = document.getElementById(
           "breastCancerSymptoms"
         );
@@ -3499,20 +3545,22 @@ hideTooltip("breastCancerTreatmentTooltip2");
       hideTooltip("breastCancerOtherTreatmentIntroTooltip");
       var chemotherapy = document.getElementById("chemotherapy");
 chemotherapy.style.opacity = "0";
-
+chemotherapy.setAttribute("visibility","hidden");
 var hormoneTherapy = document.getElementById("hormoneTherapy");
 hormoneTherapy.style.opacity = "0";
-
+hormoneTherapy.setAttribute("visibility","hidden");
 var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
 targetedDrugTherapy.style.opacity = "0";
-
+targetedDrugTherapy.setAttribute("visibility","hidden");
 var pallativeCare = document.getElementById("pallativeCare");
 pallativeCare.style.opacity = "0";
-
+pallativeCare.setAttribute("visibility","hidden");
 var immunoTherapy = document.getElementById("immunoTherapy");
 immunoTherapy.style.opacity = "0";
+immunoTherapy.setAttribute("visibility","hidden");
 var radiationTherapy = document.getElementById("radiationTherapy");
 radiationTherapy.style.opacity = "0";
+radiationTherapy.setAttribute("visibility","hidden");
 
     hideTooltip("radiationTherapyTooltip1");
     hideTooltip("radiationTherapyTooltip2");
@@ -3981,6 +4029,8 @@ function revertToTargetedDrugTherapyTooltips(){
             );
             gradient_background.style.opacity = "0.75";
       stop("lifestyleSection","fade-in");
+      var lifestyleSection = document.getElementById("lifestyleSection");
+      lifestyleSection.setAttribute("visibility","hidden");
       
       play("pallativeCare","","pallativeCare");
       hideTooltip("lifestyleIntroTooltip");
@@ -10631,7 +10681,7 @@ id="importantNoteTooltip2"
                       stroke-width: 8px;
                     "></path>
           </g>
-      </g><g id="lifestyleSection" style="transform: translateY(-400px)" opacity="0"> 
+      </g><g id="lifestyleSection" style="transform: translateY(-400px)" opacity="0" visibility="hidden"> 
         <path d="M994.3,1233.27c0,228.8-185.48,414.27-414.27,414.27-228.8,0-414.27-185.48-414.27-414.27,0-228.8,185.48-414.27,414.27-414.27,228.8,0,414.27,185.48,414.27,414.27Z" style="fill: url(#linear-gradient-39); opacity: .75; stroke: url(#linear-gradient-39-2); stroke-miterlimit: 10; stroke-width: 4px;" id="lifestyleSectionCircle"></path>
          
          <g id="lifestyleSectionIcon">
