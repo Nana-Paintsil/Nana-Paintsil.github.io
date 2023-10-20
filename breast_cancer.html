@@ -720,7 +720,7 @@
   <body>
     <script>
       let index = 0;
-      let lastSessionIndex = 15;
+      let lastSessionIndex = 18;
       let isJumpingToIndex = false;
       let breastCancerDiagnosisIndex = 0;
       let previousSymptomTooltip = "symptomsSlideIntro";
@@ -777,6 +777,7 @@
         element.setAttribute("class", classWithoutAnimation);
        if (isJumpingToIndex){
         element.setAttribute("class",classWithAnimation);
+        console.log("jumping animation: " + classWithAnimation + " on " + id);
        }else{
          
         requestAnimationFrame((time) => {
@@ -785,8 +786,11 @@
             // element.className = classWithAnimation;
             element.setAttribute("class", classWithAnimation);
             //element.style.animationPlayState = "running";
+
+            console.log("normal animation: " + classWithAnimation + " on " + id);
           });
         });
+        
        }
       }
    
@@ -831,8 +835,13 @@
 
       function createTimeout(callback, delay) {
         
-        if((isJumpingToIndex && lastSessionIndex != 14)){
-          callback();
+        if(isJumpingToIndex){
+          if(lastSessionIndex == 14 && index == 14 || lastSessionIndex == 15 && index == 15){
+            setTimeout(callback, delay);
+          }
+          else{
+            callback();
+          }
         }else{
           setTimeout(callback, delay);
         }
@@ -1804,7 +1813,7 @@ createTimeout(() => {
           "mammogramSlide1"
         );
         tooltip.className = "tooltip breastCancer-text";
-      fadeDiagnosticIn("mammogramImageAndIcon");
+        fadeDiagnosticIn("mammogramImageAndIcon");
         play(
           "mammogramSlide1Text",
           "tooltiptext",
@@ -1818,7 +1827,7 @@ createTimeout(() => {
         toolitp2.className = "tooltip breastCancer-text";
 
         toolitp2.style.left = bbox.left + "px";
-        toolitp2.style.top = bbox.top +tooltip.scrollHeight+ 10 + "px";
+        toolitp2.style.top = bbox.top + 110 + "px";
         play(
           "mammogramSlide2Text",
           "tooltiptext",
@@ -4558,12 +4567,12 @@ function revertToTargetedDrugTherapyTooltips(){
         }
       }
     </script>
-    <!--
-    <div onclick="jumpToIndex()">
+    
+    <!-- <div onclick="jumpToIndex()">
      
       <span>Jump To Index</span>
-    </div>
-    -->
+    </div> -->
+   
     
 
     <div class="tooltip breastCancer-text hide" id="breastCancerTooltip">
