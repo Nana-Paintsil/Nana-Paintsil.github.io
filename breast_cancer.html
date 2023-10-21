@@ -836,7 +836,7 @@
       function createTimeout(callback, delay) {
         
         if(isJumpingToIndex){
-          if(lastSessionIndex == 14 && index == 14 || lastSessionIndex == 15 && index == 15){
+          if(lastSessionIndex == 14 && index == 14  || lastSessionIndex == 15 && index == 15 || lastSessionIndex == 18 && index == 18){
             setTimeout(callback, delay);
           }
           else{
@@ -1820,19 +1820,21 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
         var bbox = tooltip.getBoundingClientRect();
+        
         var toolitp2 = document.getElementById(
           "mammogramSlide2"
-        );
+          );
         
-        toolitp2.className = "tooltip breastCancer-text";
+          toolitp2.className = "tooltip breastCancer-text";
 
-        toolitp2.style.left = bbox.left + "px";
-        toolitp2.style.top = bbox.top + 110 + "px";
-        play(
+          toolitp2.style.left = bbox.left + "px";
+          toolitp2.style.top = bbox.top + 110 + "px";
+          play(
           "mammogramSlide2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
+        
       
         }
           
@@ -4568,10 +4570,10 @@ function revertToTargetedDrugTherapyTooltips(){
       }
     </script>
     
-    <!-- <div onclick="jumpToIndex()">
+    <div onclick="jumpToIndex()">
      
       <span>Jump To Index</span>
-    </div> -->
+    </div>
    
     
 

@@ -89,6 +89,7 @@
       width: 100%;
       height: 5rem;
       padding: 0 0.7rem;
+      color: var(--clr-text-color);
     }
 
     .question-details-container {
@@ -97,6 +98,7 @@
       justify-content: flex-start;
       width: 9rem;
       gap: 0.5rem;
+      font-size: 14px;
     }
 
     .question-details-container div {
@@ -122,6 +124,7 @@
       width: 9rem;
       gap: 0.5rem;
       margin-left: 1.4rem;
+      font-size: 14px;
     }
 
     .point-details-container div {
@@ -176,7 +179,10 @@
     .button-group-container .restart-button {
       color: var(--clr-text-color);
       background-color: var(--clr-white);
-      border: 2px solid var(--clr-bg-color);
+      border: 2px solid transparent;
+      margin-bottom: 2.5rem;
+      width: 80%;
+      box-shadow: 0 -2px 7px 7px #ffcece4d;
     }
 
      .button-group-container button:hover {
@@ -254,7 +260,7 @@
             </div>
             <span>10 questions</span>
           </div>
-          <div class="border-line"></div>
+          <!-- <div class="border-line"></div> -->
           <div class="point-details-container">
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 512 512">

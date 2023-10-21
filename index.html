@@ -36,21 +36,21 @@
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center;
+      overflow: hidden;
     }
 
     .content-wrapper {
-      height: 90vh;
+      height: 100vh;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      align-items: center;
+      position: relative;
+      top: 0;
+      left: 0;
+      
     }
 
     #lottie{
           /* background-color:#ffffff; */
-          width:100%;
-          height:40%;
+          width:120%;      
           display:block;
           overflow: hidden;
           transform: translate3d(0,0,0);
@@ -58,29 +58,49 @@
           opacity: 1;
       }
 
+    .bottom-card {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        border-radius: 30px 30px 0 0;
+        margin-top: -80px;
+        padding-top: 20px;
+        box-shadow: 0 0 7px 7px #9e9e9e4d;
+      }
+
     .text-container {
       color: var(--clr-text-color);
       width: 80%;
       text-align: center;
+      
     }
 
     .text-container .title {
       font-size: 2rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
+      /* max-width: 250px; */
     }
 
     .text-container .description p {
       margin-bottom: 1rem;
+      /* max-width: 250px; */
     }
 
     .button-group-container {
-      width: 80%;
+      width: 100%;
       height: 9rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 1rem;
+      margin-top: -6rem;
     }
 
     .button-group-container p {
@@ -88,7 +108,7 @@
     }
 
     .button-group-container button {
-      width: 80%;
+      width: 60%;
       height: 3rem;
       border-radius: 50px;
       background: none;
@@ -119,8 +139,8 @@
     }
 
     .button-group-container .take-quiz-button {
-      color: var(--clr-text-color);
-      background-color: var(--clr-bg-color);
+      color: var(--clr-white);
+      background-color: var(--clr-text-color);
     }
 
     @keyframes fadeIn {
@@ -162,18 +182,20 @@ return lottie;
   <main>
     <div class="content-wrapper">
      <div id="lottie"></div>
-     <div class="text-container">
-      <p class="title">Congratulations</p>
-      <div class="description">
-        <p>You have successfully completed 'The Science' of Breast Cancer.</p>
-        <p>Let's see what you've learnt so far.</p>
-      </div>
+     <div class="bottom-card">
+      <div class="text-container">
+        <p class="title">Congrats!</p>
+        <div class="description">
+          <p>You have successfully completed 'The Science' of Breast Cancer.</p>
+          <p>Let's see what you've learnt so far.</p>
+        </div>
+       </div>
+        <div class="button-group-container">
+          <button class="take-quiz-button" onclick="window.location.href = 'breast_cancer_quiz_intro.html'">Take Quiz</button>
+          <!-- <p>Or</p> -->
+          <button class="restart-button" onclick="window.location.href = 'breast_cancer.html'">Restart Learning</button>
+        </div>
      </div>
-      <div class="button-group-container">
-        <button class="take-quiz-button" onclick="window.location.href = 'breast_cancer_quiz_intro.html'">Take Quiz</button>
-        <p>Or</p>
-        <button class="restart-button" onclick="window.location.href = 'breast_cancer.html'">Restart Learning</button>
-      </div>
     </div>
   </main>
 
