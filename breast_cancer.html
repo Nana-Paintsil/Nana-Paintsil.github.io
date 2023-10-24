@@ -646,7 +646,7 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(-375px, 600px) scale(1.1);
+    transform: translate(-995px, -100px) scale(1.8);
   }
 }
 @keyframes healthyDietAnimation {
@@ -676,7 +676,7 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(-905px, -855px) scale(1.6);
+    transform: translate(-1705px, -2255px) scale(2.5);
   }
 }
 
@@ -685,7 +685,7 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(285px, 470px) scale(0.9);
+    transform: translate(105px, -300px) scale(1.5);
   }
 }
 @keyframes targetedDrugTherapyAnimation {
@@ -693,7 +693,7 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(-465px, -175px) scale(1.375);
+    transform: translate(-1065px, -1225px) scale(2.175);
   }
 }
 
@@ -702,7 +702,7 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(265px, 745px) scale(1.05);
+    transform: translate(70px, 115px) scale(1.8);
   }
 }
 
@@ -711,7 +711,7 @@
     transform: translate(0, 0) scale(1);
   }
   100% {
-    transform: translate(0, -70px);
+    transform: translate(-275px, -920px) scale(1.5);
   }
 }
     </style>
@@ -720,13 +720,16 @@
   <body>
     <script>
       let index = 0;
-      let lastSessionIndex = 18;
+      let lastSessionIndex = 0;
       let isJumpingToIndex = false;
       let breastCancerDiagnosisIndex = 0;
       let previousSymptomTooltip = "symptomsSlideIntro";
       let previousSymptomId = "";
       let previousSymptomAnimation = "";
-  
+    function setLastSessionIndex(value) {
+      lastSessionIndex = value;
+      jumpToIndex(); 
+    }
      function jumpToIndex(){
         isJumpingToIndex = true;
         for (let i = 0; i<= lastSessionIndex;i++){
@@ -735,6 +738,7 @@
         isJumpingToIndex = false;
       
       }
+     //  setTimeout(jumpToIndex, 600);
       function updateClassAfterDelay() {
         var element = document.getElementById("next_button_and_tooltip");
         element.className = "tooltip";
@@ -748,6 +752,14 @@
 
         element.setAttribute("visibility", "visible");
       }
+      function changeURL(url) {
+  return new Promise((resolve, reject) => {
+    window.location.href = url;
+    window.onload = () => resolve();
+  });
+}
+
+
       function disappearElement(elementId) {
         const element = document.getElementById(elementId);
         if (element) {
@@ -777,7 +789,6 @@
         element.setAttribute("class", classWithoutAnimation);
        if (isJumpingToIndex){
         element.setAttribute("class",classWithAnimation);
-        console.log("jumping animation: " + classWithAnimation + " on " + id);
        }else{
          
         requestAnimationFrame((time) => {
@@ -787,7 +798,6 @@
             element.setAttribute("class", classWithAnimation);
             //element.style.animationPlayState = "running";
 
-            console.log("normal animation: " + classWithAnimation + " on " + id);
           });
         });
         
@@ -836,7 +846,7 @@
       function createTimeout(callback, delay) {
         
         if(isJumpingToIndex){
-          if(lastSessionIndex == 14 && index == 14  || lastSessionIndex == 15 && index == 15 || lastSessionIndex == 18 && index == 18){
+          if(lastSessionIndex == 14 && index == 14 || lastSessionIndex == 15 && index == 15){
             setTimeout(callback, delay);
           }
           else{
@@ -1213,7 +1223,7 @@
         
       }
       function proceedToCausesSlide1() {
-        window.location.href = "goto://next";
+        if (!isJumpingToIndex){console.log("Go To Next Section");}
         const gradient_background = document.getElementById(
           "gradient-background"
         );
@@ -1726,7 +1736,7 @@ createTimeout(() => {
 
       
       function showBreastCancerSymptoms() {
-        window.location.href = "goto://next";
+        if (!isJumpingToIndex){console.log("Go To Next Section");}
         const gradient_background = document.getElementById(
           "gradient-background"
         );
@@ -1768,7 +1778,7 @@ createTimeout(() => {
       
       function showBreastCancerDiagnosisIntro() {
        
-        window.location.href = "goto://next";
+        if (!isJumpingToIndex){console.log("Go To Next Section");}
         hideTooltip(previousSymptomTooltip);
         //todo: check if they've interacted with at least one symptom
         if(previousSymptomAnimation !== ""){
@@ -1820,24 +1830,21 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
         var bbox = tooltip.getBoundingClientRect();
-        
         var toolitp2 = document.getElementById(
           "mammogramSlide2"
-          );
+        );
         
-          toolitp2.className = "tooltip breastCancer-text";
+        toolitp2.className = "tooltip breastCancer-text";
 
-          toolitp2.style.left = bbox.left + "px";
-          toolitp2.style.top = bbox.top + 110 + "px";
-          play(
+        toolitp2.style.left = bbox.left + "px";
+        toolitp2.style.top = bbox.top + 110 + "px";
+        play(
           "mammogramSlide2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        
       
         }
-          
       function showBiopsySlides(){
         hideTooltip("mammogramSlide1");
         hideTooltip("mammogramSlide2");
@@ -1870,10 +1877,40 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
       }
-      function showBreastUltrasoundSlides(){
+      function showBreastExaminationSlides(){
         hideTooltip("biopsySlide1");
         hideTooltip("biopsySlide2");
         hideContent("breastBiopsyImageAndIcon");
+        fadeDiagnosticIn("breastExamImageAndIcon");
+        var tooltip = document.getElementById(
+          "breastExaminationSlide1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "breastExaminationSlide1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+        var bbox2 = tooltip.getBoundingClientRect();
+        var toolitp2 = document.getElementById(
+          "breastExaminationSlide2"
+        );
+        toolitp2.className = "tooltip breastCancer-text";
+
+        toolitp2.style.left = bbox2.left + "px";
+        toolitp2.style.top = bbox2.top +tooltip.scrollHeight + 10 + "px";
+        play(
+          "breastExaminationSlide2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      
+      }
+      function showBreastUltrasoundSlides(){
+        hideTooltip("breastExaminationSlide1");
+        hideTooltip("breastExaminationSlide2");
+        hideContent("breastExamImageAndIcon");
         fadeDiagnosticIn("breastUltrasoundImageAndIcon");
           var tooltip = document.getElementById(
           "breastUltrasoundSlide1"
@@ -1935,7 +1972,7 @@ createTimeout(() => {
      
     
       function showBreastCancerTreatment() {
-        window.location.href = "goto://next";
+        if (!isJumpingToIndex){console.log("Go To Next Section");}
         hideTooltip("breastMRISlide1");
         hideContent("breastMRIImageAndIcon");
         hideTooltip("breastMRISlide2");
@@ -1999,7 +2036,7 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
 
-        var bbox = causesSlide1Tooltip.getBoundingClientRect();
+    /*    var bbox = causesSlide1Tooltip.getBoundingClientRect();
         var causesSlide1Tooltip = document.getElementById(
           "breastCancerTreatmentTooltip4"
         );
@@ -2013,7 +2050,7 @@ createTimeout(() => {
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        
+        */
 
 
       }
@@ -2135,17 +2172,22 @@ createTimeout(() => {
         breastCancerTreatment.setAttribute("visibility", "visible");
         var radiationTherapy = document.getElementById("radiationTherapy");
         radiationTherapy.setAttribute("visibility","visible");
+        radiationTherapy.style.opacity = "100";
         var chemotherapy = document.getElementById("chemotherapy");
         chemotherapy.setAttribute("visibility","visible");
+        chemotherapy.style.opacity = "100";
         var hormoneTherapy = document.getElementById("hormoneTherapy");
         hormoneTherapy.setAttribute("visibility","visible");
+        hormoneTherapy.style.opacity = "100";
         var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
         targetedDrugTherapy.setAttribute("visibility","visible");
+        targetedDrugTherapy.style.opacity = "100";
         var pallativeCare = document.getElementById("pallativeCare");
         pallativeCare.setAttribute("visibility","visible");
+        pallativeCare.style.opacity = "100";
         var immunoTherapy = document.getElementById("immunoTherapy");
         immunoTherapy.setAttribute("visibility","visible");
-        
+        immunoTherapy.style.opacity = "100";
         var tooltip = document.getElementById(
           "breastCancerOtherTreatmentIntroTooltip"
         );
@@ -2189,7 +2231,6 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-/*
         var bbox = tooltip.getBoundingClientRect();
         var tooltip2 = document.getElementById(
           "radiationTherapyTooltip2"
@@ -2202,7 +2243,7 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        
+        /*
         var tooltip = document.getElementById(
           "radiationTherapyTooltip3"
         );
@@ -2254,7 +2295,7 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-/*
+
         var bbox2 = tooltip.getBoundingClientRect();
         var tooltip2 = document.getElementById(
           "hormoneTherapyTooltip2"
@@ -2263,13 +2304,13 @@ play("radiationTherapy","","radiationTherapy");
 
         // Show the tooltip at the position of the clicked element
         tooltip2.style.left = bbox2.left + "px";
-        tooltip2.style.top = bbox2.top + 105 + "px";
+        tooltip2.style.top = bbox2.top + tooltip.scrollHeight+ 10 + "px";
         play(
           "hormoneTherapyTooltip2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        
+        /*
       var tooltip = document.getElementById(
           "hormoneTherapyTooltip3"
         );
@@ -2321,7 +2362,7 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-/*
+
         var bbox4 = tooltip.getBoundingClientRect();
         var tooltip2 = document.getElementById(
           "chemotherapyTooltip2"
@@ -2330,14 +2371,14 @@ play("radiationTherapy","","radiationTherapy");
 
         // Show the tooltip at the position of the clicked element
         tooltip2.style.left = bbox4.left + "px";
-        tooltip2.style.top = bbox4.top + 85 + "px";
+        tooltip2.style.top = bbox4.top + tooltip.scrollHeight +10+ "px";
         play(
           "chemotherapyTooltip2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
         
-      var tooltip = document.getElementById(
+     /* var tooltip = document.getElementById(
           "chemotherapyTooltip3"
         );
         tooltip.className = "tooltip breastCancer-text";
@@ -2387,7 +2428,7 @@ play("radiationTherapy","","radiationTherapy");
             "tooltiptext",
             "tooltiptext tooltipAnimate"
           );
-          /*
+          
   
           var bbox5 = tooltip.getBoundingClientRect();
           var tooltip2 = document.getElementById(
@@ -2397,14 +2438,14 @@ play("radiationTherapy","","radiationTherapy");
   
           // Show the tooltip at the position of the clicked element
           tooltip2.style.left = bbox5.left + "px";
-          tooltip2.style.top = bbox5.top + 125 + "px";
+          tooltip2.style.top = bbox5.top + tooltip.scrollHeight+ 10 + "px";
           play(
             "targetedDrugTherapyTooltip2Text",
             "tooltiptext",
             "tooltiptext tooltipAnimate"
           );
       
-        
+       /*  
         var tooltip = document.getElementById(
             "targetedDrugTherapyTooltip3"
           );
@@ -2470,7 +2511,7 @@ play("radiationTherapy","","radiationTherapy");
             "tooltiptext",
             "tooltiptext tooltipAnimate"
           );
-  /*
+  
           var bbox7 = tooltip.getBoundingClientRect();
           var tooltip2 = document.getElementById(
             "immunoTherapyTooltip2"
@@ -2479,14 +2520,14 @@ play("radiationTherapy","","radiationTherapy");
   
           // Show the tooltip at the position of the clicked element
           tooltip2.style.left = bbox7.left + "px";
-          tooltip2.style.top = bbox7.top + 125 + "px";
+          tooltip2.style.top = bbox7.top + tooltip.scrollHeight + 10 + "px";
           play(
             "immunoTherapyTooltip2Text",
             "tooltiptext",
             "tooltiptext tooltipAnimate"
           );
           
-          var tooltip = document.getElementById(
+       /*   var tooltip = document.getElementById(
               "immunoTherapyTooltip3"
             );
             tooltip.className = "tooltip breastCancer-text";
@@ -2550,7 +2591,7 @@ play("radiationTherapy","","radiationTherapy");
               "tooltiptext",
               "tooltiptext tooltipAnimate"
             );
-    /*
+  
             var bbox9 = tooltip.getBoundingClientRect();
             var tooltip2 = document.getElementById(
               "pallativeCareTooltip2"
@@ -2559,12 +2600,12 @@ play("radiationTherapy","","radiationTherapy");
     
             // Show the tooltip at the position of the clicked element
             tooltip2.style.left = bbox9.left + "px";
-            tooltip2.style.top = bbox9.top + 105 + "px";
+            tooltip2.style.top = bbox9.top + tooltip.scrollHeight+10 + "px";
             play(
               "pallativeCareTooltip2Text",
               "tooltiptext",
               "tooltiptext tooltipAnimate"
-            );
+            );/*
           var tooltip = document.getElementById(
               "pallativeCareTooltip3"
             );
@@ -2579,6 +2620,7 @@ play("radiationTherapy","","radiationTherapy");
           }
           
       function showBreastCancerLifestyleIntro(){
+      if (!isJumpingToIndex){console.log("Go To Next Section");}
         const gradient_background = document.getElementById(
               "gradient-background"
             );
@@ -2935,7 +2977,7 @@ function showBreastFeedTooltip(){
       }
 
       function revertToStage4Text() {
-           window.location.href = "goto://prev";
+           console.log("Go To Prev Section");
            stop("fattyTissue","delayed-fade-in-3");
            undoFadeInAndScale("fattyTissueZoomedLabelAndLine");
         const gradient_background = document.getElementById(
@@ -3236,7 +3278,7 @@ function showBreastFeedTooltip(){
       }
 
       function revertToRiskFactors() {
-           window.location.href = "goto://prev";
+           console.log("Go To Prev Section");
            hideTooltip(previousSymptomTooltip);
            if (previousSymptomTooltip != "symptomsSlideIntro"){
             
@@ -3263,7 +3305,7 @@ function showBreastFeedTooltip(){
       }
 
       function revertToBreastCancerSymptoms() {
-           window.location.href = "goto://prev";
+           console.log("Go To Prev Section");
         hideTooltip("diagnosticsSlideIntro");
         var breastCancerDiagnosis = document.getElementById(
           "breastCancerDiagnosis"
@@ -3288,7 +3330,6 @@ function showBreastFeedTooltip(){
 
       function revertToBreastCancerDiagnosisIntro() {
      
-           window.location.href = "goto://prev";
            hideTooltip("mammogramSlide1");
           hideTooltip("mammogramSlide2");
           hideContent("mammogramImageAndIcon");
@@ -3331,10 +3372,10 @@ function showBreastFeedTooltip(){
         );
         }
         function revertToBiopsySlides(){
-        hideTooltip("breastUltrasoundSlide1");
-        hideTooltip("breastUltrasoundSlide2");
-        hideContent("breastUltrasoundImageAndIcon");
- fadeDiagnosticIn("breastBiopsyImageAndIcon");
+        hideTooltip("breastExaminationSlide1");
+        hideTooltip("breastExaminationSlide2");
+        hideContent("breastExamImageAndIcon");
+        fadeDiagnosticIn("breastBiopsyImageAndIcon");
           var tooltip = document.getElementById(
           "biopsySlide1"
         );
@@ -3361,7 +3402,39 @@ function showBreastFeedTooltip(){
           "tooltiptext tooltipAnimate"
         );
         }
-      function revertToBreastUltrasoundSlides(){
+        function revertToBreastExamSlides(){
+          hideTooltip("breastUltrasoundSlide1");
+        hideTooltip("breastUltrasoundSlide2");
+        hideContent("breastUltrasoundImageAndIcon");
+        fadeDiagnosticIn("breastExamImageAndIcon");
+        var tooltip = document.getElementById(
+          "breastExaminationSlide1"
+        );
+      var tooltipHeight =   tooltip.style.getPropertyValue("height");
+
+        tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "breastExaminationSlide1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+        var bbox1 = tooltip.getBoundingClientRect();
+        var toolitp2 = document.getElementById(
+          "breastExaminationSlide2"
+        );
+        toolitp2.className = "tooltip breastCancer-text";
+
+        toolitp2.style.left = bbox1.left + "px";
+        toolitp2.style.top = bbox1.top + tooltip.scrollHeight + 10 + "px";
+        play(
+          "breastExaminationSlide2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+        
+        }
+        function revertToBreastUltrasoundSlides(){
       hideTooltip("breastMRISlide1");
         hideTooltip("breastMRISlide2");
         hideContent("breastMRIImageAndIcon");
@@ -3391,6 +3464,7 @@ function showBreastFeedTooltip(){
         );
       }
       function revertToBreastMRISlides(){
+        console.log("Go To Prev Section");
       hideTooltip("breastCancerTreatmentTooltip");
       fadeDiagnosticIn("breastMRIImageAndIcon");
 hideTooltip("breastCancerTreatmentTooltip2");
@@ -3703,7 +3777,7 @@ immunoTherapy.style.opacity = "1";
        "tooltiptext",
        "tooltiptext tooltipAnimate"
      );
-     /*
+     
 
      var bbox = tooltip.getBoundingClientRect();
      var tooltip2 = document.getElementById(
@@ -3713,13 +3787,13 @@ immunoTherapy.style.opacity = "1";
 
      // Show the tooltip at the position of the clicked element
      tooltip2.style.left = bbox.left + "px";
-     tooltip2.style.top = bbox.top + 105 + "px";
+     tooltip2.style.top = bbox.top + tooltip.scrollHeight+ 10 + "px";
      play(
        "radiationTherapyTooltip2Text",
        "tooltiptext",
        "tooltiptext tooltipAnimate"
      );
-    
+    /*
      var tooltip = document.getElementById(
        "radiationTherapyTooltip3"
      );
@@ -3768,7 +3842,7 @@ immunoTherapy.style.opacity = "1";
        "tooltiptext",
        "tooltiptext tooltipAnimate"
      );
-/*
+
      var bbox2 = tooltip.getBoundingClientRect();
      var tooltip2 = document.getElementById(
        "hormoneTherapyTooltip2"
@@ -3777,13 +3851,13 @@ immunoTherapy.style.opacity = "1";
 
      // Show the tooltip at the position of the clicked element
      tooltip2.style.left = bbox2.left + "px";
-     tooltip2.style.top = bbox2.top + 105 + "px";
+     tooltip2.style.top = bbox2.top + tooltip.scrollHeight+ 10 + "px";
      play(
        "hormoneTherapyTooltip2Text",
        "tooltiptext",
        "tooltiptext tooltipAnimate"
      );
-     
+    /* 
    var tooltip = document.getElementById(
        "hormoneTherapyTooltip3"
      );
@@ -3833,7 +3907,7 @@ immunoTherapy.style.opacity = "1";
        "tooltiptext",
        "tooltiptext tooltipAnimate"
      );
-/*
+
      var bbox4 = tooltip.getBoundingClientRect();
      var tooltip2 = document.getElementById(
        "chemotherapyTooltip2"
@@ -3842,13 +3916,13 @@ immunoTherapy.style.opacity = "1";
 
      // Show the tooltip at the position of the clicked element
      tooltip2.style.left = bbox4.left + "px";
-     tooltip2.style.top = bbox4.top + 85 + "px";
+     tooltip2.style.top = bbox4.top + tooltip.scrollHeight+ 10 + "px";
      play(
        "chemotherapyTooltip2Text",
        "tooltiptext",
        "tooltiptext tooltipAnimate"
      );
-     
+     /*
    var tooltip = document.getElementById(
        "chemotherapyTooltip3"
      );
@@ -3901,7 +3975,7 @@ function revertToTargetedDrugTherapyTooltips(){
          "tooltiptext",
          "tooltiptext tooltipAnimate"
        );
-/*
+
        var bbox5 = tooltip.getBoundingClientRect();
        var tooltip2 = document.getElementById(
          "targetedDrugTherapyTooltip2"
@@ -3910,13 +3984,13 @@ function revertToTargetedDrugTherapyTooltips(){
 
        // Show the tooltip at the position of the clicked element
        tooltip2.style.left = bbox5.left + "px";
-       tooltip2.style.top = bbox5.top + 125 + "px";
+       tooltip2.style.top = bbox5.top + tooltip.scrollHeight+ 10 + "px";
        play(
          "targetedDrugTherapyTooltip2Text",
          "tooltiptext",
          "tooltiptext tooltipAnimate"
        );
-   
+   /*
      
      var tooltip = document.getElementById(
          "targetedDrugTherapyTooltip3"
@@ -3978,7 +4052,7 @@ function revertToTargetedDrugTherapyTooltips(){
          "tooltiptext",
          "tooltiptext tooltipAnimate"
        );
-/*
+
        var bbox7 = tooltip.getBoundingClientRect();
        var tooltip2 = document.getElementById(
          "immunoTherapyTooltip2"
@@ -3987,13 +4061,13 @@ function revertToTargetedDrugTherapyTooltips(){
 
        // Show the tooltip at the position of the clicked element
        tooltip2.style.left = bbox7.left + "px";
-       tooltip2.style.top = bbox7.top + 125 + "px";
+       tooltip2.style.top = bbox7.top + tooltip.scrollHeight+ 10 + "px";
        play(
          "immunoTherapyTooltip2Text",
          "tooltiptext",
          "tooltiptext tooltipAnimate"
        );
-       
+       /*
        var tooltip = document.getElementById(
            "immunoTherapyTooltip3"
          );
@@ -4033,6 +4107,7 @@ function revertToTargetedDrugTherapyTooltips(){
          );*/
      }
      function revertToPallativeCareTooltips(){
+      console.log("Go To Prev Section");
       var pallativeCare  = document.getElementById("pallativeCare");
       pallativeCare.style.opacity = "1";
       const gradient_background = document.getElementById(
@@ -4056,7 +4131,7 @@ function revertToTargetedDrugTherapyTooltips(){
            "tooltiptext",
            "tooltiptext tooltipAnimate"
          );
- /*
+ 
          var bbox9 = tooltip.getBoundingClientRect();
          var tooltip2 = document.getElementById(
            "pallativeCareTooltip2"
@@ -4065,12 +4140,13 @@ function revertToTargetedDrugTherapyTooltips(){
  
          // Show the tooltip at the position of the clicked element
          tooltip2.style.left = bbox9.left + "px";
-         tooltip2.style.top = bbox9.top + 105 + "px";
+         tooltip2.style.top = bbox9.top + tooltip.scrollHeight+ 10 + "px";
          play(
            "pallativeCareTooltip2Text",
            "tooltiptext",
            "tooltiptext tooltipAnimate"
          );
+         /*
        var tooltip = document.getElementById(
            "pallativeCareTooltip3"
          );
@@ -4278,108 +4354,114 @@ function revertToTargetedDrugTherapyTooltips(){
             revertToBiopsySlides();
             index = 20;
             break;
-          case 22: 
-          revertToBreastUltrasoundSlides();
-          index = 21;
+          case 22:
+            revertToBreastExamSlides();
+            index = 21;
             break;
-          case 23:
-            revertToBreastMRISlides();
-            index = 22;
+          case 23: 
+          revertToBreastUltrasoundSlides();
+          index = 22;
             break;
           case 24:
-            revertToBreastCancerTreatmentIntro();
+            revertToBreastMRISlides();
             index = 23;
             break;
-            case 25:
-            revertToBreastCancerTreatmentIntroNextSet();
+          case 25:
+            revertToBreastCancerTreatmentIntro();
             index = 24;
             break;
             case 26:
-            revertToLumpectomyTooltip();
+            revertToBreastCancerTreatmentIntroNextSet();
             index = 25;
-            break;  
-            case 27:
-            revertToMastectomyTooltip();
-            index = 26;
             break;
+            case 27:
+            revertToLumpectomyTooltip();
+            index = 26;
+            break;  
             case 28:
-            revertToLymphNode();
+            revertToMastectomyTooltip();
             index = 27;
             break;
             case 29:
-            revertToBiMastectomyTooltip();
+            revertToLymphNode();
             index = 28;
             break;
             case 30:
-            revertToBreastCancerOtherTreatmentIntro();
+            revertToBiMastectomyTooltip();
             index = 29;
             break;
             case 31:
-            revertToRadiationTherapyTooltips();
+            revertToBreastCancerOtherTreatmentIntro();
             index = 30;
             break;
             case 32:
-            revertToHormoneTherapyTooltips();
+            revertToRadiationTherapyTooltips();
             index = 31;
             break;
             case 33:
-            revertToChemoTherapyTooltips();
+            revertToHormoneTherapyTooltips();
             index = 32;
             break;
             case 34:
-            revertToTargetedDrugTherapyTooltips();
+            revertToChemoTherapyTooltips();
             index = 33;
             break;
             case 35:
-            revertToImmunoTherapyTooltips();
+            revertToTargetedDrugTherapyTooltips();
             index = 34;
             break;
             case 36:
-            revertToPallativeCareTooltips();
+            revertToImmunoTherapyTooltips();
             index = 35;
             break;
-          case 37:
-            revertToLifestyleIntro();
+            case 37:
+            revertToPallativeCareTooltips();
             index = 36;
             break;
-            case 38:
-            revertToDietTooltip();
+          case 38:
+            revertToLifestyleIntro();
             index = 37;
             break;
             case 39:
-            revertToAlcoholTooltip();
+            revertToDietTooltip();
             index = 38;
             break;
             case 40:
-            revertToWeightTooltip();
+            revertToAlcoholTooltip();
             index = 39;
             break;
             case 41:
-            revertToBreastFeedTooltip();
+            revertToWeightTooltip();
             index = 40;
             break;
             case 42:
-           
-            revertToBeActiveTooltip();
+            revertToBreastFeedTooltip();
             index = 41;
             break;
             case 43:
-            revertToLimitTherapyTooltip();
+           
+            revertToBeActiveTooltip();
             index = 42;
             break;
             case 44:
-            revertToHealthyDietTooltip();
+            revertToLimitTherapyTooltip();
             index = 43;
             break;
             case 45:
-            revertToBirthControlTooltip();
+            revertToHealthyDietTooltip();
             index = 44;
             break;
             case 46:
-            revertToImportantNote();
+            revertToBirthControlTooltip();
             index = 45;
             break;
+            case 47:
+            revertToImportantNote();
+            index = 46;
+            break;
         }
+        if (index > 0){
+      if (!isJumpingToIndex){console.log("Go To Prev Page");}}
       }
 
       function onNextButtonPressed() {
@@ -4387,193 +4469,246 @@ function revertToTargetedDrugTherapyTooltips(){
           case 0:
             showBreastCancerTooltip();
             index = 1;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 1:
             showCancerousTumorToolTip();
             index = 2;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 2:
             showBenignTumorToolTip();
             index = 3;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 3:
             proceedToStage0();
             index = 4;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 4:
             proceedToStage1();
             index = 5;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 5:
             proceedToStage2();
             index = 6;
+            if (!isJumpingToIndex){console.log("Go To Next Page");} 
             break;
           case 6:
             proceedToStage3();
             index = 7;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 7:
             proceedToStage4();
             index = 8;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 8:
             proceedToCausesSlide1();
             index = 9;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 9:
             proceedToCausesSlide2();
             index = 10;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 10:
             showLobuleTooltip();
             index = 11;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 11:
             showDuctTooltip();
             index = 12;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 12:
             showuncontrollablyTooltip();
             index = 13;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 13:
             showInnerLiningTooltip();
             index = 14;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 14:
             showMetastaticBreastCancer();
             index = 15;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 15:
             showRiskFactors();
             index = 16;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 16:
             showBreastCancerSymptoms();
             index = 17;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 17:
           showBreastCancerDiagnosisIntro();
             index = 18;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 18:
             showMammogramSlides();
             index = 19;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 19:
             showBiopsySlides();
             index = 20;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
           case 20:
-            showBreastUltrasoundSlides();
+            showBreastExaminationSlides();
             index = 21;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
-            case 21:
-            showBreastMRISlides();
+          case 21:
+            showBreastUltrasoundSlides();
             index = 22;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
             break;
-            case 22:
-        showBreastCancerTreatment();
-        index = 23;
-        break;
-      case 23:
-        showBreastCancerTreatmentIntroNextSet();
-        index  = 24;
-        break;
-      case 24:
-        showLumpectomyTooltip();
-        index  = 25;
-        break;
-      case 25: 
+          case 22:
+            showBreastMRISlides();
+            index = 23;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            break;
+          case 23:
+            showBreastCancerTreatment();
+            index = 24;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            break;
+          case 24:
+            showBreastCancerTreatmentIntroNextSet();
+            index  = 25;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            break;
+          case 25:
+            showLumpectomyTooltip();
+            index  = 26;
+            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            break;
+      case 26: 
         showMastectomyTooltip();
-        index  = 26;
-        break;
-      case 26:
-        showLymphNodeTooltip();
         index  = 27;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
-      case 27: 
-        showBiMastectomyTooltip();
+      case 27:
+        showLymphNodeTooltip();
         index  = 28;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
-      case 28:
-        showBreastCancerOtherTreatmentIntro();
-        index = 29;
+      case 28: 
+        showBiMastectomyTooltip();
+        index  = 29;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 29:
-        showRadiationTherapyTooltips();
+        showBreastCancerOtherTreatmentIntro();
         index = 30;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 30:
-        showHormoneTherapyTooltips();
+        showRadiationTherapyTooltips();
         index = 31;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 31:
-        showChemoTherapyTooltips();
+        showHormoneTherapyTooltips();
         index = 32;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 32:
-        showTargetedDrugTherapyTooltips();
+        showChemoTherapyTooltips();
         index = 33;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 33:
-        showImmunoTherapyTooltips();
+        showTargetedDrugTherapyTooltips();
         index = 34;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 34:
-        showPallativeCareTooltips();
+        showImmunoTherapyTooltips();
         index = 35;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 35:
-        showBreastCancerLifestyleIntro();
+        showPallativeCareTooltips();
         index = 36;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 36:
-        showDietTooltip();
+        showBreastCancerLifestyleIntro();
         index = 37;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 37:
-        showAlcoholTooltip();
+        showDietTooltip();
         index = 38;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 38:
-        showWeightTooltip();
+        showAlcoholTooltip();
         index = 39;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 39:
-      showBreastFeedTooltip();
+        showWeightTooltip();
         index = 40;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 40:
-      
-        showBeActiveTooltip();
+      showBreastFeedTooltip();
         index = 41;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 41:
-        showLimitTherapyTooltip();
+      
+        showBeActiveTooltip();
         index = 42;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 42:
-        showHealthyDietTooltip();
+        showLimitTherapyTooltip();
         index = 43;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 43:
-        showBirthControlTooltip();
+        showHealthyDietTooltip();
         index = 44;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
       case 44:
-        showImportantNoteTooltip();
+        showBirthControlTooltip();
         index = 45;
+        if (!isJumpingToIndex){console.log("Go To Next Page");}
         break;
+      case 45:
+        showImportantNoteTooltip();
+        index = 46;
+        break;
+      case 46:
+      if (!isJumpingToIndex){console.log("Go To Next Section");}
+
+      break;
 
         }
       }
     </script>
     
-    <div onclick="jumpToIndex()">
+    <!-- <div onclick="jumpToIndex()">
      
       <span>Jump To Index</span>
-    </div>
+    </div> -->
    
     
 
@@ -4908,7 +5043,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="radiationTherapyTooltip1Text"
-        >Radiation therapy for breast cancer uses high-energy X-rays, protons or other particles to kill cancer cells. Radiation therapy may be used to treat breast cancer at almost every stage. It is an effective way to reduce your risk of breast cancer recurring after surgery. In addition, it is commonly used to ease the symptoms of metastatic breast cancer.</span
+        >Radiation therapy for breast cancer uses high-energy X-rays, protons or other particles to kill cancer cells. Radiation therapy may be used to treat breast cancer at almost every stage.</span
       >
     </div>
 
@@ -4919,7 +5054,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -4927,8 +5062,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="radiationTherapyTooltip2Text"
-        ></span
-      >
+        >It is an effective way to reduce your risk of breast cancer recurring after surgery. In addition, it is commonly used to ease the symptoms of metastatic breast cancer.</span>
     </div>
 
      <div
@@ -4957,7 +5091,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -4983,7 +5117,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="hormoneTherapyTooltip1Text"
-        >This is used to treat breast cancers affected by hormones, like estrogen and progesterone. The breast cancer cells have receptors (proteins) that attach to estrogen and progesterone, which helps them grow. Hormone therapy stops the hormones from attaching to these receptors. It's recommended for women with tumors that are hormone receptor-positive. It does not help women whose tumors don't have hormone receptors.</span
+        >This is used to treat breast cancers affected by hormones, like estrogen and progesterone. The breast cancer cells have receptors (proteins) that attach to estrogen and progesterone, which helps them grow. </span
       >
     </div>
 
@@ -4994,7 +5128,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -5002,7 +5136,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="hormoneTherapyTooltip2Text"
-        >The breast cancer cells have receptors (proteins) that attach to estrogen and progesterone, which helps them grow. </span
+        >Hormone therapy stops the hormones from attaching to these receptors. It's recommended for women with tumors that are hormone receptor-positive. It does not help women whose tumors don't have hormone receptors.</span
       >
     </div>
      <div
@@ -5056,7 +5190,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="chemotherapyTooltip1Text"
-        >is a treatment that uses anti-cancer drugs to destroy cancer cells. It works by interfering with the cancer cells’ ability to divide and grow. Different chemotherapy drugs work in different ways and a combination of drugs is often used. Chemotherapy affects cells throughout the body and can cause side effects.</span
+        >Chemotherapy is a treatment that uses anti-cancer drugs to destroy cancer cells. It works by interfering with the cancer cells’ ability to divide and grow.</span
       >
     </div>
      <div
@@ -5066,7 +5200,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -5074,7 +5208,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="chemotherapyTooltip2Text"
-        >It works by interfering with the cancer cells’ ability to divide and grow.</span
+        >Different chemotherapy drugs work in different ways and a combination of drugs is often used. Chemotherapy affects cells throughout the body and can cause side effects.</span
       >
     </div>
      <div
@@ -5140,7 +5274,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -5220,7 +5354,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="immunoTherapyTooltip1Text"
-        >Immunotherapy is a medical approach that activates a person's immune system to target and eliminate cancer cells. It's effective in treating certain types of breast cancer. The immune system has checkpoints, proteins that regulate immune responses and prevent attacks on normal cells. Breast cancer cells can exploit these checkpoints to evade the immune system. Immunotherapy drugs target these proteins, reactivating the immune response against breast cancer cells.</span
+        >Immunotherapy is a medical approach that activates a person's immune system to target and eliminate cancer cells. It's effective in treating certain types of breast cancer.</span
       >
     </div>
      <div
@@ -5230,7 +5364,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -5238,7 +5372,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="immunoTherapyTooltip2Text"
-        >It's effective in treating certain types of breast cancer.</span
+        >The immune system has checkpoints, proteins that regulate immune responses and prevent attacks on normal cells. Breast cancer cells can exploit these checkpoints to evade the immune system. Immunotherapy drugs target these proteins, reactivating the immune response against breast cancer cells.</span
       >
     </div>
      <div
@@ -5311,7 +5445,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="pallativeCareTooltip1Text"
-        >Palliative care focuses on easing pain and symptoms without targeting the disease itself. It aims to maximize a person's comfort, and can be provided at home or in the hospital, regardless of the cancer stage. The goal is to enhance quality of life by reducing pain and discomfort.</span
+        >Palliative care focuses on easing pain and symptoms without targeting the disease itself.</span
       >
     </div>
      <div
@@ -5321,7 +5455,7 @@ function revertToTargetedDrugTherapyTooltips(){
       <span
         class="tooltiptext"
         style="
-          width: 80vw;
+          width: 90vw;
           padding: 20px;
           padding-left: 25px;
           text-align: left;
@@ -5733,6 +5867,36 @@ function revertToTargetedDrugTherapyTooltips(){
         >
           Biopsy samples are then sent to a laboratory for analysis where
           experts determine whether the cells are cancerous.
+        </span>
+      </div>
+      <div class="tooltip breastCancer-text hide" id="breastExaminationSlide1">
+        <span
+          class="tooltiptext tooltip-bottom"
+          style="
+            width: 90vw;
+            padding: 20px;
+            padding-left: 25px;
+            text-align: left;
+            border-radius: 30px;
+            box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
+          "
+          id="breastExaminationSlide1Text"
+        >Breast Examination is a quick and easy practice that involves visually and manually checking one's breasts for any unusual changes or lumps.
+        </span>
+      </div>
+      <div class="tooltip breastCancer-text hide" id="breastExaminationSlide2">
+        <span
+          class="tooltiptext tooltip-bottom"
+          style="
+            width: 90vw;
+            padding: 20px;
+            padding-left: 25px;
+            text-align: left;
+            border-radius: 30px;
+            box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
+          "
+          id="breastExaminationSlide2Text"
+        >Regular monthly exam empowers individuals to detect potential breast health issues early, such as breast cancer, improving the chances of successful treatment and recovery.
         </span>
       </div>
       <div class="tooltip breastCancer-text hide" id="breastUltrasoundSlide1">
@@ -10812,9 +10976,11 @@ id="importantNoteTooltip2"
     </svg>
     <div id="diagnosisImagesAndIcons">
      
-      <div id="mammogramImageAndIcon" class="content-wrapper hide" style="transform: translateY(120px)">
+      <div id="mammogramImageAndIcon" class="content-wrapper hide" style="transform: translateY(50px)">
         <div style="transform: translateX(20px);width: 80%;height: 100%; display: flex; flex-direction: column; position: absolute; align-items: center">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 119.08 117.12">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 119.08 117.12"
+          style="transform: scale(0.7)"
+          >
  
             <g id="Layer_1-2" data-name="Layer 1">
               <g id="DX0bJj">
@@ -10827,8 +10993,8 @@ id="importantNoteTooltip2"
               </g>
             </g>
           </svg>
-          <div style="transform: translateY(-50px)">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.5)">
+          <div style="transform: translateY(-80px)">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.2)">
      
               <g id="Layer_1-2" data-name="Layer 1">
                 <circle cx="153.12" cy="170.49" r="108.01" style="fill: none; filter: url(#drop-shadow-29-1); opacity: .28; stroke: #fff; stroke-miterlimit: 10; stroke-width: 8px;"></circle>
@@ -10848,9 +11014,9 @@ id="importantNoteTooltip2"
         
         </div>
       </div>
-    <div id="breastBiopsyImageAndIcon" class="content-wrapper hide" style="transform: translateY(120px)">
+    <div id="breastBiopsyImageAndIcon" class="content-wrapper hide" style="transform: translateY(60px)">
       <div style="transform: translateX(20px);width: 80%;height: 100%; display: flex; flex-direction: column; position: absolute; align-items: center">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 138.1 138.1" style="transform: scale(0.9)">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 138.1 138.1" style="transform: scale(0.5)">
 
           <g id="Layer_1-2" data-name="Layer 1">
             <g>
@@ -10868,8 +11034,8 @@ id="importantNoteTooltip2"
             </g>
           </g>
         </svg>
-    <div style="transform: translate(10px,-50px)">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.5)">
+    <div style="transform: translate(10px,-90px)">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.2)">
 
         <g id="Layer_1-2" data-name="Layer 1">
           <g>
@@ -10897,9 +11063,9 @@ id="importantNoteTooltip2"
       </div>
       </div>
     
-      <div id="breastExamImageAndIcon" class="content-wrapper hide" style="transform: translateY(120px)">
+      <div id="breastExamImageAndIcon" class="content-wrapper hide" style="transform: translateY(65px)">
         <div style="transform: translateX(30px);width: 80%;height: 100%; display: flex; flex-direction: column; position: absolute; align-items: center">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 114.79 144.3">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" style="transform: scale(0.55)" viewBox="0 0 114.79 144.3">
   
             <g id="Layer_1-2" data-name="Layer 1">
               <g id="xPyd4x">
@@ -10915,8 +11081,8 @@ id="importantNoteTooltip2"
             </g>
           </svg>
       
-      <div style="transform: translateY(-50px)">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321">
+      <div style="transform: translateY(-90px)">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" style="transform: scale(1.2)" viewBox="0 0 321 321">
  
           <g id="Layer_1-2" data-name="Layer 1">
             <g>
@@ -10936,14 +11102,14 @@ id="importantNoteTooltip2"
             </g>
           </g>
         </svg>
-          <div style="transform: translateY(-15px)"><span style="color: #cb1d53">Breast Exam</span></div>
+          <div style="transform: translateY(-10px)"><span style="color: #cb1d53">Breast Exam</span></div>
       </div>
         
         </div>
       </div>
-      <div id="breastMRIImageAndIcon" class="content-wrapper hide" style="transform: translateY(80px)">
+      <div id="breastMRIImageAndIcon" class="content-wrapper hide" style="transform: translateY(70px)">
         <div style="transform: translateX(10px);width: 80%;height: 100%; display: flex; flex-direction: column; position: absolute; align-items: center">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 108.05 146.11" style="transform: scale(0.7)">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 108.05 146.11" style="transform: scale(0.6)">
           
             <g id="Layer_1-2" data-name="Layer 1">
               <g>
@@ -10954,8 +11120,8 @@ id="importantNoteTooltip2"
               </g>
             </g>
           </svg>
-      <div style="transform: translateY(-70px)">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.6)">
+      <div style="transform: translateY(-95px)">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.25)">
  
           <g id="Layer_1-2" data-name="Layer 1">
             <g>
@@ -10975,9 +11141,9 @@ id="importantNoteTooltip2"
         
         </div>
       </div>
-      <div id="breastUltrasoundImageAndIcon" class="content-wrapper hide" style="transform: translateY(120px)">
+      <div id="breastUltrasoundImageAndIcon" class="content-wrapper hide" style="transform: translateY(60px)">
         <div style="transform: translateX(20px);width: 80%;height: 100%; display: flex; flex-direction: column; position: absolute; align-items: center">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 123.22 123.52" style="transform: scale(0.9)">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 123.22 123.52" style="transform: scale(0.65)">
   
             <g id="Layer_1-2" data-name="Layer 1">
               <g id="XpxfAk.tif">
@@ -10993,7 +11159,7 @@ id="importantNoteTooltip2"
           </svg>
       
           <div style="transform: translateY(-70px) scale(0.95)">
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(1.1)">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_2" data-name="Layer 2" viewBox="0 0 321 321" style="transform: scale(0.9)">
      
               <g id="Layer_1-2" data-name="Layer 1">
                 <g>
@@ -11012,7 +11178,7 @@ id="importantNoteTooltip2"
                 </g>
               </g>
             </svg>
-              <div style="transform: translateY(-10px)"><span style="color: #cb1d53">Breast Ultrasound</span></div>
+              <div style="transform: translateY(-20px)"><span style="color: #cb1d53">Breast Ultrasound</span></div>
           </div>
         
         </div>
