@@ -80,7 +80,7 @@
       }
 
       .game-progress-container div {
-        height: 12px;
+        height: 10px;
         width: 25px;
         background-color: var(--clr-text-color-alpha);
         border-radius: 30px;
@@ -129,8 +129,8 @@
         justify-content: space-around;
         background-color: var(--clr-bg-color);
         border-radius: 30px;
-        box-shadow: 0 0 5px 5px var(--clr-bg-color);
-        width: 80%;
+       
+        width: 90%;
         padding: 30px 0;
       }
 
@@ -145,12 +145,12 @@
 
       .game-options-container span {
         width: 45%;
-        height: 5rem;
+        height: 5.5rem;
         background-color: var(--clr-white);
         /* border: 2px solid var(--clr-bg-color); */
         border-radius: 20px 20px 0 0;
         overflow: hidden;
-        box-shadow: 0 0 7px 7px var(--clr-bg-color);
+        box-shadow: 0 0 10px 5px var(--clr-bg-color);
       }
 
       .game-options-container span:not(:first-of-type) {
@@ -169,6 +169,7 @@
         justify-content: center;
         cursor: pointer;
         text-align: center;
+        font-size: 14px;
         transition: transform 0.3s;
         font-weight: 400;
         color: var(--clr-text-color);
@@ -215,8 +216,8 @@
       } */
 
       .next-button-container button:disabled {
-        background: lightgrey;
-        color: darkgrey;
+        background: #ffffff4c;
+        color: #fe48664c;
         cursor: default;
         border: none;
       }
@@ -563,10 +564,10 @@
         {
           question:
             "What is the main goal of palliative care in cancer treatment?",
-          optionA: "To cure cancer",
-          optionB: "To increase quality of life and reduce symptoms",
-          optionC: "To promote rapid recovery",
-          optionD: "To delay cancer growth",
+          optionA: "Cure cancer",
+          optionB: "Increase quality of life and reduce symptoms",
+          optionC: "Promote rapid recovery",
+          optionD: "Delay cancer growth",
           correctOption: "optionB",
         },
         {
@@ -579,11 +580,11 @@
         },
         {
           question: "Which is the most advanced stage of breast cancer?",
-          optionA: "S0",
-          optionB: "S1",
-          optionC: "S3",
-          optionD: "S4",
-          correctOption: "optionD",
+          optionA: "S1",
+          optionB: "S4",
+          optionC: "S0",
+          optionD: "S3",
+          correctOption: "optionB",
         },
       ];
 
@@ -778,8 +779,8 @@
       function disableNextButton() {
         button.setAttribute("disabled", true);
         button.textContent = "Check";
-        button.style.backgroundColor = "lightgrey";
-        button.style.color = "darkgrey";
+        button.style.backgroundColor = "#ffffff4c";
+        button.style.color = "#fe48664c";
       }
 
       //sets options background back to null after display the right/wrong colors
