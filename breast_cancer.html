@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
       * {
         margin: 0;
@@ -17,7 +17,7 @@
         justify-content: flex-end;
         align-items: flex-end;
         font-family: sans-serif;
-        background-color: white; /* Optional background color for the page */
+        background-color: white;
       }
 
       a:link {
@@ -595,42 +595,35 @@
       }
       .targetedDrugTherapy {
   animation: targetedDrugTherapyAnimation 2s ease-in-out forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
-.immunoTherapy {
+  .immunoTherapy {
   animation: immunoTherapyAnimation 2s ease-in-out forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
-.pallativeCare {
+  .pallativeCare {
   animation: pallativeCareAnimation 2s ease-in-out forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
-.radiationTherapy {
+  .radiationTherapy {
   animation: radiationTherapyAnimation 2s forwards;
-  /* Add other styling properties as needed */
-}
-.healthyDiet {
+
+  }
+  .healthyDiet {
   animation: healthyDietAnimation 2s forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
-.birthControl {
+  .birthControl {
   animation: birthControlAnimation 2s forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
-.hormoneTherapy {
+  .hormoneTherapy {
   animation: hormoneTherapyAnimation 2s forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
-.chemotherapy {
+  .chemotherapy {
   animation: chemotherapyAnimation 2s forwards;
-  /* Add other styling properties as needed */
-}
+  }
 
 
       @keyframes popUpAnimation {
@@ -648,74 +641,74 @@
   100% {
     transform: translate(-995px, -100px) scale(1.8);
   }
-}
-@keyframes healthyDietAnimation {
+  }
+  @keyframes healthyDietAnimation {
   0% {
     opacity: 0;
     transform: translate(0, 0) scale(1);
   }
   100% {
     opacity: 1;
-    transform: translate(330px, 50px) scale(0.8);
+    transform: translate(120px, -1500px) scale(1.5);
   }
-}
-@keyframes birthControlAnimation {
+  }
+  @keyframes birthControlAnimation {
   0% {
     opacity: 0;
     transform: translate(0, 0) scale(1);
   }
   100% {
     opacity: 1;
-    transform: translate(-620px, -1740px) scale(1.7);
-  
-  }
-}
+    transform: translate(-1480px, -4250px) scale(2.9);
 
-@keyframes hormoneTherapyAnimation {
+  }
+  }
+
+  @keyframes hormoneTherapyAnimation {
   0% {
     transform: translate(0, 0) scale(1);
   }
   100% {
     transform: translate(-1705px, -2255px) scale(2.5);
   }
-}
+  }
 
-@keyframes chemotherapyAnimation {
+  @keyframes chemotherapyAnimation {
   0% {
     transform: translate(0, 0) scale(1);
   }
   100% {
     transform: translate(105px, -300px) scale(1.5);
   }
-}
-@keyframes targetedDrugTherapyAnimation {
+  }
+  @keyframes targetedDrugTherapyAnimation {
   0% {
     transform: translate(0, 0) scale(1);
   }
   100% {
     transform: translate(-1065px, -1225px) scale(2.175);
   }
-}
+  }
 
-@keyframes immunoTherapyAnimation {
+  @keyframes immunoTherapyAnimation {
   0% {
     transform: translate(0, 0) scale(1);
   }
   100% {
     transform: translate(70px, 115px) scale(1.8);
   }
-}
+  }
 
-@keyframes pallativeCareAnimation {
+  @keyframes pallativeCareAnimation {
   0% {
     transform: translate(0, 0) scale(1);
   }
   100% {
     transform: translate(-275px, -920px) scale(1.5);
   }
-}
+  }
     </style>
-    <title>Breast Cancer</title>
+    <title>Breast Cancer (The Science)</title>
   </head>
   <body>
     <script>
@@ -726,11 +719,12 @@
       let previousSymptomTooltip = "symptomsSlideIntro";
       let previousSymptomId = "";
       let previousSymptomAnimation = "";
+
     function setLastSessionIndex(value) {
       lastSessionIndex = value;
       jumpToIndex(); 
     }
-     function jumpToIndex(){
+    function jumpToIndex(){
         isJumpingToIndex = true;
         for (let i = 0; i<= lastSessionIndex;i++){
           onNextButtonPressed();
@@ -738,7 +732,7 @@
         isJumpingToIndex = false;
       
       }
-     //  setTimeout(jumpToIndex, 600);
+
       function updateClassAfterDelay() {
         var element = document.getElementById("next_button_and_tooltip");
         element.className = "tooltip";
@@ -752,58 +746,30 @@
 
         element.setAttribute("visibility", "visible");
       }
-      function changeURL(url) {
-  return new Promise((resolve, reject) => {
-    window.location.href = url;
-    window.onload = () => resolve();
-  });
-}
 
-
-      function disappearElement(elementId) {
-        const element = document.getElementById(elementId);
-        if (element) {
-          element.setAttribute("visibility", "hidden");
-        }
-      }
       function undoFadeInAndScale(elementId){
         var element = document.getElementById(elementId);
         element.classList.remove("scale-in");
         element.setAttribute("visibility","hidden");
 
       }
-      function getElementPosition(element) {
-        const svgElement = element.ownerSVGElement; // Get the parent SVG element
-        const rect = element.getBoundingClientRect(); // Get the element's bounding box
-
-        const svgRect = svgElement.getBoundingClientRect();
-        const x = rect.left - svgRect.left;
-        const y = rect.top - svgRect.top;
-
-        return { x, y };
-      }
 
       function play(id, classWithoutAnimation, classWithAnimation) {
         var element = document.getElementById(id);
-        //element.className = classWithoutAnimation;
         element.setAttribute("class", classWithoutAnimation);
-       if (isJumpingToIndex){
+      if (isJumpingToIndex){
         element.setAttribute("class",classWithAnimation);
-       }else{
-         
+      }else{        
         requestAnimationFrame((time) => {
           requestAnimationFrame((time) => {
             var element = document.getElementById(id);
-            // element.className = classWithAnimation;
             element.setAttribute("class", classWithAnimation);
-            //element.style.animationPlayState = "running";
-
           });
         });
         
-       }
       }
-   
+      }
+
 
 
       function play2(id, classWithoutAnimation, classWithAnimation) {
@@ -820,14 +786,12 @@
         else{
         requestAnimationFrame((time) => {
           var element = document.getElementById(id);
-          // element.className = classWithAnimation;
           element.setAttribute("class", classWithAnimation);
         });}
       }
 
       function stop(id, animationClassName) {
         var element = document.getElementById(id);
-        //element.style.animationPlayState = "paused";
         element.classList.remove(animationClassName);
         
       }
@@ -856,15 +820,37 @@
           setTimeout(callback, delay);
         }
         
-        }
+      }
 
-        function fadeIn(elementId) {        
-          play(elementId, "", "fade-in");
-        }
-        function fadeDiagnosticIn(elementId) {        
+      function fadeIn(elementId) {        
+        play(elementId, "", "fade-in");
+      }
+      function fadeDiagnosticIn(elementId) {        
         var element = document.getElementById(elementId);
         element.setAttribute("class","content-wrapper fade-in");
+      }
+
+      function highlightNextSection(){
+        if (!isJumpingToIndex){
+          console.log("Go To Next Section");
         }
+      }
+
+      function highlightPreviousSection(){
+        console.log("Go To Prev Section");
+      }
+
+      function goToNextPage(){
+        if (!isJumpingToIndex){
+          console.log("Go To Next Page");
+        }
+      }
+
+      function hideIcon(id){
+        var element = document.getElementById(id);
+        element.style.opacity = 0;
+        
+      }
 
       function showBreastCancerTooltip() {
         stop("nextButtonContainer", "pulse");
@@ -882,12 +868,10 @@
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-//        if (lastSessionIndex == 0 || isJumpingToIndex == false){
 
-        
         play("lobule1", "", "pulsating");
         play("duct1", "", "pulsating");
-        //}
+
         var fattyTissue = document.getElementById("fattyTissue");
         fattyTissue.setAttribute("visibility", "visible");
         fattyTissue.setAttribute("opacity", "0.96");
@@ -907,9 +891,7 @@
         stop("ducts", "delayed-fade-in");
         stop("lobules", "delayed-fade-in");
         stop("nipple", "delayed-fade-in");
-        stop("fattyTissue", "delayed-fade-in");
-
-        
+        stop("fattyTissue", "delayed-fade-in");       
       }
 
       function showCancerousTumorToolTip() {
@@ -925,48 +907,33 @@
         );
 
         var previousButton = document.getElementById("previousButton");
-        previousButton.setAttribute("visibility", "visible");
-
-        
+        previousButton.setAttribute("visibility", "visible");        
 
         var cancerousTumorDuct = document.getElementById("duct1");
         cancerousTumorDuct.setAttribute("fill", "#8c1137");
         cancerousTumorDuct.classList.value =" ";
         var cancerousTumorLobule = document.getElementById("lobule1");
         cancerousTumorLobule.setAttribute("fill", "#8c1137");
-        cancerousTumorLobule.addEventListener("click", () => {
-          var cancerousTumorTooltip = document.getElementById(
-            "cancerousTumorTooltip"
-          );
-
-          var bbox = cancerousTumorLobule.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          cancerousTumorTooltip.style.left = bbox.left - 15 + "px";
-          cancerousTumorTooltip.style.top = bbox.top - 125 + "px";
-          cancerousTumorTooltip.setAttribute(
-            "class",
-            "tooltip breastCancer-text"
-          );
-
-          play(
-            "cancerousTumorTooltipText",
-            "tooltiptext tooltip-bottom-left",
-            "tooltiptext tooltip-bottom-left tooltipAnimate"
-          );
-        });
-
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        cancerousTumorLobule.dispatchEvent(event);
+        var cancerousTumorTooltip = document.getElementById(
+          "cancerousTumorTooltip"
+        );
+        var bbox = cancerousTumorLobule.getBoundingClientRect();
+        cancerousTumorTooltip.style.left = bbox.left - 15 + "px";
+        cancerousTumorTooltip.style.top = bbox.top - 125 + "px";
+        cancerousTumorTooltip.setAttribute(
+          "class",
+          "tooltip breastCancer-text"
+        );
+        play(
+          "cancerousTumorTooltipText",
+          "tooltiptext tooltip-bottom-left",
+          "tooltiptext tooltip-bottom-left tooltipAnimate"
+        );
 
         play("lobule3", "", "pulsating");
-        play("duct3", "", "pulsating");
-        
+        play("duct3", "", "pulsating");        
       }
+
       function showBenignTumorToolTip() {
         stop("lobule3", "pulsating");
         stop("duct3", "pulsating");
@@ -985,35 +952,20 @@
         var benignTumorLobule = document.getElementById("lobule3");
         benignTumorLobule.setAttribute("fill", "#e93062");
 
-        benignTumorLobule.addEventListener("click", () => {
-          var benignTumorTooltip =
-            document.getElementById("benignTumorTooltip");
-          var bbox = benignTumorLobule.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          benignTumorTooltip.style.left = bbox.left - 50 + "px";
-          benignTumorTooltip.style.top = bbox.top + 30 + "px";
-          benignTumorTooltip.setAttribute("class", "tooltip breastCancer-text");
-
-          play(
-            "benignTumorTooltipText",
-            "tooltiptext tooltip-bottom",
-            "tooltiptext tooltip-bottom tooltipAnimate"
-          );
-        });
-
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        benignTumorLobule.dispatchEvent(event);
-
-        
+        var benignTumorTooltip =
+          document.getElementById("benignTumorTooltip");
+        var bbox = benignTumorLobule.getBoundingClientRect();
+        benignTumorTooltip.style.left = bbox.left - 50 + "px";
+        benignTumorTooltip.style.top = bbox.top + 30 + "px";
+        benignTumorTooltip.setAttribute("class", "tooltip breastCancer-text");
+        play(
+          "benignTumorTooltipText",
+          "tooltiptext tooltip-bottom",
+          "tooltiptext tooltip-bottom tooltipAnimate"
+        );
       }
+
       function proceedToStage0() {
-
-
         var fattyTissue = document.getElementById("fattyTissue");
         fattyTissue.setAttribute("visibility", "hidden");
         var nipple = document.getElementById("nipple");
@@ -1045,143 +997,83 @@
         var breastCancerStages = document.getElementById("breastCancerStages");
         breastCancerStages.setAttribute("visibility", "visible");
 
-        // play("stage0", "", "pulse");
-
         var stage0 = document.getElementById("stage0");
 
-        stage0.addEventListener("click", () => {
-          var stage0Tooltip = document.getElementById("stage0Tooltip");
-          var bbox = stage0.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          stage0Tooltip.style.left = bbox.left + "px";
-          stage0Tooltip.style.top = bbox.top - 30 + "px";
-          stage0Tooltip.setAttribute("class", "tooltip breastCancer-text");
+        var stage0Tooltip = document.getElementById("stage0Tooltip");
+        var bbox = stage0.getBoundingClientRect();
+        stage0Tooltip.style.left = bbox.left + "px";
+        stage0Tooltip.style.top = bbox.top - 30 + "px";
+        stage0Tooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          play(
-            "stage0TooltipText",
-            "tooltiptext tooltip-left",
-            "tooltiptext tooltip-left tooltipAnimate"
-          );
-        });
-
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        stage0.dispatchEvent(event);
-
-        
+        play(
+          "stage0TooltipText",
+          "tooltiptext tooltip-left",
+          "tooltiptext tooltip-left tooltipAnimate"
+        );
       }
 
       function proceedToStage1() {
         var stage0Tooltip = document.getElementById("stage0Tooltip");
         stage0Tooltip.setAttribute("class", "tooltip breastCancer-text hide");
 
-        // play("path0to1", "", "path");
-
         var stage1 = document.getElementById("stage1");
 
-        stage1.addEventListener("click", () => {
-          var stage1Tooltip = document.getElementById("stage1Tooltip");
-          var bbox = stage1.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          stage1Tooltip.style.left = bbox.left + 80 + "px";
-          stage1Tooltip.style.top = bbox.top - 20 + "px";
-          stage1Tooltip.setAttribute("class", "tooltip breastCancer-text");
+        var stage1Tooltip = document.getElementById("stage1Tooltip");
+        var bbox = stage1.getBoundingClientRect();
+        stage1Tooltip.style.left = bbox.left + 80 + "px";
+        stage1Tooltip.style.top = bbox.top - 20 + "px";
+        stage1Tooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          var path0to1 = document.getElementById("path0to1");
-          path0to1.setAttribute("visibility", "visible");
-          play(
-            "stage1TooltipText",
-            "tooltiptext tooltip-right",
-            "tooltiptext tooltip-right tooltipAnimate"
-          );
-        });
-
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        stage1.dispatchEvent(event);
-
-        
+        var path0to1 = document.getElementById("path0to1");
+        path0to1.setAttribute("visibility", "visible");
+        play(
+          "stage1TooltipText",
+          "tooltiptext tooltip-right",
+          "tooltiptext tooltip-right tooltipAnimate"
+        );
       }
 
       function proceedToStage2() {
         var stage1Tooltip = document.getElementById("stage1Tooltip");
         stage1Tooltip.setAttribute("class", "tooltip breastCancer-text hide");
 
-        // play("path0to1", "", "path");
-
         var stage2 = document.getElementById("stage2");
 
-        stage2.addEventListener("click", () => {
-          var stage2Tooltip = document.getElementById("stage2Tooltip");
-          var bbox = stage2.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          stage2Tooltip.style.left = bbox.left - 10 + "px";
-          stage2Tooltip.style.top = bbox.top - 50 + "px";
-          stage2Tooltip.setAttribute("class", "tooltip breastCancer-text");
+        var stage2Tooltip = document.getElementById("stage2Tooltip");
+        var bbox = stage2.getBoundingClientRect();
+        stage2Tooltip.style.left = bbox.left - 10 + "px";
+        stage2Tooltip.style.top = bbox.top - 50 + "px";
+        stage2Tooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          var path1to2 = document.getElementById("path1to2");
-          path1to2.setAttribute("visibility", "visible");
-          play(
-            "stage2TooltipText",
-            "tooltiptext tooltip-left",
-            "tooltiptext tooltip-left tooltipAnimate"
-          );
-        });
-
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        stage2.dispatchEvent(event);
-
-        
+        var path1to2 = document.getElementById("path1to2");
+        path1to2.setAttribute("visibility", "visible");
+        play(
+          "stage2TooltipText",
+          "tooltiptext tooltip-left",
+          "tooltiptext tooltip-left tooltipAnimate"
+        );
       }
 
       function proceedToStage3() {
         var stage2Tooltip = document.getElementById("stage2Tooltip");
         stage2Tooltip.setAttribute("class", "tooltip breastCancer-text hide");
 
-        // play("path0to1", "", "path");
-
         var stage3 = document.getElementById("stage3");
 
-        stage3.addEventListener("click", () => {
-          var stage3Tooltip = document.getElementById("stage3Tooltip");
-          var bbox = stage3.getBoundingClientRect();
+        var stage3Tooltip = document.getElementById("stage3Tooltip");
+        var bbox = stage3.getBoundingClientRect();
 
-          // Show the tooltip at the position of the clicked element
-          stage3Tooltip.style.left = bbox.left + 120 + "px";
-          stage3Tooltip.style.top = bbox.top + 20 + "px";
-          stage3Tooltip.setAttribute("class", "tooltip breastCancer-text");
+        stage3Tooltip.style.left = bbox.left + 120 + "px";
+        stage3Tooltip.style.top = bbox.top + 20 + "px";
+        stage3Tooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          var path2to3 = document.getElementById("path2to3");
-          path2to3.setAttribute("visibility", "visible");
-          play(
-            "stage3TooltipText",
-            "tooltiptext tooltip-right",
-            "tooltiptext tooltip-right tooltipAnimate"
-          );
-        });
-
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        stage3.dispatchEvent(event);
-
-        
+        var path2to3 = document.getElementById("path2to3");
+        path2to3.setAttribute("visibility", "visible");
+        play(
+          "stage3TooltipText",
+          "tooltiptext tooltip-right",
+          "tooltiptext tooltip-right tooltipAnimate"
+        );
       }
 
 
@@ -1189,41 +1081,29 @@
         var stage3Tooltip = document.getElementById("stage3Tooltip");
         stage3Tooltip.setAttribute("class", "tooltip breastCancer-text hide");
 
-        // play("path0to1", "", "path");
-
         var stage4 = document.getElementById("stage4");
 
-        stage4.addEventListener("click", () => {
-          var stage4Tooltip = document.getElementById("stage4Tooltip");
-          var bbox = stage4.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          stage4Tooltip.style.left = bbox.left + 40 + "px";
-          stage4Tooltip.style.top = bbox.top + 20 + "px";
-          stage4Tooltip.setAttribute("class", "tooltip breastCancer-text");
+        var stage4Tooltip = document.getElementById("stage4Tooltip");
+        var bbox = stage4.getBoundingClientRect();
+        stage4Tooltip.style.left = bbox.left + 40 + "px";
+        stage4Tooltip.style.top = bbox.top + 20 + "px";
+        stage4Tooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          var path3to4 = document.getElementById("path3to4");
-          path3to4.setAttribute("visibility", "visible");
-          play(
-            "stage4TooltipText",
-            "tooltiptext tooltip-left",
-            "tooltiptext tooltip-left tooltipAnimate"
-          );
-        });
+        var path3to4 = document.getElementById("path3to4");
+        path3to4.setAttribute("visibility", "visible");
+        play(
+          "stage4TooltipText",
+          "tooltiptext tooltip-left",
+          "tooltiptext tooltip-left tooltipAnimate"
+        );
 
         var fattyTissue = document.getElementById("fattyTissue");
         fattyTissue.setAttribute("opacity", "0");
-        const event = new MouseEvent("click", {
-          bubbles: true,
-          cancelable: true,
-          view: window,
-        });
-
-        stage4.dispatchEvent(event);
-
-        
       }
       function proceedToCausesSlide1() {
-        if (!isJumpingToIndex){console.log("Go To Next Section");}
+
+        highlightNextSection();
+
         const gradient_background = document.getElementById(
           "gradient-background"
         );
@@ -1389,9 +1269,7 @@
         fadeInAndScale("ductZoomedLabelAndLine");
         fadeInAndScale("nippleZoomedLabelAndLine");
 
-        play("ductTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-
-        
+        play("ductTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");        
       }
 
       function showuncontrollablyTooltip() {
@@ -1443,9 +1321,7 @@
         play("lobule8", "", "uncontrollable-set-2");
         play("duct8", "", "uncontrollable-set-2");
         play("lobule10", "", "uncontrollable-set-2");
-        play("duct10", "", "uncontrollable-set-2");
-
-        
+        play("duct10", "", "uncontrollable-set-2");    
       }
       function showInnerLiningTooltip() {
         hideTooltip("uncontrollablyTooltip");
@@ -1497,190 +1373,179 @@
           "tooltiptext tooltipAnimate"
         );
 
-        play("innerLiningLobule", "", "delayed-fade-in-4");
-
-        
+        play("innerLiningLobule", "", "delayed-fade-in-4");      
       }
 
       function showMetastaticBreastCancer() {
 
-var previousButton = document.getElementById("previousButton");
-var nextButton = document.getElementById("nextButton");
-previousButton.setAttribute("visibility", "hidden");
-nextButton.setAttribute("visibility", "hidden");
-var corner_div = document.getElementById("corner-div");
-corner_div.setAttribute("class", "corner-div hide");
+        var previousButton = document.getElementById("previousButton");
+        var nextButton = document.getElementById("nextButton");
+        previousButton.setAttribute("visibility", "hidden");
+        nextButton.setAttribute("visibility", "hidden");
+        var corner_div = document.getElementById("corner-div");
+        corner_div.setAttribute("class", "corner-div hide");
 
-hideTooltip("innerLiningTooltip");
-var breastFigure = document.getElementById("breastFigure");
-breastFigure.setAttribute("class", "");
-breastFigure.setAttribute("style", "");
-var innerLiningLobule = document.getElementById("fattyTissue");
-innerLiningLobule.setAttribute("visibility", "hidden");
-innerLiningLobule.setAttribute("class", "");
-innerLiningLobule.setAttribute("visibility", "hidden");
-var innerLiningLobule = document.getElementById("innerLiningLobule");
-innerLiningLobule.setAttribute("visibility", "hidden");
-innerLiningLobule.setAttribute("class", "");
-var lobules = document.getElementById("lobules");
-lobules.setAttribute("visibility", "hidden");
-var nipple = document.getElementById("nipple");
-nipple.setAttribute("visibility", "hidden");
-var ducts = document.getElementById("ducts");
-ducts.setAttribute("visibility", "hidden");
-var lightBreastOutline = document.getElementById("lightBreastOutline");
-lightBreastOutline.setAttribute("visibility", "hidden");
-var lobuleZoomedLabelAndLine = document.getElementById(
-  "lobuleZoomedLabelAndLine"
-);
-lobuleZoomedLabelAndLine.setAttribute("visibility", "hidden");
-var ductZoomedLabelAndLine = document.getElementById(
-  "ductZoomedLabelAndLine"
-);
-ductZoomedLabelAndLine.setAttribute("visibility", "hidden");
-var dark_background_breastOutlines = document.getElementById(
-  "dark-background-breastOutlines"
-);
-dark_background_breastOutlines.setAttribute("visibility", "hidden");
+        hideTooltip("innerLiningTooltip");
+        var breastFigure = document.getElementById("breastFigure");
+        breastFigure.setAttribute("class", "");
+        breastFigure.setAttribute("style", "");
+        var innerLiningLobule = document.getElementById("fattyTissue");
+        innerLiningLobule.setAttribute("visibility", "hidden");
+        innerLiningLobule.setAttribute("class", "");
+        innerLiningLobule.setAttribute("visibility", "hidden");
+        var innerLiningLobule = document.getElementById("innerLiningLobule");
+        innerLiningLobule.setAttribute("visibility", "hidden");
+        innerLiningLobule.setAttribute("class", "");
+        var lobules = document.getElementById("lobules");
+        lobules.setAttribute("visibility", "hidden");
+        var nipple = document.getElementById("nipple");
+        nipple.setAttribute("visibility", "hidden");
+        var ducts = document.getElementById("ducts");
+        ducts.setAttribute("visibility", "hidden");
+        var lightBreastOutline = document.getElementById("lightBreastOutline");
+        lightBreastOutline.setAttribute("visibility", "hidden");
+        var lobuleZoomedLabelAndLine = document.getElementById(
+          "lobuleZoomedLabelAndLine"
+        );
+        lobuleZoomedLabelAndLine.setAttribute("visibility", "hidden");
+        var ductZoomedLabelAndLine = document.getElementById(
+          "ductZoomedLabelAndLine"
+        );
+        ductZoomedLabelAndLine.setAttribute("visibility", "hidden");
+        var dark_background_breastOutlines = document.getElementById(
+          "dark-background-breastOutlines"
+        );
+        dark_background_breastOutlines.setAttribute("visibility", "hidden");
 
-var fattyTissue = document.getElementById("fattyTissue");
-fattyTissue.setAttribute("visibility", "hidden");
+        var fattyTissue = document.getElementById("fattyTissue");
+        fattyTissue.setAttribute("visibility", "hidden");
 
-var nippleZoomedLabelAndLine = document.getElementById(
-  "nippleZoomedLabelAndLine"
-);
-nippleZoomedLabelAndLine.setAttribute("visibility", "hidden");
+        var nippleZoomedLabelAndLine = document.getElementById(
+          "nippleZoomedLabelAndLine"
+        );
+        nippleZoomedLabelAndLine.setAttribute("visibility", "hidden");
 
-var areola = document.getElementById("areola");
-areola.setAttribute("visibility", "hidden");
-var fattyTissueZoomedLabelAndLine = document.getElementById(
-  "fattyTissueZoomedLabelAndLine"
-);
-fattyTissueZoomedLabelAndLine.setAttribute("visibility", "hidden");
+        var areola = document.getElementById("areola");
+        areola.setAttribute("visibility", "hidden");
+        var fattyTissueZoomedLabelAndLine = document.getElementById(
+          "fattyTissueZoomedLabelAndLine"
+        );
+        fattyTissueZoomedLabelAndLine.setAttribute("visibility", "hidden");
 
-var darkBreastOutline = document.getElementById("darkBreastOutline");
-darkBreastOutline.setAttribute("visibility", "hidden");
+        var darkBreastOutline = document.getElementById("darkBreastOutline");
+        darkBreastOutline.setAttribute("visibility", "hidden");
 
-var metastaticBreastCancer = document.getElementById("metastaticBreastCancer");
-metastaticBreastCancer.setAttribute("class", "");
+        var metastaticBreastCancer = document.getElementById("metastaticBreastCancer");
+        metastaticBreastCancer.setAttribute("class", "");
 
-// Call createTimeout instead of setTimeout
-createTimeout(() => {
-  fadeIn("bonesGroup");
-}, 0);
+        createTimeout(() => {
+          fadeIn("bonesGroup");
+        }, 0);
 
-createTimeout(() => {
-  fadeIn("lungsGroup");
-}, 1200);
+        createTimeout(() => {
+          fadeIn("lungsGroup");
+        }, 1200);
 
-createTimeout(() => {
-  fadeIn("liverGroup");
-}, 2400);
+        createTimeout(() => {
+          fadeIn("liverGroup");
+        }, 2400);
 
-createTimeout(() => {
-  fadeIn("brainGroup");
-}, 3600);
+        createTimeout(() => {
+          fadeIn("brainGroup");
+        }, 3600);
 
-createTimeout(() => {
-  fadeIn("metastaticGroup");
-}, 4800);
+        createTimeout(() => {
+          fadeIn("metastaticGroup");
+        }, 4800);
 
-createTimeout(() => {
-  var previousButton = document.getElementById("previousButton");
-  var nextButton = document.getElementById("nextButton");
-  previousButton.setAttribute("visibility", "visible");
-  nextButton.setAttribute("visibility", "visible");
-}, 6000);
-var metastaticTooltip = document.getElementById("metastaticTooltip");
-metastaticTooltip.className = "tooltip breastCancer-text";
-var bbox = metastaticBreastCancer.getBoundingClientRect();
-// Show the tooltip at the position of the clicked element
-metastaticTooltip.style.left = bbox.left + 50 + "px";
-metastaticTooltip.style.top = bbox.top - 100 + "px";
+        createTimeout(() => {
+          var previousButton = document.getElementById("previousButton");
+          var nextButton = document.getElementById("nextButton");
+          previousButton.setAttribute("visibility", "visible");
+          nextButton.setAttribute("visibility", "visible");
+        }, 6000);
+        var metastaticTooltip = document.getElementById("metastaticTooltip");
+        metastaticTooltip.className = "tooltip breastCancer-text";
+        var bbox = metastaticBreastCancer.getBoundingClientRect();
+        metastaticTooltip.style.left = bbox.left + 50 + "px";
+        metastaticTooltip.style.top = bbox.top - 100 + "px";
 
-play(
-  "metastaticTooltipText",
-  "tooltiptext",
-  "tooltiptext tooltipAnimate"
-);
-}
-
-function showRiskFactors() {
-hideTooltip("metastaticTooltip");
-document.getElementById("metastaticBreastCancer").setAttribute("class", "hide");
-
-stop("metastaticGroup","fade-in");
-stop("brainGroup","fade-in");
-stop("liverGroup","fade-in");
-stop("bonesGroup","fade-in");
-stop("lungsGroup","fade-in");
-
-var previousButton = document.getElementById("previousButton");
-var nextButton = document.getElementById("nextButton");
-previousButton.setAttribute("visibility", "hidden");
-nextButton.setAttribute("visibility", "hidden");
-var corner_div = document.getElementById("corner-div");
-corner_div.setAttribute("class", "corner-div hide");
-
-var risk_factors = document.getElementById("risk-factors");
-risk_factors.setAttribute("class", "content-wrapper");
-var causesSlide1Tooltip = document.getElementById("riskFactorsTooltip");
-causesSlide1Tooltip.className = "tooltip breastCancer-text";
-
-play(
-  "riskFactorsTooltipText",
-  "tooltiptext",
-  "tooltiptext tooltipAnimate"
-);
-//if ( lastSessionIndex == 15){}
-createTimeout(() => {
-  fadeIn("riskFactorBeingWoman");
-}, 1200);
-
-createTimeout(() => {
-  fadeIn("riskFactorAging");
-}, 2400);
-
-createTimeout(() => {
-  fadeIn("riskFactorGenetics");
-}, 3600);
-
-createTimeout(() => {
-  fadeIn("riskFactorOverweight");
-}, 4800);
-
-createTimeout(() => {
-  fadeIn("riskFactorAlcoholism");
-}, 6000);
-
-createTimeout(() => {
-  fadeIn("riskFactorSmoking");
-}, 7200);
-
-createTimeout(() => {
-  fadeIn("riskFactorFHOBC");
-}, 8400);
-
-createTimeout(() => {
-  fadeIn("riskFactorExposureToRadioactivity");
-}, 9600);
-
-createTimeout(() => {
-  var previousButton = document.getElementById("previousButton");
-  var nextButton = document.getElementById("nextButton");
-  previousButton.setAttribute("visibility", "visible");
-  nextButton.setAttribute("visibility", "visible");
-}, 10800);
-
-}
-
-    
-      function clearAllTooltips() {
-        hideTooltip("symptomsSlideIntro");
-        for (let i = 1; i < 8; i++) {
-          hideTooltip("symptomsSlide" + i);
-        }
+        play(
+          "metastaticTooltipText",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
       }
+
+      function showRiskFactors() {
+        hideTooltip("metastaticTooltip");
+        document.getElementById("metastaticBreastCancer").setAttribute("class", "hide");
+
+        stop("metastaticGroup","fade-in");
+        stop("brainGroup","fade-in");
+        stop("liverGroup","fade-in");
+        stop("bonesGroup","fade-in");
+        stop("lungsGroup","fade-in");
+
+        var previousButton = document.getElementById("previousButton");
+        var nextButton = document.getElementById("nextButton");
+        previousButton.setAttribute("visibility", "hidden");
+        nextButton.setAttribute("visibility", "hidden");
+        var corner_div = document.getElementById("corner-div");
+        corner_div.setAttribute("class", "corner-div hide");
+
+        var risk_factors = document.getElementById("risk-factors");
+        risk_factors.setAttribute("class", "content-wrapper");
+        var causesSlide1Tooltip = document.getElementById("riskFactorsTooltip");
+        causesSlide1Tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "riskFactorsTooltipText",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+
+        createTimeout(() => {
+          fadeIn("riskFactorBeingWoman");
+        }, 1200);
+
+        createTimeout(() => {
+          fadeIn("riskFactorAging");
+        }, 2400);
+
+        createTimeout(() => {
+          fadeIn("riskFactorGenetics");
+        }, 3600);
+
+        createTimeout(() => {
+          fadeIn("riskFactorOverweight");
+        }, 4800);
+
+        createTimeout(() => {
+          fadeIn("riskFactorAlcoholism");
+        }, 6000);
+
+        createTimeout(() => {
+          fadeIn("riskFactorSmoking");
+        }, 7200);
+
+        createTimeout(() => {
+          fadeIn("riskFactorFHOBC");
+        }, 8400);
+
+        createTimeout(() => {
+          fadeIn("riskFactorExposureToRadioactivity");
+        }, 9600);
+
+        createTimeout(() => {
+          var previousButton = document.getElementById("previousButton");
+          var nextButton = document.getElementById("nextButton");
+          previousButton.setAttribute("visibility", "visible");
+          nextButton.setAttribute("visibility", "visible");
+        }, 10800);
+
+      }
+
       function breastCancerSymptomTapped(breastCancerSymptomId) {
         let breastCancerSymptomTooltip = breastCancerSymptomId + "Tooltip";
 
@@ -1724,7 +1589,7 @@ createTimeout(() => {
 
         previousSymptomId = breastCancerSymptomId;
 
-       var tooltip = document.getElementById(breastCancerSymptomTooltip);
+      var tooltip = document.getElementById(breastCancerSymptomTooltip);
         
         tooltip.setAttribute(
             "class",
@@ -1736,7 +1601,7 @@ createTimeout(() => {
 
       
       function showBreastCancerSymptoms() {
-        if (!isJumpingToIndex){console.log("Go To Next Section");}
+        highlightNextSection();
         const gradient_background = document.getElementById(
           "gradient-background"
         );
@@ -1767,18 +1632,12 @@ createTimeout(() => {
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-
-        
-      }
-      function hideIcon(id){
-        var element = document.getElementById(id);
-        element.style.opacity = 0;
-        
       }
       
       function showBreastCancerDiagnosisIntro() {
-       
-        if (!isJumpingToIndex){console.log("Go To Next Section");}
+      
+        highlightNextSection();
+
         hideTooltip(previousSymptomTooltip);
         //todo: check if they've interacted with at least one symptom
         if(previousSymptomAnimation !== ""){
@@ -1793,13 +1652,13 @@ createTimeout(() => {
           "breastCancerSymptoms"
         );
         breastCancerSymptoms.setAttribute("visibility", "hidden");
-     
+    
         hideIcon("mammogramIcon");
         hideIcon("breastBiopsy");
         hideIcon("breastExam");
         hideIcon("breastUltrasound");
         hideIcon("breastMRI");
-    
+
 
         var breastCancerDiagnosis = document.getElementById(
           "breastCancerDiagnosis"
@@ -1817,9 +1676,9 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
       }
-        function showMammogramSlides(){
-          hideTooltip("diagnosticsSlideIntro");
-          var tooltip = document.getElementById(
+      function showMammogramSlides(){
+        hideTooltip("diagnosticsSlideIntro");
+        var tooltip = document.getElementById(
           "mammogramSlide1"
         );
         tooltip.className = "tooltip breastCancer-text";
@@ -1844,17 +1703,16 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
       
-        }
+      }
       function showBiopsySlides(){
         hideTooltip("mammogramSlide1");
         hideTooltip("mammogramSlide2");
         hideContent("mammogramImageAndIcon");
         fadeDiagnosticIn("breastBiopsyImageAndIcon");
         
-          var tooltip = document.getElementById(
+        var tooltip = document.getElementById(
           "biopsySlide1"
         );
-      var tooltipHeight =   tooltip.style.getPropertyValue("height");
 
         tooltip.className = "tooltip breastCancer-text";
 
@@ -1936,14 +1794,13 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
       }
-      function showBreastMRISlides(){
 
-      
-      hideTooltip("breastUltrasoundSlide1");
+      function showBreastMRISlides(){   
+        hideTooltip("breastUltrasoundSlide1");
         hideTooltip("breastUltrasoundSlide2");
         hideContent("breastUltrasoundImageAndIcon");
         fadeDiagnosticIn("breastMRIImageAndIcon");
-     
+    
           var tooltip = document.getElementById(
           "breastMRISlide1"
         );
@@ -1969,10 +1826,10 @@ createTimeout(() => {
         );
       
       }
-     
     
+
       function showBreastCancerTreatment() {
-        if (!isJumpingToIndex){console.log("Go To Next Section");}
+        highlightNextSection();
         hideTooltip("breastMRISlide1");
         hideContent("breastMRIImageAndIcon");
         hideTooltip("breastMRISlide2");
@@ -2005,27 +1862,20 @@ createTimeout(() => {
           "breastCancerTreatmentTooltip2"
         );
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
-
-        // Show the tooltip at the position of the clicked element
         causesSlide1Tooltip.style.left = bbox.left + "px";
         causesSlide1Tooltip.style.top = bbox.top + 125 + "px";
         play(
           "breastCancerTreatmentTooltip2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
-        );
-      
-        
-
+        );     
       }
-      function showBreastCancerTreatmentIntroNextSet(){
-
-                
+      function showBreastCancerTreatmentIntroNextSet(){              
         hideTooltip("breastCancerTreatmentTooltip");
         hideTooltip("breastCancerTreatmentTooltip2");
         var surgeryKnife = document.getElementById("surgeryKnife");
         surgeryKnife.setAttribute("opacity","1");
-                var causesSlide1Tooltip = document.getElementById(
+        var causesSlide1Tooltip = document.getElementById(
           "breastCancerTreatmentTooltip3"
         );
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
@@ -2035,24 +1885,6 @@ createTimeout(() => {
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-
-    /*    var bbox = causesSlide1Tooltip.getBoundingClientRect();
-        var causesSlide1Tooltip = document.getElementById(
-          "breastCancerTreatmentTooltip4"
-        );
-        causesSlide1Tooltip.className = "tooltip breastCancer-text";
-
-        // Show the tooltip at the position of the clicked element
-        causesSlide1Tooltip.style.left = bbox.left + "px";
-        causesSlide1Tooltip.style.top = bbox.top + 150 + "px";
-        play(
-          "breastCancerTreatmentTooltip4Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
-        */
-
-
       }
       function showLumpectomyTooltip(){
 
@@ -2063,65 +1895,58 @@ createTimeout(() => {
         var lumpectomyTooltip = document.getElementById("lumpectomyTooltip");
         var lumpectomy = document.getElementById("lumpectomy");
         lumpectomy.setAttribute("opacity","1");
-          var bbox = lumpectomy.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          lumpectomyTooltip.style.left = bbox.right + 5+ "px";
-          lumpectomyTooltip.style.top = bbox.top + 25+ "px";
-          lumpectomyTooltip.setAttribute(
-            "class",
-            "tooltip breastCancer-text"
-          );
+        var bbox = lumpectomy.getBoundingClientRect();
+        lumpectomyTooltip.style.left = bbox.right + 5+ "px";
+        lumpectomyTooltip.style.top = bbox.top + 25+ "px";
+        lumpectomyTooltip.setAttribute(
+          "class",
+          "tooltip breastCancer-text"
+        );
 
-          play(
-            "lumpectomyTooltipText",
-            "tooltiptext tooltip-right",
-            "tooltiptext tooltip-right tooltipAnimate"
-          );
+        play(
+          "lumpectomyTooltipText",
+          "tooltiptext tooltip-right",
+          "tooltiptext tooltip-right tooltipAnimate"
+        );
+      }
+      function showMastectomyTooltip(){
+        hideTooltip("lumpectomyTooltip");
+        var mastectomy =
+          document.getElementById("mastectomy");
+        mastectomy.setAttribute("opacity","1");
+        var mastectomyTooltip =
+          document.getElementById("mastectomyTooltip");
+        var bbox = mastectomy.getBoundingClientRect();
+        mastectomyTooltip.style.left = bbox.left- 25+"px";
+        mastectomyTooltip.style.top = bbox.top + 100 + "px";
+        mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
+
+        play(
+          "mastectomyTooltipText",
+          "tooltiptext tooltip-bottom",
+          "tooltiptext tooltip-bottom tooltipAnimate"
+        );      
+      }
+      function showLymphNodeTooltip(){
+        hideTooltip("mastectomyTooltip");
         
+
+        var mastectomy =
+          document.getElementById("lymphNode");
+        mastectomy.setAttribute("opacity","1");
+        var mastectomyTooltip = document.getElementById("lymphNodeTooltip");
+        var bbox = mastectomy.getBoundingClientRect();
+        mastectomyTooltip.style.left = bbox.left - 15 + "px";
+        mastectomyTooltip.style.top = bbox.top + 100 + "px";
+        mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
+
+        play(
+          "lymphNodeTooltipText",
+          "tooltiptext tooltip-bottom",
+          "tooltiptext tooltip-bottom tooltipAnimate"
+        );
 
       }
-        function showMastectomyTooltip(){
-          hideTooltip("lumpectomyTooltip");
-           var mastectomy =
-            document.getElementById("mastectomy");
-                    mastectomy.setAttribute("opacity","1");
-            var mastectomyTooltip =
-            document.getElementById("mastectomyTooltip");
-          var bbox = mastectomy.getBoundingClientRect();
-          mastectomyTooltip.style.left = bbox.left- 25+"px";
-          mastectomyTooltip.style.top = bbox.top -10 + "px";
-          mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
-
-          play(
-            "mastectomyTooltipText",
-            "tooltiptext tooltip-top",
-            "tooltiptext tooltip-top tooltipAnimate"
-          );
-        
-          
-
-        }
-        function showLymphNodeTooltip(){
-          hideTooltip("mastectomyTooltip");
-          
-
-         var mastectomy =
-            document.getElementById("lymphNode");
-                    mastectomy.setAttribute("opacity","1");
-            var mastectomyTooltip =
-            document.getElementById("lymphNodeTooltip");
-          var bbox = mastectomy.getBoundingClientRect();
-          mastectomyTooltip.style.left = bbox.left - 15 + "px";
-          mastectomyTooltip.style.top = bbox.top -10 + "px";
-          mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
-
-          play(
-            "lymphNodeTooltipText",
-            "tooltiptext tooltip-top",
-            "tooltiptext tooltip-top tooltipAnimate"
-          );
-
-        }
         function showBiMastectomyTooltip(){
           hideTooltip("lymphNodeTooltip");
                     var causesSlide1Tooltip = document.getElementById(
@@ -2135,10 +1960,10 @@ createTimeout(() => {
           "tooltiptext tooltipAnimate"
         );
 
-         var mastectomy =
+        var mastectomy =
             document.getElementById("biMastectomy");
-                    mastectomy.setAttribute("opacity","1");
-            var mastectomyTooltip =
+          mastectomy.setAttribute("opacity","1");
+          var mastectomyTooltip =
             document.getElementById("biMastectomyTooltip");
           var bbox = mastectomy.getBoundingClientRect();
           mastectomyTooltip.style.left = bbox.left + 15 + "px";
@@ -2155,7 +1980,7 @@ createTimeout(() => {
         }
       function showBreastCancerOtherTreatmentIntro() {
         
-           hideTooltip("breastCancerTreatmentTooltip3");
+        hideTooltip("breastCancerTreatmentTooltip3");
         hideTooltip("breastCancerTreatmentTooltip4");
 
         hideTooltip("biMastectomyTooltip");
@@ -2203,24 +2028,23 @@ createTimeout(() => {
         hideTooltip("breastCancerOtherTreatmentIntroTooltip");
         
         play("breastCancerTreatmentIcons","","fade-out-to-less-opacity");
-var chemotherapy = document.getElementById("chemotherapy");
-chemotherapy.style.opacity = "0";
-chemotherapy.setAttribute("visibility","visible");
-var hormoneTherapy = document.getElementById("hormoneTherapy");
-hormoneTherapy.style.opacity = "0";
-hormoneTherapy.setAttribute("visibility","visible");
-var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
-targetedDrugTherapy.style.opacity = "0";
-targetedDrugTherapy.setAttribute("visibility","visible");
-var pallativeCare = document.getElementById("pallativeCare");
-pallativeCare.style.opacity = "0";
-pallativeCare.setAttribute("visibility","visible");
-var immunoTherapy = document.getElementById("immunoTherapy");
-immunoTherapy.style.opacity = "0";
-immunoTherapy.setAttribute("visibility","visible");
-var radiationTherapy = document.getElementById("radiationTherapy");
-play("radiationTherapy","","radiationTherapy");
-        //style="transform: translate(-375px, 600px) scale(1.1)"
+        var chemotherapy = document.getElementById("chemotherapy");
+        chemotherapy.style.opacity = "0";
+        chemotherapy.setAttribute("visibility","visible");
+        var hormoneTherapy = document.getElementById("hormoneTherapy");
+        hormoneTherapy.style.opacity = "0";
+        hormoneTherapy.setAttribute("visibility","visible");
+        var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
+        targetedDrugTherapy.style.opacity = "0";
+        targetedDrugTherapy.setAttribute("visibility","visible");
+        var pallativeCare = document.getElementById("pallativeCare");
+        pallativeCare.style.opacity = "0";
+        pallativeCare.setAttribute("visibility","visible");
+        var immunoTherapy = document.getElementById("immunoTherapy");
+        immunoTherapy.style.opacity = "0";
+        immunoTherapy.setAttribute("visibility","visible");
+        var radiationTherapy = document.getElementById("radiationTherapy");
+        play("radiationTherapy","","radiationTherapy");
         var tooltip = document.getElementById(
           "radiationTherapyTooltip1"
         );
@@ -2243,47 +2067,19 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        /*
-        var tooltip = document.getElementById(
-          "radiationTherapyTooltip3"
-        );
-        tooltip.className = "tooltip breastCancer-text";
-       var bbox = tooltip2.getBoundingClientRect();
-        tooltip.style.left = bbox.left + "px";
-        tooltip.style.top = bbox.top + tooltip2.scrollHeight+ 10 + "px";
-        play(
-          "radiationTherapyTooltip3Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
- 
-        var tooltip2 = document.getElementById(
-          "radiationTherapyTooltip4"
-        );
-        tooltip2.className = "tooltip breastCancer-text";
-        var bbox = tooltip.getBoundingClientRect();
-        tooltip2.style.left = bbox.left + "px";
-        tooltip2.style.top = bbox.top + tooltip.scrollHeight+ 10 + "px";
-      
-        play(
-          "radiationTherapyTooltip4Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
-        */
+        
       }
       function showHormoneTherapyTooltips(){
-      //  style="transform: translate(-905px, -855px) scale(1.6)"
-      hideTooltip("radiationTherapyTooltip1");
+        hideTooltip("radiationTherapyTooltip1");
         hideTooltip("radiationTherapyTooltip2");
-      hideTooltip("radiationTherapyTooltip3");
-      hideTooltip("radiationTherapyTooltip4");
-      stop("radiationTherapy","radiationTherapy");
-      var radiationTherapy = document.getElementById("radiationTherapy");
-      radiationTherapy.style.opacity = "0";
-      var hormoneTherapy = document.getElementById("hormoneTherapy");
-      hormoneTherapy.style.opacity = "1";
-      play("hormoneTherapy","","hormoneTherapy");
+        hideTooltip("radiationTherapyTooltip3");
+        hideTooltip("radiationTherapyTooltip4");
+        stop("radiationTherapy","radiationTherapy");
+        var radiationTherapy = document.getElementById("radiationTherapy");
+        radiationTherapy.style.opacity = "0";
+        var hormoneTherapy = document.getElementById("hormoneTherapy");
+        hormoneTherapy.style.opacity = "1";
+        play("hormoneTherapy","","hormoneTherapy");
       
         var tooltip = document.getElementById(
           "hormoneTherapyTooltip1"
@@ -2302,7 +2098,6 @@ play("radiationTherapy","","radiationTherapy");
         );
         tooltip2.className = "tooltip breastCancer-text";
 
-        // Show the tooltip at the position of the clicked element
         tooltip2.style.left = bbox2.left + "px";
         tooltip2.style.top = bbox2.top + tooltip.scrollHeight+ 10 + "px";
         play(
@@ -2310,50 +2105,22 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        /*
-      var tooltip = document.getElementById(
-          "hormoneTherapyTooltip3"
-        );
-        tooltip.className = "tooltip breastCancer-text";
-
-        play(
-          "hormoneTherapyTooltip3Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
-
-        var bbox1 = tooltip.getBoundingClientRect();
-        var tooltip2 = document.getElementById(
-          "hormoneTherapyTooltip4"
-        );
-        tooltip2.className = "tooltip breastCancer-text";
-
-        // Show the tooltip at the position of the clicked element
-        tooltip2.style.left = bbox1.left + "px";
-        tooltip2.style.top = bbox1.top + 105 + "px";
-        play(
-          "hormoneTherapyTooltip4Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );*/
-        }
-        function showChemoTherapyTooltips(){
-          stop("hormoneTherapy","hormoneTherapy");
-      var hormoneTherapy = document.getElementById("hormoneTherapy");
-      hormoneTherapy.style.opacity = "0";
-      var chemotherapy = document.getElementById("chemotherapy");
-      chemotherapy.style.opacity = "1";
-      play("chemotherapy","","chemotherapy");
-      
-       //   style="transform: translate(285px, 470px) scale(0.9)"
-      hideTooltip("hormoneTherapyTooltip1");
-      hideTooltip("hormoneTherapyTooltip2");
-      
-      hideTooltip("hormoneTherapyTooltip3");
-      hideTooltip("hormoneTherapyTooltip4");
-      
-      var tooltip = document.getElementById(
-          "chemotherapyTooltip1"
+      }
+      function showChemoTherapyTooltips(){
+        stop("hormoneTherapy","hormoneTherapy");
+        var hormoneTherapy = document.getElementById("hormoneTherapy");
+        hormoneTherapy.style.opacity = "0";
+        var chemotherapy = document.getElementById("chemotherapy");
+        chemotherapy.style.opacity = "1";
+        play("chemotherapy","","chemotherapy");
+        hideTooltip("hormoneTherapyTooltip1");
+        hideTooltip("hormoneTherapyTooltip2");
+        
+        hideTooltip("hormoneTherapyTooltip3");
+        hideTooltip("hormoneTherapyTooltip4");
+        
+        var tooltip = document.getElementById(
+            "chemotherapyTooltip1"
         );
         tooltip.className = "tooltip breastCancer-text";
 
@@ -2369,7 +2136,6 @@ play("radiationTherapy","","radiationTherapy");
         );
         tooltip2.className = "tooltip breastCancer-text";
 
-        // Show the tooltip at the position of the clicked element
         tooltip2.style.left = bbox4.left + "px";
         tooltip2.style.top = bbox4.top + tooltip.scrollHeight +10+ "px";
         play(
@@ -2377,123 +2143,52 @@ play("radiationTherapy","","radiationTherapy");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        
-     /* var tooltip = document.getElementById(
-          "chemotherapyTooltip3"
-        );
-        tooltip.className = "tooltip breastCancer-text";
-
-        play(
-          "chemotherapyTooltip3Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
-
-        var bbox4 = tooltip.getBoundingClientRect();
-        var tooltip2 = document.getElementById(
-          "chemotherapyTooltip4"
-        );
-        tooltip2.className = "tooltip breastCancer-text";
-
-        // Show the tooltip at the position of the clicked element
-        tooltip2.style.left = bbox4.left + "px";
-        tooltip2.style.top = bbox4.top + 85 + "px";
-        play(
-          "chemotherapyTooltip4Text",
-          "tooltiptext",
-          "tooltiptext tooltipAnimate"
-        );
-        */
-        }
-   function showTargetedDrugTherapyTooltips(){
-    stop("chemotherapy","chemotherapy");
-      var chemotherapy = document.getElementById("chemotherapy");
-      chemotherapy.style.opacity = "0";
-      var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
-      targetedDrugTherapy.style.opacity = "1";
-      play("targetedDrugTherapy","","targetedDrugTherapy");
-   // style="transform: translate(-465px, -175px) scale(1.375)"    
-    hideTooltip("chemotherapyTooltip1");
+      }
+      function showTargetedDrugTherapyTooltips(){
+        stop("chemotherapy","chemotherapy");
+        var chemotherapy = document.getElementById("chemotherapy");
+        chemotherapy.style.opacity = "0";
+        var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
+        targetedDrugTherapy.style.opacity = "1";
+        play("targetedDrugTherapy","","targetedDrugTherapy");
+        hideTooltip("chemotherapyTooltip1");
         hideTooltip("chemotherapyTooltip2");
         hideTooltip("chemotherapyTooltip3");
         hideTooltip("chemotherapyTooltip4");
         
         var tooltip = document.getElementById(
             "targetedDrugTherapyTooltip1"
-          );
-          tooltip.className = "tooltip breastCancer-text";
-  
-          play(
-            "targetedDrugTherapyTooltip1Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );
+        );
+        tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "targetedDrugTherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
           
-  
-          var bbox5 = tooltip.getBoundingClientRect();
-          var tooltip2 = document.getElementById(
-            "targetedDrugTherapyTooltip2"
-          );
-          tooltip2.className = "tooltip breastCancer-text";
-  
-          // Show the tooltip at the position of the clicked element
-          tooltip2.style.left = bbox5.left + "px";
-          tooltip2.style.top = bbox5.top + tooltip.scrollHeight+ 10 + "px";
-          play(
-            "targetedDrugTherapyTooltip2Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );
-      
-       /*  
-        var tooltip = document.getElementById(
-            "targetedDrugTherapyTooltip3"
-          );
-          tooltip.className = "tooltip breastCancer-text";
-  
-          play(
-            "targetedDrugTherapyTooltip3Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );
-  
-          var bbox6 = tooltip.getBoundingClientRect();
-          var tooltip2 = document.getElementById(
-            "targetedDrugTherapyTooltip4"
-          );
-          tooltip2.className = "tooltip breastCancer-text";
-  
-          // Show the tooltip at the position of the clicked element
-          tooltip2.style.left = bbox6.left + "px";
-          tooltip2.style.top = bbox6.top + 105 + "px";
-          play(
-            "targetedDrugTherapyTooltip4Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );
-       
-        
-      
-        
-        var tooltip = document.getElementById(
-            "targetedDrugTherapyTooltip5"
-          );
-          tooltip.className = "tooltip breastCancer-text";
-  
-          play(
-            "targetedDrugTherapyTooltip5Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );*/
-        }
-        function showImmunoTherapyTooltips(){
-          stop("targetedDrugTherapy","targetedDrugTherapy");
-      var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
-      targetedDrugTherapy.style.opacity = "0";
-      var immunoTherapy = document.getElementById("immunoTherapy");
-      immunoTherapy.style.opacity = "1";
-      play("immunoTherapy","","immunoTherapy");
-          //style="transform: translate(265px, 745px) scale(1.05)"
+
+        var bbox5 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "targetedDrugTherapyTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
+
+        tooltip2.style.left = bbox5.left + "px";
+        tooltip2.style.top = bbox5.top + tooltip.scrollHeight+ 10 + "px";
+        play(
+          "targetedDrugTherapyTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
+      function showImmunoTherapyTooltips(){
+        stop("targetedDrugTherapy","targetedDrugTherapy");
+        var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
+        targetedDrugTherapy.style.opacity = "0";
+        var immunoTherapy = document.getElementById("immunoTherapy");
+        immunoTherapy.style.opacity = "1";
+        play("immunoTherapy","","immunoTherapy");
         hideTooltip("targetedDrugTherapyTooltip1");
         hideTooltip("targetedDrugTherapyTooltip2");
         hideTooltip("targetedDrugTherapyTooltip3");
@@ -2502,262 +2197,182 @@ play("radiationTherapy","","radiationTherapy");
         hideTooltip("targetedDrugTherapyTooltip5");
         
         var tooltip = document.getElementById(
-            "immunoTherapyTooltip1"
-          );
-          tooltip.className = "tooltip breastCancer-text";
-  
-          play(
-            "immunoTherapyTooltip1Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );
-  
-          var bbox7 = tooltip.getBoundingClientRect();
-          var tooltip2 = document.getElementById(
-            "immunoTherapyTooltip2"
-          );
-          tooltip2.className = "tooltip breastCancer-text";
-  
-          // Show the tooltip at the position of the clicked element
-          tooltip2.style.left = bbox7.left + "px";
-          tooltip2.style.top = bbox7.top + tooltip.scrollHeight + 10 + "px";
-          play(
-            "immunoTherapyTooltip2Text",
-            "tooltiptext",
-            "tooltiptext tooltipAnimate"
-          );
-          
-       /*   var tooltip = document.getElementById(
-              "immunoTherapyTooltip3"
-            );
-            tooltip.className = "tooltip breastCancer-text";
-    
-            play(
-              "immunoTherapyTooltip3Text",
-              "tooltiptext",
-              "tooltiptext tooltipAnimate"
-            );
-    
-            var bbox8 = tooltip.getBoundingClientRect();
-            var tooltip2 = document.getElementById(
-              "immunoTherapyTooltip4"
-            );
-            tooltip2.className = "tooltip breastCancer-text";
-    
-            // Show the tooltip at the position of the clicked element
-            tooltip2.style.left = bbox8.left + "px";
-            tooltip2.style.top = bbox8.top + 125 + "px";
-            play(
-              "immunoTherapyTooltip4Text",
-              "tooltiptext",
-              "tooltiptext tooltipAnimate"
-            );
-          
-         
-          var tooltip = document.getElementById(
-              "immunoTherapyTooltip5"
-            );
-            tooltip.className = "tooltip breastCancer-text";
-    
-            play(
-              "immunoTherapyTooltip5Text",
-              "tooltiptext",
-              "tooltiptext tooltipAnimate"
-            );*/
-        }
-        function showPallativeCareTooltips(){
-          stop("immunoTherapy","immunoTherapy");
-      var immunoTherapy = document.getElementById("immunoTherapy");
-      immunoTherapy.style.opacity = "0";
-      var pallativeCare  = document.getElementById("pallativeCare");
-      pallativeCare.style.opacity = "1";
-      play("pallativeCare","","pallativeCare");
-          //style="transform: translate(0, -70px)"
+          "immunoTherapyTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "immunoTherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+
+        var bbox7 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "immunoTherapyTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
+
+        tooltip2.style.left = bbox7.left + "px";
+        tooltip2.style.top = bbox7.top + tooltip.scrollHeight + 10 + "px";
+        play(
+          "immunoTherapyTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
+      function showPallativeCareTooltips(){
+        stop("immunoTherapy","immunoTherapy");
+        var immunoTherapy = document.getElementById("immunoTherapy");
+        immunoTherapy.style.opacity = "0";
+        var pallativeCare  = document.getElementById("pallativeCare");
+        pallativeCare.style.opacity = "1";
+        play("pallativeCare","","pallativeCare");
         hideTooltip("immunoTherapyTooltip1");
-          hideTooltip("immunoTherapyTooltip2");
-           
+        hideTooltip("immunoTherapyTooltip2");
+          
         hideTooltip("immunoTherapyTooltip3");
-          hideTooltip("immunoTherapyTooltip4");
+        hideTooltip("immunoTherapyTooltip4");
           
         hideTooltip("immunoTherapyTooltip5");
           
-          var tooltip = document.getElementById(
-              "pallativeCareTooltip1"
-            );
-            tooltip.className = "tooltip breastCancer-text";
-    
-            play(
-              "pallativeCareTooltip1Text",
-              "tooltiptext",
-              "tooltiptext tooltipAnimate"
-            );
-  
-            var bbox9 = tooltip.getBoundingClientRect();
-            var tooltip2 = document.getElementById(
-              "pallativeCareTooltip2"
-            );
-            tooltip2.className = "tooltip breastCancer-text";
-    
-            // Show the tooltip at the position of the clicked element
-            tooltip2.style.left = bbox9.left + "px";
-            tooltip2.style.top = bbox9.top + tooltip.scrollHeight+10 + "px";
-            play(
-              "pallativeCareTooltip2Text",
-              "tooltiptext",
-              "tooltiptext tooltipAnimate"
-            );/*
-          var tooltip = document.getElementById(
-              "pallativeCareTooltip3"
-            );
-            tooltip.className = "tooltip breastCancer-text";
-    
-            play(
-              "pallativeCareTooltip3Text",
-              "tooltiptext",
-              "tooltiptext tooltipAnimate"
-            );*/
-          
-          }
+        var tooltip = document.getElementById(
+          "pallativeCareTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "pallativeCareTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+
+        var bbox9 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "pallativeCareTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
+
+        tooltip2.style.left = bbox9.left + "px";
+        tooltip2.style.top = bbox9.top + tooltip.scrollHeight+10 + "px";
+        play(
+          "pallativeCareTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
           
       function showBreastCancerLifestyleIntro(){
-      if (!isJumpingToIndex){console.log("Go To Next Section");}
+        highlightNextSection();
         const gradient_background = document.getElementById(
-              "gradient-background"
-            );
-            gradient_background.style.opacity = "0";
+          "gradient-background"
+        );
+        gradient_background.style.opacity = "0";
 
         stop("pallativeCare","pallativeCare");
         
-      var pallativeCare = document.getElementById("pallativeCare");
-      pallativeCare.style.opacity = "0";
-        
-    
-      var breastCancerTreatment = document.getElementById(
-          "breastCancerTreatment2"
+        var pallativeCare = document.getElementById("pallativeCare");
+        pallativeCare.style.opacity = "0";
+          
+        var breastCancerTreatment = document.getElementById(
+            "breastCancerTreatment2"
         );
         breastCancerTreatment.setAttribute("visibility", "hidden");
         fadeIn("lifestyleSection");
         var lifestyleSection = document.getElementById("lifestyleSection");
         lifestyleSection.setAttribute("visibility","visible");
-  hideTooltip("pallativeCareTooltip1");
-  hideTooltip("pallativeCareTooltip2");
-    hideTooltip("pallativeCareTooltip3");
-    var tooltip = document.getElementById("lifestyleIntroTooltip");
-    tooltip.className = "tooltip breastCancer-text";
-    play("lifestyleIntroTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+
+        hideTooltip("pallativeCareTooltip1");
+        hideTooltip("pallativeCareTooltip2");
+        hideTooltip("pallativeCareTooltip3");
+        var tooltip = document.getElementById("lifestyleIntroTooltip");
+        tooltip.className = "tooltip breastCancer-text";
+        play("lifestyleIntroTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
       }
-  function showDietTooltip(){
-    hideTooltip("lifestyleIntroTooltip");
-    play("weight","","fade-out-to-less-opacity");
-    play("noAlcohol","","fade-out-to-less-opacity");
-    play("exercise","","fade-out-to-less-opacity");
-    play("breastFeed","","fade-out-to-less-opacity");
-    play("hormoneTherapyLifestyle","","fade-out-to-less-opacity");
-  
-    var dietTooltip = document.getElementById("dietTooltip");
-    dietTooltip.className = "tooltip breastCancer-text";
-    play("dietTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-     }
-     function showAlcoholTooltip(){
-  
-    hideTooltip("dietTooltip");
-    play("diet","","fade-out-to-less-opacity");
-    play2("noAlcohol","","undo-fade-out-to-less-opacity");
-    var alcoholTooltip = document.getElementById("alcoholTooltip");
-    alcoholTooltip.className = "tooltip breastCancer-text";
-    play("alcoholTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      function showDietTooltip(){
+        hideTooltip("lifestyleIntroTooltip");
+        play("weight","","fade-out-to-less-opacity");
+        play("noAlcohol","","fade-out-to-less-opacity");
+        play("exercise","","fade-out-to-less-opacity");
+        play("breastFeed","","fade-out-to-less-opacity");
+        play("hormoneTherapyLifestyle","","fade-out-to-less-opacity");
+
+        var dietTooltip = document.getElementById("dietTooltip");
+        dietTooltip.className = "tooltip breastCancer-text";
+        play("dietTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+    }
+    function showAlcoholTooltip(){
+        hideTooltip("dietTooltip");
+        play("diet","","fade-out-to-less-opacity");
+        play2("noAlcohol","","undo-fade-out-to-less-opacity");
+        var alcoholTooltip = document.getElementById("alcoholTooltip");
+        alcoholTooltip.className = "tooltip breastCancer-text";
+        play("alcoholTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
       }
       function showWeightTooltip(){
-    hideTooltip("alcoholTooltip");
-    play("noAlcohol","","fade-out-to-less-opacity");
-    play2("weight","","undo-fade-out-to-less-opacity");
-    var weightTooltip = document.getElementById("weightTooltip");
-    weightTooltip.className = "tooltip breastCancer-text";
-    play("weightTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-       }
- function showBeActiveTooltip(){    
-  hideTooltip("breastfeedTooltip");
-    play("breastFeed","","fade-out-to-less-opacity");
- 
-    play2("exercise","","undo-fade-out-to-less-opacity");
-    var beActiveTooltip = document.getElementById("beActiveTooltip");
-    beActiveTooltip.className = "tooltip breastCancer-text";
-    play("beActiveTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+        hideTooltip("alcoholTooltip");
+        play("noAlcohol","","fade-out-to-less-opacity");
+        play2("weight","","undo-fade-out-to-less-opacity");
+        var weightTooltip = document.getElementById("weightTooltip");
+        weightTooltip.className = "tooltip breastCancer-text";
+        play("weightTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
       }
-function showBreastFeedTooltip(){
+      function showBeActiveTooltip(){    
+        hideTooltip("breastfeedTooltip");
+        play("breastFeed","","fade-out-to-less-opacity");
 
-
-   
-    hideTooltip("weightTooltip");
-  play("weight","","fade-out-to-less-opacity");
-    play2("breastFeed","","undo-fade-out-to-less-opacity");
-    var breastfeedTooltip = document.getElementById("breastfeedTooltip");
-    breastfeedTooltip.className = "tooltip breastCancer-text";
-    play("breastfeedTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
- }
-  function showLimitTherapyTooltip(){
-    hideTooltip("beActiveTooltip");
-
-    play("exercise","","fade-out-to-less-opacity");
-   
-    play2("hormoneTherapyLifestyle","","undo-fade-out-to-less-opacity");
-    var limitTherapyTooltip = document.getElementById("limitTherapyTooltip");
-    limitTherapyTooltip.className = "tooltip breastCancer-text";
-    play("limitTherapyTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-   }
- function showHealthyDietTooltip(){
-  
-    hideTooltip("limitTherapyTooltip");
-    play("lifestyleSectionCircle","","fade-out-to-no-opacity");
-    play("lifestyleSectionIcon","","fade-out-to-no-opacity");
-    play("diet","","fade-out-to-no-opacity");
-    play("noAlcohol","","fade-out-to-no-opacity");
-    play("weight","","fade-out-to-no-opacity");
-    play("breastFeed","","fade-out-to-no-opacity");
-    play("exercise","","fade-out-to-no-opacity");
-    play("hormoneTherapyLifestyle","","fade-out-to-no-opacity");
-    play("healthyDiet","","healthyDiet");
-    var healthyDietTooltip1 = document.getElementById("healthyDietTooltip1");
-    healthyDietTooltip1.className = "tooltip breastCancer-text";
-    play("healthyDietTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
- /*   var bbox = healthyDietTooltip1.getBoundingClientRect();
-    var healthyDietTooltip2 = document.getElementById("healthyDietTooltip2");
-    healthyDietTooltip2.className = "tooltip breastCancer-text";
-    healthyDietTooltip2.style.left = bbox.left + "px";
-    healthyDietTooltip2.style.top = bbox.top + 125 + "px";
-    play("healthyDietTooltip2Text", "tooltiptext", "tooltiptext tooltipAnimate");*/
-   }
-  function showBirthControlTooltip(){
-  
-    hideTooltip("healthyDietTooltip1");
-    hideTooltip("healthyDietTooltip2");
-    stop("healthyDiet","healthyDiet");
-    play("birthControl","","birthControl");
-    var birthControlBreastCancerTooltip1 = document.getElementById("birthControlBreastCancerTooltip1");
-    birthControlBreastCancerTooltip1.className = "tooltip breastCancer-text";
-    play("birthControlBreastCancerTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
-    /*var bbox2 = birthControlBreastCancerTooltip1.getBoundingClientRect();
-    var birthControlBreastCancerTooltip2 = document.getElementById("birthControlBreastCancerTooltip2");
-    birthControlBreastCancerTooltip2.className = "tooltip breastCancer-text";
-    birthControlBreastCancerTooltip2.style.left = bbox2.left + "px";
-    birthControlBreastCancerTooltip2.style.top = bbox2.top + 160 + "px";
-    play("birthControlBreastCancerTooltip2Text", "tooltiptext", "tooltiptext tooltipAnimate");*/
-   }
-  function showImportantNoteTooltip(){
-    hideTooltip("birthControlBreastCancerTooltip1");
-    hideTooltip("birthControlBreastCancerTooltip2");
-    var importantNoteTooltip1 = document.getElementById("importantNoteTooltip1");
-    importantNoteTooltip1.className = "tooltip breastCancer-text";
-    play("importantNoteTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
-    /*var bbox3 = importantNoteTooltip1.getBoundingClientRect();
-    var importantNoteTooltip2 = document.getElementById("importantNoteTooltip2");
-    importantNoteTooltip2.className = "tooltip breastCancer-text";
-    importantNoteTooltip2.style.left = bbox3.left + "px";
-    importantNoteTooltip2.style.top = bbox3.top + 145 + "px";
-    play("importantNoteTooltip2Text", "tooltiptext", "tooltiptext tooltipAnimate");*/
-  }
-
-      
+        play2("exercise","","undo-fade-out-to-less-opacity");
+        var beActiveTooltip = document.getElementById("beActiveTooltip");
+        beActiveTooltip.className = "tooltip breastCancer-text";
+        play("beActiveTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function showBreastFeedTooltip(){
+        hideTooltip("weightTooltip");
+        play("weight","","fade-out-to-less-opacity");
+        play2("breastFeed","","undo-fade-out-to-less-opacity");
+        var breastfeedTooltip = document.getElementById("breastfeedTooltip");
+        breastfeedTooltip.className = "tooltip breastCancer-text";
+        play("breastfeedTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function showLimitTherapyTooltip(){
+        hideTooltip("beActiveTooltip");
+        play("exercise","","fade-out-to-less-opacity"); 
+        play2("hormoneTherapyLifestyle","","undo-fade-out-to-less-opacity");
+        var limitTherapyTooltip = document.getElementById("limitTherapyTooltip");
+        limitTherapyTooltip.className = "tooltip breastCancer-text";
+        play("limitTherapyTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function showHealthyDietTooltip(){
+        hideTooltip("limitTherapyTooltip");
+        play("lifestyleSectionCircle","","fade-out-to-no-opacity");
+        play("lifestyleSectionIcon","","fade-out-to-no-opacity");
+        play("diet","","fade-out-to-no-opacity");
+        play("noAlcohol","","fade-out-to-no-opacity");
+        play("weight","","fade-out-to-no-opacity");
+        play("breastFeed","","fade-out-to-no-opacity");
+        play("exercise","","fade-out-to-no-opacity");
+        play("hormoneTherapyLifestyle","","fade-out-to-no-opacity");
+        play("healthyDiet","","healthyDiet");
+        var healthyDietTooltip1 = document.getElementById("healthyDietTooltip1");
+        healthyDietTooltip1.className = "tooltip breastCancer-text";
+        play("healthyDietTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function showBirthControlTooltip(){
+        hideTooltip("healthyDietTooltip1");
+        hideTooltip("healthyDietTooltip2");
+        stop("healthyDiet","healthyDiet");
+        play("birthControl","","birthControl");
+        var birthControlBreastCancerTooltip1 = document.getElementById("birthControlBreastCancerTooltip1");
+        birthControlBreastCancerTooltip1.className = "tooltip breastCancer-text";
+        play("birthControlBreastCancerTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function showImportantNoteTooltip(){
+        hideTooltip("birthControlBreastCancerTooltip1");
+        hideTooltip("birthControlBreastCancerTooltip2");
+        var importantNoteTooltip1 = document.getElementById("importantNoteTooltip1");
+        importantNoteTooltip1.className = "tooltip breastCancer-text";
+        play("importantNoteTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
 
       function makeBackgroundLight() {
         const gradient_background = document.getElementById(
@@ -2775,7 +2390,7 @@ function showBreastFeedTooltip(){
         );
         darkBackgroundOutline.setAttribute("visibility", "hidden");
       }
-    
+
       function revertToBreastCancerText() {
         stop("duct3", "pulsating");
         stop("lobule3", "pulsating");
@@ -2809,9 +2424,7 @@ function showBreastFeedTooltip(){
         play("duct1", "", "pulsating");
 
         var previousButton = document.getElementById("previousButton");
-        previousButton.setAttribute("visibility", "hidden");
-
-        
+        previousButton.setAttribute("visibility", "hidden"); 
       }
       function revertToCancerousTumorText() {
         var benignTumorTooltip = document.getElementById("benignTumorTooltip");
@@ -2833,22 +2446,16 @@ function showBreastFeedTooltip(){
           "class",
           "tooltip breastCancer-text"
         );
-
         play(
           "cancerousTumorTooltipText",
           "tooltiptext tooltip-bottom-left",
           "tooltiptext tooltip-bottom-left tooltipAnimate"
         );
-
         play("lobule3", "", "pulsating");
-        play("duct3", "", "pulsating");
-
-        
+        play("duct3", "", "pulsating");      
       }
 
       function revertToBenignTumorText() {
-
-
         var stage0Tooltip = document.getElementById("stage0Tooltip");
         stage0Tooltip.setAttribute("class", "tooltip breastCancer-text hide");
 
@@ -2894,10 +2501,7 @@ function showBreastFeedTooltip(){
           "benignTumorTooltipText",
           "tooltiptext tooltip-bottom",
           "tooltiptext tooltip-bottom tooltipAnimate"
-        );
-
-        
-
+        );    
       }
 
       function revertToStage0Text() {
@@ -2914,9 +2518,7 @@ function showBreastFeedTooltip(){
           "stage0TooltipText",
           "tooltiptext tooltip-left",
           "tooltiptext tooltip-left tooltipAnimate"
-        );
-
-        
+        );     
       }
 
       function revertToStage1Text() {
@@ -2933,9 +2535,7 @@ function showBreastFeedTooltip(){
           "stage1TooltipText",
           "tooltiptext tooltip-right",
           "tooltiptext tooltip-right tooltipAnimate"
-        );
-
-        
+        );      
       }
 
       function revertToStage2Text() {
@@ -2952,9 +2552,7 @@ function showBreastFeedTooltip(){
           "stage2TooltipText",
           "tooltiptext tooltip-left",
           "tooltiptext tooltip-left tooltipAnimate"
-        );
-
-        
+        );      
       }
 
       function revertToStage3Text() {
@@ -2971,15 +2569,13 @@ function showBreastFeedTooltip(){
           "stage3TooltipText",
           "tooltiptext tooltip-right",
           "tooltiptext tooltip-right tooltipAnimate"
-        );
-
-        
+        );    
       }
 
       function revertToStage4Text() {
-           console.log("Go To Prev Section");
-           stop("fattyTissue","delayed-fade-in-3");
-           undoFadeInAndScale("fattyTissueZoomedLabelAndLine");
+        highlightPreviousSection();
+        stop("fattyTissue","delayed-fade-in-3");
+        undoFadeInAndScale("fattyTissueZoomedLabelAndLine");
         const gradient_background = document.getElementById(
           "gradient-background"
         );
@@ -3041,8 +2637,6 @@ function showBreastFeedTooltip(){
         
       }
       function revertToCausesSlide2() {
-
-
         stop("lobule1", "reverse-pulsating");
         stop("lobule2", "reverse-pulsating");
         stop("lobule3", "reverse-pulsating");
@@ -3078,8 +2672,7 @@ function showBreastFeedTooltip(){
           "tooltiptext tooltipAnimate"
         );
         play("lobules","","scale-in");
-        fadeInAndScale("lobuleZoomedLabelAndLine");
-        
+        fadeInAndScale("lobuleZoomedLabelAndLine");      
       }
       function revertToLobuleTooltip() {
         hideTooltip("ductTooltip");
@@ -3090,21 +2683,16 @@ function showBreastFeedTooltip(){
         undoFadeInAndScale("ductZoomedLabelAndLine");
         undoFadeInAndScale("nippleZoomedLabelAndLine");
         play("lobuleTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-
-
         play("lobule1", "", "reverse-pulsating");
         play("lobule2", "", "reverse-pulsating");
         play("lobule3", "", "reverse-pulsating");
         play("lobule4", "", "reverse-pulsating");
-
         play("lobule5", "", "reverse-pulsating");
         play("lobule6", "", "reverse-pulsating");
         play("lobule7", "", "reverse-pulsating");
         play("lobule8", "", "reverse-pulsating");
-
         play("lobule9", "", "reverse-pulsating");
-        play("lobule10", "", "reverse-pulsating");
-        
+        play("lobule10", "", "reverse-pulsating");     
       }
       function revertToDuctTooltip() {
         hideTooltip("uncontrollablyTooltip");
@@ -3118,7 +2706,6 @@ function showBreastFeedTooltip(){
         stop("duct7", "uncontrollable-set-1");
         stop("lobule9", "uncontrollable-set-1");
         stop("duct9", "uncontrollable-set-1");
-
         stop("lobule2", "uncontrollable-set-2");
         stop("duct2", "uncontrollable-set-2");
         stop("lobule4", "uncontrollable-set-2");
@@ -3137,10 +2724,7 @@ function showBreastFeedTooltip(){
         fadeInAndScale("nipple");
         fadeInAndScale("ductZoomedLabelAndLine");
         fadeInAndScale("nippleZoomedLabelAndLine");
-
-        play("ductTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-
-        
+        play("ductTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");   
       }
 
       function revertToUncontrollable() {
@@ -3151,7 +2735,6 @@ function showBreastFeedTooltip(){
         lobules.style.opacity = "0.96";
         var ducts = document.getElementById("ducts");
         ducts.style.opacity = "0.96";
-
         var fattyTissueZoomedLabelAndLine = document.getElementById("fattyTissueZoomedLabelAndLine");
         fattyTissueZoomedLabelAndLine.setAttribute("visibility","visible");
 
@@ -3185,7 +2768,6 @@ function showBreastFeedTooltip(){
         play("duct7", "", "uncontrollable-set-1");
         play("lobule9", "", "uncontrollable-set-1");
         play("duct9", "", "uncontrollable-set-1");
-
         play("lobule2", "", "uncontrollable-set-2");
         play("duct2", "", "uncontrollable-set-2");
         play("lobule4", "", "uncontrollable-set-2");
@@ -3195,9 +2777,7 @@ function showBreastFeedTooltip(){
         play("lobule8", "", "uncontrollable-set-2");
         play("duct8", "", "uncontrollable-set-2");
         play("lobule10", "", "uncontrollable-set-2");
-        play("duct10", "", "uncontrollable-set-2");
-
-        
+        play("duct10", "", "uncontrollable-set-2");      
       }
 
       function revertToInnerLobuleTooltip() {
@@ -3210,21 +2790,16 @@ function showBreastFeedTooltip(){
         var nipple = document.getElementById("nipple");
         nipple.setAttribute("visibility", "visible");
         var ducts = document.getElementById("ducts");
-       ducts.setAttribute("visibility", "visible");
-        // var lobuleZoomedLabelAndLine = document.getElementById(
-        //   "lobuleZoomedLabelAndLine"
-        // );
-        // lobuleZoomedLabelAndLine.setAttribute("visibility", "visible");
+        ducts.setAttribute("visibility", "visible");
         var ductZoomedLabelAndLine = document.getElementById(
           "ductZoomedLabelAndLine"
         );
-         ductZoomedLabelAndLine.setAttribute("visibility", "visible");
+        ductZoomedLabelAndLine.setAttribute("visibility", "visible");
         var dark_background_breastOutlines = document.getElementById(
           "dark-background-breastOutlines"
         );
         dark_background_breastOutlines.setAttribute("visibility", "visible");
-    
-    
+      
         var metastaticBreastCancer = document.getElementById("metastaticBreastCancer");
         metastaticBreastCancer.setAttribute("class", "hide");
         document.getElementById("bonesGroup").setAttribute("class", "");
@@ -3239,12 +2814,6 @@ function showBreastFeedTooltip(){
         
         var areola = document.getElementById("areola");
         areola.setAttribute("visibility", "visible");
-        /*
-        var lightBreastOutline = document.getElementById("lightBreastOutline");
-        lightBreastOutline.setAttribute("visibility", "visible");
-        var darkBreastOutline = document.getElementById("darkBreastOutline");
-        darkBreastOutline.setAttribute("visibility", "visible");
-        */
         var innerLiningLobule = document.getElementById("innerLiningLobule");
         innerLiningLobule.setAttribute("visibility", "visible");
         innerLiningLobule.setAttribute("class", "delayed-fade-in-4");
@@ -3258,7 +2827,7 @@ function showBreastFeedTooltip(){
         );
       
       }
-       function revertToMetastaticBreastCancer() {
+      function revertToMetastaticBreastCancer() {
         hideTooltip("riskFactorsTooltip");
 
         var risk_factors = document.getElementById("risk-factors");
@@ -3273,20 +2842,19 @@ function showBreastFeedTooltip(){
         document.getElementById("riskFactorExposureToRadioactivity").setAttribute("class", "");
 
 
-        showMetastaticBreastCancer();
-        
+        showMetastaticBreastCancer();      
       }
 
       function revertToRiskFactors() {
-           console.log("Go To Prev Section");
-           hideTooltip(previousSymptomTooltip);
-           if (previousSymptomTooltip != "symptomsSlideIntro"){
-            
-            stop(previousSymptomId, previousSymptomAnimation);
-           previousSymptomTooltip = "symptomsSlideIntro";
-           }
-      previousSymptomId = "";
-      previousSymptomAnimation = "";
+        console.log("Go To Prev Section");
+        hideTooltip(previousSymptomTooltip);
+        if (previousSymptomTooltip != "symptomsSlideIntro"){
+        
+        stop(previousSymptomId, previousSymptomAnimation);
+        previousSymptomTooltip = "symptomsSlideIntro";
+        }
+        previousSymptomId = "";
+        previousSymptomAnimation = "";
         var breastCancerSymptoms = document.getElementById(
           "breastCancerSymptoms"
         );
@@ -3299,13 +2867,11 @@ function showBreastFeedTooltip(){
         var causesSlide1Tooltip = document.getElementById("riskFactorsTooltip");
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
-        showRiskFactors();
-
-        
+        showRiskFactors();   
       }
 
       function revertToBreastCancerSymptoms() {
-           console.log("Go To Prev Section");
+        highlightPreviousSection();
         hideTooltip("diagnosticsSlideIntro");
         var breastCancerDiagnosis = document.getElementById(
           "breastCancerDiagnosis"
@@ -3323,16 +2889,13 @@ function showBreastFeedTooltip(){
           "symptomsSlideIntroText",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
-        );
-
-        
+        );      
       }
 
-      function revertToBreastCancerDiagnosisIntro() {
-     
-           hideTooltip("mammogramSlide1");
-          hideTooltip("mammogramSlide2");
-          hideContent("mammogramImageAndIcon");
+      function revertToBreastCancerDiagnosisIntro() {  
+        hideTooltip("mammogramSlide1");
+        hideTooltip("mammogramSlide2");
+        hideContent("mammogramImageAndIcon");
         var symptomsSlideIntro = document.getElementById("diagnosticsSlideIntro");
         symptomsSlideIntro.className = "tooltip breastCancer-text";
 
@@ -3341,13 +2904,13 @@ function showBreastFeedTooltip(){
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        }
-        function revertToMammogramSlides(){
-          hideTooltip("biopsySlide1");
-          hideTooltip("biopsySlide2");
-          hideContent("breastBiopsyImageAndIcon");
-          fadeDiagnosticIn("mammogramImageAndIcon");
-          var tooltip = document.getElementById(
+      }
+      function revertToMammogramSlides(){
+        hideTooltip("biopsySlide1");
+        hideTooltip("biopsySlide2");
+        hideContent("breastBiopsyImageAndIcon");
+        fadeDiagnosticIn("mammogramImageAndIcon");
+        var tooltip = document.getElementById(
           "mammogramSlide1"
         );
         tooltip.className = "tooltip breastCancer-text";
@@ -3370,16 +2933,16 @@ function showBreastFeedTooltip(){
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        }
-        function revertToBiopsySlides(){
+      }
+      function revertToBiopsySlides(){
         hideTooltip("breastExaminationSlide1");
         hideTooltip("breastExaminationSlide2");
         hideContent("breastExamImageAndIcon");
         fadeDiagnosticIn("breastBiopsyImageAndIcon");
-          var tooltip = document.getElementById(
+        var tooltip = document.getElementById(
           "biopsySlide1"
         );
-      var tooltipHeight =   tooltip.style.getPropertyValue("height");
+        var tooltipHeight =   tooltip.style.getPropertyValue("height");
 
         tooltip.className = "tooltip breastCancer-text";
 
@@ -3401,17 +2964,15 @@ function showBreastFeedTooltip(){
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-        }
-        function revertToBreastExamSlides(){
-          hideTooltip("breastUltrasoundSlide1");
+      }
+      function revertToBreastExamSlides(){
+        hideTooltip("breastUltrasoundSlide1");
         hideTooltip("breastUltrasoundSlide2");
         hideContent("breastUltrasoundImageAndIcon");
         fadeDiagnosticIn("breastExamImageAndIcon");
         var tooltip = document.getElementById(
           "breastExaminationSlide1"
         );
-      var tooltipHeight =   tooltip.style.getPropertyValue("height");
-
         tooltip.className = "tooltip breastCancer-text";
 
         play(
@@ -3431,15 +2992,14 @@ function showBreastFeedTooltip(){
           "breastExaminationSlide2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
-        );
-        
-        }
-        function revertToBreastUltrasoundSlides(){
-      hideTooltip("breastMRISlide1");
+        );      
+      }
+      function revertToBreastUltrasoundSlides(){
+        hideTooltip("breastMRISlide1");
         hideTooltip("breastMRISlide2");
         hideContent("breastMRIImageAndIcon");
         fadeDiagnosticIn("breastUltrasoundImageAndIcon");
-          var tooltip = document.getElementById(
+        var tooltip = document.getElementById(
           "breastUltrasoundSlide1"
         );
         tooltip.className = "tooltip breastCancer-text";
@@ -3465,14 +3025,14 @@ function showBreastFeedTooltip(){
       }
       function revertToBreastMRISlides(){
         console.log("Go To Prev Section");
-      hideTooltip("breastCancerTreatmentTooltip");
-      fadeDiagnosticIn("breastMRIImageAndIcon");
-hideTooltip("breastCancerTreatmentTooltip2");
-   
-    const gradient_background = document.getElementById(
-              "gradient-background"
-            );
-            gradient_background.style.opacity = "0";
+        hideTooltip("breastCancerTreatmentTooltip");
+        fadeDiagnosticIn("breastMRIImageAndIcon");
+        hideTooltip("breastCancerTreatmentTooltip2");
+
+        const gradient_background = document.getElementById(
+          "gradient-background"
+        );
+        gradient_background.style.opacity = "0";
 
         var breastCancerTreatment = document.getElementById(
           "breastCancerTreatment"
@@ -3482,12 +3042,11 @@ hideTooltip("breastCancerTreatmentTooltip2");
           "breastCancerDiagnosis"
         );
         breastCancerDiagnosis.setAttribute("visibility", "visible");
-
-
-     
-          var tooltip = document.getElementById(
+    
+        var tooltip = document.getElementById(
           "breastMRISlide1"
         );
+
         tooltip.className = "tooltip breastCancer-text";
 
         play(
@@ -3507,17 +3066,15 @@ hideTooltip("breastCancerTreatmentTooltip2");
           "breastMRISlide2Text",
           "tooltiptext",
           "tooltiptext tooltipAnimate"
-        );
-      
-        
-        }
+        );     
+      }
         
       
       
       function revertToBreastCancerTreatmentIntro(){
         hideTooltip("breastCancerTreatmentTooltip3");
-            hideTooltip("breastCancerTreatmentTooltip4");
-              var causesSlide1Tooltip = document.getElementById(
+        hideTooltip("breastCancerTreatmentTooltip4");
+        var causesSlide1Tooltip = document.getElementById(
           "breastCancerTreatmentTooltip"
         );
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
@@ -3534,7 +3091,6 @@ hideTooltip("breastCancerTreatmentTooltip2");
         );
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
-        // Show the tooltip at the position of the clicked element
         causesSlide1Tooltip.style.left = bbox.left + "px";
         causesSlide1Tooltip.style.top = bbox.top + 125 + "px";
 
@@ -3548,107 +3104,97 @@ hideTooltip("breastCancerTreatmentTooltip2");
           "tooltiptext",
           "tooltiptext tooltipAnimate"
         );
-
       }
       function revertToBreastCancerTreatmentIntroNextSet(){
-            hideTooltip("lumpectomyTooltip");
-            var lumpectomy = document.getElementById("lumpectomy");
+        hideTooltip("lumpectomyTooltip");
+        var lumpectomy = document.getElementById("lumpectomy");
         lumpectomy.setAttribute("opacity","0.2");
-          }
+      }
             
-      function revertToLumpectomyTooltip(){
-        
+      function revertToLumpectomyTooltip(){      
         hideTooltip("mastectomyTooltip") ;
         var lumpectomy = document.getElementById("mastectomy");
         lumpectomy.setAttribute("opacity","0.2");
-         var lumpectomyTooltip = document.getElementById("lumpectomyTooltip");
+        var lumpectomyTooltip = document.getElementById("lumpectomyTooltip");
         var lumpectomy = document.getElementById("lumpectomy");
-       
-          var bbox = lumpectomy.getBoundingClientRect();
-          // Show the tooltip at the position of the clicked element
-          lumpectomyTooltip.style.left = bbox.right + 5+ "px";
-          lumpectomyTooltip.style.top = bbox.top + 25+ "px";
-          lumpectomyTooltip.setAttribute(
-            "class",
-            "tooltip breastCancer-text"
-          );
+      
+        var bbox = lumpectomy.getBoundingClientRect();
+        lumpectomyTooltip.style.left = bbox.right + 5+ "px";
+        lumpectomyTooltip.style.top = bbox.top + 25+ "px";
+        lumpectomyTooltip.setAttribute(
+          "class",
+          "tooltip breastCancer-text"
+        );
 
-          play(
-            "lumpectomyTooltipText",
-            "tooltiptext tooltip-right",
-            "tooltiptext tooltip-right tooltipAnimate"
-          );
-        
-
+        play(
+          "lumpectomyTooltipText",
+          "tooltiptext tooltip-right",
+          "tooltiptext tooltip-right tooltipAnimate"
+        );
       }
-     function revertToMastectomyTooltip (){
-        
+
+      function revertToMastectomyTooltip (){    
         hideTooltip("lymphNodeTooltip");
         var lumpectomy = document.getElementById("lymphNode");
         lumpectomy.setAttribute("opacity","0.2");
         var mastectomy =
             document.getElementById("mastectomy");
-            var mastectomyTooltip =
-            document.getElementById("mastectomyTooltip");
-          var bbox = mastectomy.getBoundingClientRect();
-          mastectomyTooltip.style.left = bbox.left- 25+"px";
-          mastectomyTooltip.style.top = bbox.top -10 + "px";
-          mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
+        var mastectomyTooltip =
+          document.getElementById("mastectomyTooltip");
+        var bbox = mastectomy.getBoundingClientRect();
+        mastectomyTooltip.style.left = bbox.left- 25+"px";
+        mastectomyTooltip.style.top = bbox.top -10 + "px";
+        mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          play(
-            "mastectomyTooltipText",
-            "tooltiptext tooltip-top",
-            "tooltiptext tooltip-top tooltipAnimate"
-          );
-        
-          
-        breastCancerTreatment
+        play(
+          "mastectomyTooltipText",
+          "tooltiptext tooltip-top",
+          "tooltiptext tooltip-top tooltipAnimate"
+        );
       }
       function revertToLymphNode(){
         
         hideTooltip("biMastectomyTooltip");
         var lumpectomy = document.getElementById("biMastectomy");
         lumpectomy.setAttribute("opacity","0.2");
-         var mastectomy =
-            document.getElementById("lymphNode");
-            var mastectomyTooltip =
-            document.getElementById("lymphNodeTooltip");
-          var bbox = mastectomy.getBoundingClientRect();
-          mastectomyTooltip.style.left = bbox.left - 15 + "px";
-          mastectomyTooltip.style.top = bbox.top -10 + "px";
-          mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
+        var mastectomy =
+          document.getElementById("lymphNode");
+        var mastectomyTooltip =
+          document.getElementById("lymphNodeTooltip");
+        var bbox = mastectomy.getBoundingClientRect();
+        mastectomyTooltip.style.left = bbox.left - 15 + "px";
+        mastectomyTooltip.style.top = bbox.top -10 + "px";
+        mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          play(
-            "lymphNodeTooltipText",
-            "tooltiptext tooltip-top",
-            "tooltiptext tooltip-top tooltipAnimate"
-          );
-
-        
+        play(
+          "lymphNodeTooltipText",
+          "tooltiptext tooltip-top",
+          "tooltiptext tooltip-top tooltipAnimate"
+        );      
       }
     function revertToBiMastectomyTooltip() {
       hideTooltip("breastCancerOtherTreatmentIntroTooltip");
       var chemotherapy = document.getElementById("chemotherapy");
-chemotherapy.style.opacity = "0";
-chemotherapy.setAttribute("visibility","hidden");
-var hormoneTherapy = document.getElementById("hormoneTherapy");
-hormoneTherapy.style.opacity = "0";
-hormoneTherapy.setAttribute("visibility","hidden");
-var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
-targetedDrugTherapy.style.opacity = "0";
-targetedDrugTherapy.setAttribute("visibility","hidden");
-var pallativeCare = document.getElementById("pallativeCare");
-pallativeCare.style.opacity = "0";
-pallativeCare.setAttribute("visibility","hidden");
-var immunoTherapy = document.getElementById("immunoTherapy");
-immunoTherapy.style.opacity = "0";
-immunoTherapy.setAttribute("visibility","hidden");
-var radiationTherapy = document.getElementById("radiationTherapy");
-radiationTherapy.style.opacity = "0";
-radiationTherapy.setAttribute("visibility","hidden");
+      chemotherapy.style.opacity = "0";
+      chemotherapy.setAttribute("visibility","hidden");
+      var hormoneTherapy = document.getElementById("hormoneTherapy");
+      hormoneTherapy.style.opacity = "0";
+      hormoneTherapy.setAttribute("visibility","hidden");
+      var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
+      targetedDrugTherapy.style.opacity = "0";
+      targetedDrugTherapy.setAttribute("visibility","hidden");
+      var pallativeCare = document.getElementById("pallativeCare");
+      pallativeCare.style.opacity = "0";
+      pallativeCare.setAttribute("visibility","hidden");
+      var immunoTherapy = document.getElementById("immunoTherapy");
+      immunoTherapy.style.opacity = "0";
+      immunoTherapy.setAttribute("visibility","hidden");
+      var radiationTherapy = document.getElementById("radiationTherapy");
+      radiationTherapy.style.opacity = "0";
+      radiationTherapy.setAttribute("visibility","hidden");
 
-    hideTooltip("radiationTherapyTooltip1");
-    hideTooltip("radiationTherapyTooltip2");
+        hideTooltip("radiationTherapyTooltip1");
+        hideTooltip("radiationTherapyTooltip2");
         var breastCancerTreatment = document.getElementById(
           "breastCancerTreatment2"
         );
@@ -3680,7 +3226,6 @@ radiationTherapy.setAttribute("visibility","hidden");
         );
         causesSlide1Tooltip.className = "tooltip breastCancer-text";
 
-        // Show the tooltip at the position of the clicked element
         causesSlide1Tooltip.style.left = bbox.left + "px";
         causesSlide1Tooltip.style.top = bbox.top + 150 + "px";
         play(
@@ -3689,34 +3234,31 @@ radiationTherapy.setAttribute("visibility","hidden");
           "tooltiptext tooltipAnimate"
         );
         var mastectomy =
-            document.getElementById("biMastectomy");
-                    mastectomy.setAttribute("opacity","1");
-            var mastectomyTooltip =
-            document.getElementById("biMastectomyTooltip");
-          var bbox1 = mastectomy.getBoundingClientRect();
-          mastectomyTooltip.style.left = bbox1.left + 15 + "px";
-          mastectomyTooltip.style.top = bbox1.top + 125 + "px";
-          mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
+          document.getElementById("biMastectomy");
+        mastectomy.setAttribute("opacity","1");
+        var mastectomyTooltip =
+          document.getElementById("biMastectomyTooltip");
+        var bbox1 = mastectomy.getBoundingClientRect();
+        mastectomyTooltip.style.left = bbox1.left + 15 + "px";
+        mastectomyTooltip.style.top = bbox1.top + 125 + "px";
+        mastectomyTooltip.setAttribute("class", "tooltip breastCancer-text");
 
-          play(
-            "biMastectomyTooltipText",
-            "tooltiptext tooltip-bottom",
-            "tooltiptext tooltip-bottom tooltipAnimate"
-          );
-
-
-     
+        play(
+          "biMastectomyTooltipText",
+          "tooltiptext tooltip-bottom",
+          "tooltiptext tooltip-bottom tooltipAnimate"
+        );  
       }
-    
-    function revertToBreastCancerOtherTreatmentIntro() {
-      hideTooltip("radiationTherapyTooltip1");
-     hideTooltip("radiationTherapyTooltip2");
-   hideTooltip("radiationTherapyTooltip3");
-   hideTooltip("radiationTherapyTooltip4");
-   stop("radiationTherapy","radiationTherapy");
-   
-   var breastCancerOtherTreatmentIntroTooltip = document.getElementById(
-          "breastCancerOtherTreatmentIntroTooltip"
+
+      function revertToBreastCancerOtherTreatmentIntro() {
+        hideTooltip("radiationTherapyTooltip1");
+        hideTooltip("radiationTherapyTooltip2");
+        hideTooltip("radiationTherapyTooltip3");
+        hideTooltip("radiationTherapyTooltip4");
+        stop("radiationTherapy","radiationTherapy");
+
+        var breastCancerOtherTreatmentIntroTooltip = document.getElementById(
+            "breastCancerOtherTreatmentIntroTooltip"
         );
         breastCancerOtherTreatmentIntroTooltip.className = "tooltip breastCancer-text";
 
@@ -3726,552 +3268,349 @@ radiationTherapy.setAttribute("visibility","hidden");
           "tooltiptext tooltipAnimate"
         );
 
-var chemotherapy = document.getElementById("chemotherapy");
-chemotherapy.style.opacity = "1";
+        var chemotherapy = document.getElementById("chemotherapy");
+        chemotherapy.style.opacity = "1";
 
-var hormoneTherapy = document.getElementById("hormoneTherapy");
-hormoneTherapy.style.opacity = "1";
+        var hormoneTherapy = document.getElementById("hormoneTherapy");
+        hormoneTherapy.style.opacity = "1";
 
-var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
-targetedDrugTherapy.style.opacity = "1";
+        var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
+        targetedDrugTherapy.style.opacity = "1";
 
-var pallativeCare = document.getElementById("pallativeCare");
-pallativeCare.style.opacity = "1";
+        var pallativeCare = document.getElementById("pallativeCare");
+        pallativeCare.style.opacity = "1";
 
-var immunoTherapy = document.getElementById("immunoTherapy");
-immunoTherapy.style.opacity = "1";
-     var radiationTherapy = document.getElementById("radiationTherapy");
-     radiationTherapy.style.opacity = "1";
-     
-     var breastCancerTreatment = document.getElementById(
-       "breastCancerTreatment"
-     );
-     breastCancerTreatment.setAttribute("visibility", "hidden");
+        var immunoTherapy = document.getElementById("immunoTherapy");
+        immunoTherapy.style.opacity = "1";
+        var radiationTherapy = document.getElementById("radiationTherapy");
+        radiationTherapy.style.opacity = "1";
+    
+        var breastCancerTreatment = document.getElementById(
+          "breastCancerTreatment"
+        );
+        breastCancerTreatment.setAttribute("visibility", "hidden");
 
-     var breastCancerTreatment = document.getElementById(
-       "breastCancerTreatment2"
-     );
-     breastCancerTreatment.setAttribute("visibility", "visible");
-     stop("breastCancerTreatmentIcons","fade-out-to-less-opacity");
-   }
-   function revertToRadiationTherapyTooltips(){
-      
-   hideTooltip("hormoneTherapyTooltip1");
-   hideTooltip("hormoneTherapyTooltip2");
-   
-   hideTooltip("hormoneTherapyTooltip3");
-   hideTooltip("hormoneTherapyTooltip4");
-   stop("hormoneTherapy","hormoneTherapy");
-     var hormoneTherapy = document.getElementById("hormoneTherapy");
-     hormoneTherapy.style.opacity = "0";
-      var radiationTherapy  = document.getElementById("radiationTherapy");
-      radiationTherapy.style.opacity = "1";
-      play("radiationTherapy","","radiationTherapy");
-     var tooltip = document.getElementById(
-       "radiationTherapyTooltip1"
-     );
-     tooltip.className = "tooltip breastCancer-text";
+        var breastCancerTreatment = document.getElementById(
+          "breastCancerTreatment2"
+        );
+        breastCancerTreatment.setAttribute("visibility", "visible");
+        stop("breastCancerTreatmentIcons","fade-out-to-less-opacity");
+      }
 
-     play(
-       "radiationTherapyTooltip1Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-     
+      function revertToRadiationTherapyTooltips(){        
+        hideTooltip("hormoneTherapyTooltip1");
+        hideTooltip("hormoneTherapyTooltip2");      
+        hideTooltip("hormoneTherapyTooltip3");
+        hideTooltip("hormoneTherapyTooltip4");
+        stop("hormoneTherapy","hormoneTherapy");
+        var hormoneTherapy = document.getElementById("hormoneTherapy");
+        hormoneTherapy.style.opacity = "0";
+        var radiationTherapy  = document.getElementById("radiationTherapy");
+        radiationTherapy.style.opacity = "1";
+        play("radiationTherapy","","radiationTherapy");
+        var tooltip = document.getElementById(
+          "radiationTherapyTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
 
-     var bbox = tooltip.getBoundingClientRect();
-     var tooltip2 = document.getElementById(
-       "radiationTherapyTooltip2"
-     );
-     tooltip2.className = "tooltip breastCancer-text";
-
-     // Show the tooltip at the position of the clicked element
-     tooltip2.style.left = bbox.left + "px";
-     tooltip2.style.top = bbox.top + tooltip.scrollHeight+ 10 + "px";
-     play(
-       "radiationTherapyTooltip2Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-    /*
-     var tooltip = document.getElementById(
-       "radiationTherapyTooltip3"
-     );
-     tooltip.className = "tooltip breastCancer-text";
-
-     play(
-       "radiationTherapyTooltip3Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-
-     var bbox = tooltip.getBoundingClientRect();
-     var tooltip2 = document.getElementById(
-       "radiationTherapyTooltip4"
-     );
-     tooltip2.className = "tooltip breastCancer-text";
-
-     // Show the tooltip at the position of the clicked element
-     tooltip2.style.left = bbox.left + "px";
-     tooltip2.style.top = bbox.top + 105 + "px";
-     play(
-       "radiationTherapyTooltip4Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );*/
-     
-   }
-   function revertToHormoneTherapyTooltips(){
-    hideTooltip("chemotherapyTooltip1");
-     hideTooltip("chemotherapyTooltip2");
-     hideTooltip("chemotherapyTooltip3");
-     hideTooltip("chemotherapyTooltip4");
-     stop("chemotherapy","chemotherapy");
-     var chemotherapy = document.getElementById("chemotherapy");
-     chemotherapy.style.opacity = "0";
-      var hormoneTherapy  = document.getElementById("hormoneTherapy");
-      hormoneTherapy.style.opacity = "1";
-      play("hormoneTherapy","","hormoneTherapy");
-     var tooltip = document.getElementById(
-       "hormoneTherapyTooltip1"
-     );
-     tooltip.className = "tooltip breastCancer-text";
-
-     play(
-       "hormoneTherapyTooltip1Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-
-     var bbox2 = tooltip.getBoundingClientRect();
-     var tooltip2 = document.getElementById(
-       "hormoneTherapyTooltip2"
-     );
-     tooltip2.className = "tooltip breastCancer-text";
-
-     // Show the tooltip at the position of the clicked element
-     tooltip2.style.left = bbox2.left + "px";
-     tooltip2.style.top = bbox2.top + tooltip.scrollHeight+ 10 + "px";
-     play(
-       "hormoneTherapyTooltip2Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-    /* 
-   var tooltip = document.getElementById(
-       "hormoneTherapyTooltip3"
-     );
-     tooltip.className = "tooltip breastCancer-text";
-
-     play(
-       "hormoneTherapyTooltip3Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-
-     var bbox1 = tooltip.getBoundingClientRect();
-     var tooltip2 = document.getElementById(
-       "hormoneTherapyTooltip4"
-     );
-     tooltip2.className = "tooltip breastCancer-text";
-
-     // Show the tooltip at the position of the clicked element
-     tooltip2.style.left = bbox1.left + "px";
-     tooltip2.style.top = bbox1.top + 105 + "px";
-     play(
-       "hormoneTherapyTooltip4Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );*/
-     }
-     function revertToChemoTherapyTooltips(){
-     
-      hideTooltip("targetedDrugTherapyTooltip1");
-     hideTooltip("targetedDrugTherapyTooltip2");
-     hideTooltip("targetedDrugTherapyTooltip3");
-     hideTooltip("targetedDrugTherapyTooltip4");
-     hideTooltip("targetedDrugTherapyTooltip5");
-     stop("targetedDrugTherapy","targetedDrugTherapy");
-     var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
-     targetedDrugTherapy.style.opacity = "0";
-      var chemotherapy  = document.getElementById("chemotherapy");
-      chemotherapy.style.opacity = "1";
-      play("chemotherapy","","chemotherapy");
-   var tooltip = document.getElementById(
-       "chemotherapyTooltip1"
-     );
-     tooltip.className = "tooltip breastCancer-text";
-
-     play(
-       "chemotherapyTooltip1Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-
-     var bbox4 = tooltip.getBoundingClientRect();
-     var tooltip2 = document.getElementById(
-       "chemotherapyTooltip2"
-     );
-     tooltip2.className = "tooltip breastCancer-text";
-
-     // Show the tooltip at the position of the clicked element
-     tooltip2.style.left = bbox4.left + "px";
-     tooltip2.style.top = bbox4.top + tooltip.scrollHeight+ 10 + "px";
-     play(
-       "chemotherapyTooltip2Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-     /*
-   var tooltip = document.getElementById(
-       "chemotherapyTooltip3"
-     );
-     tooltip.className = "tooltip breastCancer-text";
-
-     play(
-       "chemotherapyTooltip3Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-
-     var bbox4 = tooltip.getBoundingClientRect();
-     var tooltip2 = document.getElementById(
-       "chemotherapyTooltip4"
-     );
-     tooltip2.className = "tooltip breastCancer-text";
-
-     // Show the tooltip at the position of the clicked element
-     tooltip2.style.left = bbox4.left + "px";
-     tooltip2.style.top = bbox4.top + 85 + "px";
-     play(
-       "chemotherapyTooltip4Text",
-       "tooltiptext",
-       "tooltiptext tooltipAnimate"
-     );
-     */
-     }
-function revertToTargetedDrugTherapyTooltips(){
-  hideTooltip("immunoTherapyTooltip1");
-       hideTooltip("immunoTherapyTooltip2");
+        play(
+          "radiationTherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
         
-     hideTooltip("immunoTherapyTooltip3");
-       hideTooltip("immunoTherapyTooltip4");
-       
-     hideTooltip("immunoTherapyTooltip5");
-     stop("immunoTherapy","immunoTherapy");
-      var immunoTherapy = document.getElementById("immunoTherapy");
-      immunoTherapy.style.opacity = "0";
-      var targetedDrugTherapy  = document.getElementById("targetedDrugTherapy");
-      targetedDrugTherapy.style.opacity = "1";
-      play("targetedDrugTherapy","","targetedDrugTherapy");
-     
-     var tooltip = document.getElementById(
-         "targetedDrugTherapyTooltip1"
-       );
-       tooltip.className = "tooltip breastCancer-text";
 
-       play(
-         "targetedDrugTherapyTooltip1Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );
+        var bbox = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "radiationTherapyTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
 
-       var bbox5 = tooltip.getBoundingClientRect();
-       var tooltip2 = document.getElementById(
-         "targetedDrugTherapyTooltip2"
-       );
-       tooltip2.className = "tooltip breastCancer-text";
+        tooltip2.style.left = bbox.left + "px";
+        tooltip2.style.top = bbox.top + tooltip.scrollHeight+ 10 + "px";
+        play(
+          "radiationTherapyTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );     
+      }
+      function revertToHormoneTherapyTooltips(){
+        hideTooltip("chemotherapyTooltip1");
+        hideTooltip("chemotherapyTooltip2");
+        hideTooltip("chemotherapyTooltip3");
+        hideTooltip("chemotherapyTooltip4");
+        stop("chemotherapy","chemotherapy");
+        var chemotherapy = document.getElementById("chemotherapy");
+        chemotherapy.style.opacity = "0";
+        var hormoneTherapy  = document.getElementById("hormoneTherapy");
+        hormoneTherapy.style.opacity = "1";
+        play("hormoneTherapy","","hormoneTherapy");
+        var tooltip = document.getElementById(
+          "hormoneTherapyTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
 
-       // Show the tooltip at the position of the clicked element
-       tooltip2.style.left = bbox5.left + "px";
-       tooltip2.style.top = bbox5.top + tooltip.scrollHeight+ 10 + "px";
-       play(
-         "targetedDrugTherapyTooltip2Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );
-   /*
-     
-     var tooltip = document.getElementById(
-         "targetedDrugTherapyTooltip3"
-       );
-       tooltip.className = "tooltip breastCancer-text";
+        play(
+          "hormoneTherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
 
-       play(
-         "targetedDrugTherapyTooltip3Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );
+        var bbox2 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "hormoneTherapyTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
 
-       var bbox6 = tooltip.getBoundingClientRect();
-       var tooltip2 = document.getElementById(
-         "targetedDrugTherapyTooltip4"
-       );
-       tooltip2.className = "tooltip breastCancer-text";
+        tooltip2.style.left = bbox2.left + "px";
+        tooltip2.style.top = bbox2.top + tooltip.scrollHeight+ 10 + "px";
+        play(
+          "hormoneTherapyTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
+      function revertToChemoTherapyTooltips(){
+        hideTooltip("targetedDrugTherapyTooltip1");
+        hideTooltip("targetedDrugTherapyTooltip2");
+        hideTooltip("targetedDrugTherapyTooltip3");
+        hideTooltip("targetedDrugTherapyTooltip4");
+        hideTooltip("targetedDrugTherapyTooltip5");
+        stop("targetedDrugTherapy","targetedDrugTherapy");
+        var targetedDrugTherapy = document.getElementById("targetedDrugTherapy");
+        targetedDrugTherapy.style.opacity = "0";
+        var chemotherapy  = document.getElementById("chemotherapy");
+        chemotherapy.style.opacity = "1";
+        play("chemotherapy","","chemotherapy");
+        var tooltip = document.getElementById(
+          "chemotherapyTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
 
-       // Show the tooltip at the position of the clicked element
-       tooltip2.style.left = bbox6.left + "px";
-       tooltip2.style.top = bbox6.top + 105 + "px";
-       play(
-         "targetedDrugTherapyTooltip4Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );
-    
-     
-   
-     
-     var tooltip = document.getElementById(
-         "targetedDrugTherapyTooltip5"
-       );
-       tooltip.className = "tooltip breastCancer-text";
+        play(
+          "chemotherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
 
-       play(
-         "targetedDrugTherapyTooltip5Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );*/
-     }
-     function revertToImmunoTherapyTooltips(){
-      hideTooltip("pallativeCareTooltip1");
-  hideTooltip("pallativeCareTooltip2");
-    hideTooltip("pallativeCareTooltip3");
-    stop("pallativeCare","pallativeCare");
-      var pallativeCare = document.getElementById("pallativeCare");
-      pallativeCare.style.opacity = "0";
-      var immunoTherapy  = document.getElementById("immunoTherapy");
-      immunoTherapy.style.opacity = "1";
-      play("immunoTherapy","","immunoTherapy");
-     var tooltip = document.getElementById(
-         "immunoTherapyTooltip1"
-       );
-       tooltip.className = "tooltip breastCancer-text";
+        var bbox4 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "chemotherapyTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
 
-       play(
-         "immunoTherapyTooltip1Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );
+        tooltip2.style.left = bbox4.left + "px";
+        tooltip2.style.top = bbox4.top + tooltip.scrollHeight+ 10 + "px";
+        play(
+          "chemotherapyTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
+      function revertToTargetedDrugTherapyTooltips(){
+        hideTooltip("immunoTherapyTooltip1");
+        hideTooltip("immunoTherapyTooltip2");     
+        hideTooltip("immunoTherapyTooltip3");
+        hideTooltip("immunoTherapyTooltip4");     
+        hideTooltip("immunoTherapyTooltip5");
+        stop("immunoTherapy","immunoTherapy");
+        var immunoTherapy = document.getElementById("immunoTherapy");
+        immunoTherapy.style.opacity = "0";
+        var targetedDrugTherapy  = document.getElementById("targetedDrugTherapy");
+        targetedDrugTherapy.style.opacity = "1";
+        play("targetedDrugTherapy","","targetedDrugTherapy");
+        var tooltip = document.getElementById(
+          "targetedDrugTherapyTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
 
-       var bbox7 = tooltip.getBoundingClientRect();
-       var tooltip2 = document.getElementById(
-         "immunoTherapyTooltip2"
-       );
-       tooltip2.className = "tooltip breastCancer-text";
+        play(
+          "targetedDrugTherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
 
-       // Show the tooltip at the position of the clicked element
-       tooltip2.style.left = bbox7.left + "px";
-       tooltip2.style.top = bbox7.top + tooltip.scrollHeight+ 10 + "px";
-       play(
-         "immunoTherapyTooltip2Text",
-         "tooltiptext",
-         "tooltiptext tooltipAnimate"
-       );
-       /*
-       var tooltip = document.getElementById(
-           "immunoTherapyTooltip3"
-         );
-         tooltip.className = "tooltip breastCancer-text";
- 
-         play(
-           "immunoTherapyTooltip3Text",
-           "tooltiptext",
-           "tooltiptext tooltipAnimate"
-         );
- 
-         var bbox8 = tooltip.getBoundingClientRect();
-         var tooltip2 = document.getElementById(
-           "immunoTherapyTooltip4"
-         );
-         tooltip2.className = "tooltip breastCancer-text";
- 
-         // Show the tooltip at the position of the clicked element
-         tooltip2.style.left = bbox8.left + "px";
-         tooltip2.style.top = bbox8.top + 125 + "px";
-         play(
-           "immunoTherapyTooltip4Text",
-           "tooltiptext",
-           "tooltiptext tooltipAnimate"
-         );
-       
+      var bbox5 = tooltip.getBoundingClientRect();
+      var tooltip2 = document.getElementById(
+        "targetedDrugTherapyTooltip2"
+      );
+      tooltip2.className = "tooltip breastCancer-text";
+      tooltip2.style.left = bbox5.left + "px";
+      tooltip2.style.top = bbox5.top + tooltip.scrollHeight+ 10 + "px";
+      play(
+        "targetedDrugTherapyTooltip2Text",
+        "tooltiptext",
+        "tooltiptext tooltipAnimate"
+      );
+      }
+      function revertToImmunoTherapyTooltips(){
+        hideTooltip("pallativeCareTooltip1");
+        hideTooltip("pallativeCareTooltip2");
+        hideTooltip("pallativeCareTooltip3");
+        stop("pallativeCare","pallativeCare");
+        var pallativeCare = document.getElementById("pallativeCare");
+        pallativeCare.style.opacity = "0";
+        var immunoTherapy  = document.getElementById("immunoTherapy");
+        immunoTherapy.style.opacity = "1";
+        play("immunoTherapy","","immunoTherapy");
+        var tooltip = document.getElementById(
+          "immunoTherapyTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
+
+        play(
+          "immunoTherapyTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+
+        var bbox7 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "immunoTherapyTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
+
+        tooltip2.style.left = bbox7.left + "px";
+        tooltip2.style.top = bbox7.top + tooltip.scrollHeight+ 10 + "px";
+        play(
+          "immunoTherapyTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
+      function revertToPallativeCareTooltips(){
+        highlightPreviousSection();
+        var pallativeCare  = document.getElementById("pallativeCare");
+        pallativeCare.style.opacity = "1";
+        const gradient_background = document.getElementById(
+          "gradient-background"
+        );
+        gradient_background.style.opacity = "0.75";
+        stop("lifestyleSection","fade-in");
+        var lifestyleSection = document.getElementById("lifestyleSection");
+        lifestyleSection.setAttribute("visibility","hidden");
       
-       var tooltip = document.getElementById(
-           "immunoTherapyTooltip5"
-         );
-         tooltip.className = "tooltip breastCancer-text";
- 
-         play(
-           "immunoTherapyTooltip5Text",
-           "tooltiptext",
-           "tooltiptext tooltipAnimate"
-         );*/
-     }
-     function revertToPallativeCareTooltips(){
-      console.log("Go To Prev Section");
-      var pallativeCare  = document.getElementById("pallativeCare");
-      pallativeCare.style.opacity = "1";
-      const gradient_background = document.getElementById(
-              "gradient-background"
-            );
-            gradient_background.style.opacity = "0.75";
-      stop("lifestyleSection","fade-in");
-      var lifestyleSection = document.getElementById("lifestyleSection");
-      lifestyleSection.setAttribute("visibility","hidden");
-      
-      play("pallativeCare","","pallativeCare");
-      hideTooltip("lifestyleIntroTooltip");
-       var tooltip = document.getElementById(
-           "pallativeCareTooltip1"
-         );
-         tooltip.className = "tooltip breastCancer-text";
- var lifestyleSection = document.getElementById("lifestyleSection");
- lifestyleSection.setAttribute("opacity","0");
-         play(
-           "pallativeCareTooltip1Text",
-           "tooltiptext",
-           "tooltiptext tooltipAnimate"
-         );
- 
-         var bbox9 = tooltip.getBoundingClientRect();
-         var tooltip2 = document.getElementById(
-           "pallativeCareTooltip2"
-         );
-         tooltip2.className = "tooltip breastCancer-text";
- 
-         // Show the tooltip at the position of the clicked element
-         tooltip2.style.left = bbox9.left + "px";
-         tooltip2.style.top = bbox9.top + tooltip.scrollHeight+ 10 + "px";
-         play(
-           "pallativeCareTooltip2Text",
-           "tooltiptext",
-           "tooltiptext tooltipAnimate"
-         );
-         /*
-       var tooltip = document.getElementById(
-           "pallativeCareTooltip3"
-         );
-         tooltip.className = "tooltip breastCancer-text";
- 
-         play(
-           "pallativeCareTooltip3Text",
-           "tooltiptext",
-           "tooltiptext tooltipAnimate"
-         );
-        */
-        }
-  
+        play("pallativeCare","","pallativeCare");
+        hideTooltip("lifestyleIntroTooltip");
+        var tooltip = document.getElementById(
+          "pallativeCareTooltip1"
+        );
+        tooltip.className = "tooltip breastCancer-text";
+        var lifestyleSection = document.getElementById("lifestyleSection");
+        lifestyleSection.setAttribute("opacity","0");
+        play(
+          "pallativeCareTooltip1Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
 
-   function revertToBirthControlTooltip(){
-    hideTooltip("importantNoteTooltip1");
-    hideTooltip("importantNoteTooltip2");
-    var birthControlBreastCancerTooltip1 = document.getElementById("birthControlBreastCancerTooltip1");
-    birthControlBreastCancerTooltip1.className = "tooltip breastCancer-text";
-    play("birthControlBreastCancerTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
-    /*var bbox2 = birthControlBreastCancerTooltip1.getBoundingClientRect();
-    var birthControlBreastCancerTooltip2 = document.getElementById("birthControlBreastCancerTooltip2");
-    birthControlBreastCancerTooltip2.className = "tooltip breastCancer-text";
-    birthControlBreastCancerTooltip2.style.left = bbox2.left + "px";
-    birthControlBreastCancerTooltip2.style.top = bbox2.top + 160 + "px";
-    play("birthControlBreastCancerTooltip2Text", "tooltiptext", "tooltiptext tooltipAnimate");*/
-   }
-    function revertToHealthyDietTooltip(){
-      stop("birthControl","birthControl");
-    play("healthyDiet","","healthyDiet");
-    hideTooltip("birthControlBreastCancerTooltip1");
-    hideTooltip("birthControlBreastCancerTooltip2");
-    var healthyDietTooltip1 = document.getElementById("healthyDietTooltip1");
-    healthyDietTooltip1.className = "tooltip breastCancer-text";
-    play("healthyDietTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
-  /*  var bbox = healthyDietTooltip1.getBoundingClientRect();
-    var healthyDietTooltip2 = document.getElementById("healthyDietTooltip2");
-    healthyDietTooltip2.className = "tooltip breastCancer-text";
-    healthyDietTooltip2.style.left = bbox.left + "px";
-    healthyDietTooltip2.style.top = bbox.top + 125 + "px";
-    play("healthyDietTooltip2Text", "tooltiptext", "tooltiptext tooltipAnimate");*/
-    }
-  function revertToLimitTherapyTooltip(){
-    stop("healthyDiet","healthyDiet");
-    stop("lifestyleSectionCircle","fade-out-to-no-opacity");
-    stop("lifestyleSectionIcon","fade-out-to-no-opacity");
-    stop("diet","fade-out-to-no-opacity");
-    stop("noAlcohol","fade-out-to-no-opacity");
-    stop("weight","fade-out-to-no-opacity");
-    stop("breastFeed","fade-out-to-no-opacity");
-    stop("exercise","fade-out-to-no-opacity");
-    stop("hormoneTherapyLifestyle","fade-out-to-no-opacity");
-    play("weight","","fade-out-to-less-opacity");
-    play("noAlcohol","","fade-out-to-less-opacity");
-    play("exercise","","fade-out-to-less-opacity");
-    play("breastFeed","","fade-out-to-less-opacity");
-    play("diet","","fade-out-to-less-opacity");
-  
-  hideTooltip("healthyDietTooltip1");
-    hideTooltip("healthyDietTooltip2");
-    var limitTherapyTooltip = document.getElementById("limitTherapyTooltip");
-    limitTherapyTooltip.className = "tooltip breastCancer-text";
-    play("limitTherapyTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-   }
- function revertToBreastFeedTooltip(){  
-  
-  hideTooltip("beActiveTooltip");
-  play("exercise","","fade-out-to-less-opacity");
-   play2("breastFeed","","undo-fade-out-to-less-opacity");
-   
-    var breastfeedTooltip = document.getElementById("breastfeedTooltip");
-    breastfeedTooltip.className = "tooltip breastCancer-text";
-    play("breastfeedTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-   }
- function revertToBeActiveTooltip(){
-  hideTooltip("limitTherapyTooltip");
-  
-  play("hormoneTherapyLifestyle","","fade-out-to-less-opacity");
-   play2("exercise","","undo-fade-out-to-less-opacity");
-   
- 
-    var beActiveTooltip = document.getElementById("beActiveTooltip");
-    beActiveTooltip.className = "tooltip breastCancer-text";
-    play("beActiveTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-   }
- function revertToWeightTooltip(){
-  hideTooltip("breastfeedTooltip");
-  play("breastFeed","","fade-out-to-less-opacity");
-   play2("weight","","undo-fade-out-to-less-opacity");
-    var weightTooltip = document.getElementById("weightTooltip");
-    weightTooltip.className = "tooltip breastCancer-text";
-    play("weightTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-  }
- function revertToAlcoholTooltip(){   
-  hideTooltip("weightTooltip");
-  play("weight","","fade-out-to-less-opacity");
-   play2("noAlcohol","","undo-fade-out-to-less-opacity");
-    var alcoholTooltip = document.getElementById("alcoholTooltip");
-    alcoholTooltip.className = "tooltip breastCancer-text";
-    play("alcoholTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
- }
-  function revertToDietTooltip(){
-   hideTooltip("alcoholTooltip");
-   
-   play2("diet","","undo-fade-out-to-less-opacity");
-   play("noAlcohol","","fade-out-to-less-opacity");
-    var dietTooltip = document.getElementById("dietTooltip");
-    dietTooltip.className = "tooltip breastCancer-text";
-    play("dietTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-   }
-  function revertToLifestyleIntro(){  
-  hideTooltip("dietTooltip");
-  stop("weight","fade-out-to-less-opacity");
-    stop("noAlcohol","fade-out-to-less-opacity");
-    stop("exercise","fade-out-to-less-opacity");
-    stop("breastFeed","fade-out-to-less-opacity");
-    stop("hormoneTherapyLifestyle","fade-out-to-less-opacity");
-  
-    var lifestyleIntroTooltip = document.getElementById("lifestyleIntroTooltip");
-    lifestyleIntroTooltip.className = "tooltip breastCancer-text";
-    play("lifestyleIntroTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
-    
-     }
- 
-    
+        var bbox9 = tooltip.getBoundingClientRect();
+        var tooltip2 = document.getElementById(
+          "pallativeCareTooltip2"
+        );
+        tooltip2.className = "tooltip breastCancer-text";
+
+        tooltip2.style.left = bbox9.left + "px";
+        tooltip2.style.top = bbox9.top + tooltip.scrollHeight+ 10 + "px";
+        play(
+          "pallativeCareTooltip2Text",
+          "tooltiptext",
+          "tooltiptext tooltipAnimate"
+        );
+      }
+
+      function revertToBirthControlTooltip(){
+        hideTooltip("importantNoteTooltip1");
+        hideTooltip("importantNoteTooltip2");
+        var birthControlBreastCancerTooltip1 = document.getElementById("birthControlBreastCancerTooltip1");
+        birthControlBreastCancerTooltip1.className = "tooltip breastCancer-text";
+        play("birthControlBreastCancerTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToHealthyDietTooltip(){
+        stop("birthControl","birthControl");
+        play("healthyDiet","","healthyDiet");
+        hideTooltip("birthControlBreastCancerTooltip1");
+        hideTooltip("birthControlBreastCancerTooltip2");
+        var healthyDietTooltip1 = document.getElementById("healthyDietTooltip1");
+        healthyDietTooltip1.className = "tooltip breastCancer-text";
+        play("healthyDietTooltip1Text", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToLimitTherapyTooltip(){
+        stop("healthyDiet","healthyDiet");
+        stop("lifestyleSectionCircle","fade-out-to-no-opacity");
+        stop("lifestyleSectionIcon","fade-out-to-no-opacity");
+        stop("diet","fade-out-to-no-opacity");
+        stop("noAlcohol","fade-out-to-no-opacity");
+        stop("weight","fade-out-to-no-opacity");
+        stop("breastFeed","fade-out-to-no-opacity");
+        stop("exercise","fade-out-to-no-opacity");
+        stop("hormoneTherapyLifestyle","fade-out-to-no-opacity");
+        play("weight","","fade-out-to-less-opacity");
+        play("noAlcohol","","fade-out-to-less-opacity");
+        play("exercise","","fade-out-to-less-opacity");
+        play("breastFeed","","fade-out-to-less-opacity");
+        play("diet","","fade-out-to-less-opacity");
+
+        hideTooltip("healthyDietTooltip1");
+        hideTooltip("healthyDietTooltip2");
+        var limitTherapyTooltip = document.getElementById("limitTherapyTooltip");
+        limitTherapyTooltip.className = "tooltip breastCancer-text";
+        play("limitTherapyTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToBreastFeedTooltip(){  
+        hideTooltip("beActiveTooltip");
+        play("exercise","","fade-out-to-less-opacity");
+        play2("breastFeed","","undo-fade-out-to-less-opacity");
+      
+        var breastfeedTooltip = document.getElementById("breastfeedTooltip");
+        breastfeedTooltip.className = "tooltip breastCancer-text";
+        play("breastfeedTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToBeActiveTooltip(){
+        hideTooltip("limitTherapyTooltip");
+        play("hormoneTherapyLifestyle","","fade-out-to-less-opacity");
+        play2("exercise","","undo-fade-out-to-less-opacity");
+        var beActiveTooltip = document.getElementById("beActiveTooltip");
+        beActiveTooltip.className = "tooltip breastCancer-text";
+        play("beActiveTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToWeightTooltip(){
+        hideTooltip("breastfeedTooltip");
+        play("breastFeed","","fade-out-to-less-opacity");
+        play2("weight","","undo-fade-out-to-less-opacity");
+        var weightTooltip = document.getElementById("weightTooltip");
+        weightTooltip.className = "tooltip breastCancer-text";
+        play("weightTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToAlcoholTooltip(){   
+        hideTooltip("weightTooltip");
+        play("weight","","fade-out-to-less-opacity");
+        play2("noAlcohol","","undo-fade-out-to-less-opacity");
+        var alcoholTooltip = document.getElementById("alcoholTooltip");
+        alcoholTooltip.className = "tooltip breastCancer-text";
+        play("alcoholTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToDietTooltip(){
+        hideTooltip("alcoholTooltip");      
+        play2("diet","","undo-fade-out-to-less-opacity");
+        play("noAlcohol","","fade-out-to-less-opacity");
+        var dietTooltip = document.getElementById("dietTooltip");
+        dietTooltip.className = "tooltip breastCancer-text";
+        play("dietTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+      function revertToLifestyleIntro(){  
+        hideTooltip("dietTooltip");
+        stop("weight","fade-out-to-less-opacity");
+        stop("noAlcohol","fade-out-to-less-opacity");
+        stop("exercise","fade-out-to-less-opacity");
+        stop("breastFeed","fade-out-to-less-opacity");
+        stop("hormoneTherapyLifestyle","fade-out-to-less-opacity");
+        var lifestyleIntroTooltip = document.getElementById("lifestyleIntroTooltip");
+        lifestyleIntroTooltip.className = "tooltip breastCancer-text";
+        play("lifestyleIntroTooltipText", "tooltiptext", "tooltiptext tooltipAnimate");
+      }
+
+
     function onPreviousButtonPressed() {
         switch (index) {
           case 2:
@@ -4439,7 +3778,7 @@ function revertToTargetedDrugTherapyTooltips(){
             index = 41;
             break;
             case 43:
-           
+          
             revertToBeActiveTooltip();
             index = 42;
             break;
@@ -4469,249 +3808,241 @@ function revertToTargetedDrugTherapyTooltips(){
           case 0:
             showBreastCancerTooltip();
             index = 1;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 1:
             showCancerousTumorToolTip();
             index = 2;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 2:
             showBenignTumorToolTip();
             index = 3;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 3:
             proceedToStage0();
             index = 4;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 4:
             proceedToStage1();
             index = 5;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 5:
             proceedToStage2();
             index = 6;
-            if (!isJumpingToIndex){console.log("Go To Next Page");} 
+            goToNextPage(); 
             break;
           case 6:
             proceedToStage3();
             index = 7;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 7:
             proceedToStage4();
             index = 8;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 8:
             proceedToCausesSlide1();
             index = 9;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 9:
             proceedToCausesSlide2();
             index = 10;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 10:
             showLobuleTooltip();
             index = 11;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 11:
             showDuctTooltip();
             index = 12;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 12:
             showuncontrollablyTooltip();
             index = 13;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 13:
             showInnerLiningTooltip();
             index = 14;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 14:
             showMetastaticBreastCancer();
             index = 15;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 15:
             showRiskFactors();
             index = 16;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 16:
             showBreastCancerSymptoms();
             index = 17;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 17:
           showBreastCancerDiagnosisIntro();
             index = 18;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 18:
             showMammogramSlides();
             index = 19;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 19:
             showBiopsySlides();
             index = 20;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 20:
             showBreastExaminationSlides();
             index = 21;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 21:
             showBreastUltrasoundSlides();
             index = 22;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 22:
             showBreastMRISlides();
             index = 23;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 23:
             showBreastCancerTreatment();
             index = 24;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 24:
             showBreastCancerTreatmentIntroNextSet();
             index  = 25;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
           case 25:
             showLumpectomyTooltip();
             index  = 26;
-            if (!isJumpingToIndex){console.log("Go To Next Page");}
+            goToNextPage();
             break;
-      case 26: 
-        showMastectomyTooltip();
-        index  = 27;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 27:
-        showLymphNodeTooltip();
-        index  = 28;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 28: 
-        showBiMastectomyTooltip();
-        index  = 29;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 29:
-        showBreastCancerOtherTreatmentIntro();
-        index = 30;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 30:
-        showRadiationTherapyTooltips();
-        index = 31;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 31:
-        showHormoneTherapyTooltips();
-        index = 32;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 32:
-        showChemoTherapyTooltips();
-        index = 33;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 33:
-        showTargetedDrugTherapyTooltips();
-        index = 34;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 34:
-        showImmunoTherapyTooltips();
-        index = 35;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 35:
-        showPallativeCareTooltips();
-        index = 36;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 36:
-        showBreastCancerLifestyleIntro();
-        index = 37;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 37:
-        showDietTooltip();
-        index = 38;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 38:
-        showAlcoholTooltip();
-        index = 39;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 39:
-        showWeightTooltip();
-        index = 40;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 40:
-      showBreastFeedTooltip();
-        index = 41;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 41:
-      
-        showBeActiveTooltip();
-        index = 42;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 42:
-        showLimitTherapyTooltip();
-        index = 43;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 43:
-        showHealthyDietTooltip();
-        index = 44;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 44:
-        showBirthControlTooltip();
-        index = 45;
-        if (!isJumpingToIndex){console.log("Go To Next Page");}
-        break;
-      case 45:
-        showImportantNoteTooltip();
-        index = 46;
-        break;
-      case 46:
-      if (!isJumpingToIndex){console.log("Go To Next Section");}
+          case 26: 
+            showMastectomyTooltip();
+            index  = 27;
+            goToNextPage();
+            break;
+          case 27:
+            showLymphNodeTooltip();
+            index  = 28;
+            goToNextPage();
+            break;
+          case 28: 
+            showBiMastectomyTooltip();
+            index  = 29;
+            goToNextPage();
+            break;
+          case 29:
+            showBreastCancerOtherTreatmentIntro();
+            index = 30;
+            goToNextPage();
+            break;
+          case 30:
+            showRadiationTherapyTooltips();
+            index = 31;
+            goToNextPage();
+            break;
+          case 31:
+            showHormoneTherapyTooltips();
+            index = 32;
+            goToNextPage();
+            break;
+          case 32:
+            showChemoTherapyTooltips();
+            index = 33;
+            goToNextPage();
+            break;
+          case 33:
+            showTargetedDrugTherapyTooltips();
+            index = 34;
+            goToNextPage();
+            break;
+          case 34:
+            showImmunoTherapyTooltips();
+            index = 35;
+            goToNextPage();
+            break;
+          case 35:
+            showPallativeCareTooltips();
+            index = 36;
+            goToNextPage();
+            break;
+          case 36:
+            showBreastCancerLifestyleIntro();
+            index = 37;
+            goToNextPage();
+            break;
+          case 37:
+            showDietTooltip();
+            index = 38;
+            goToNextPage();
+            break;
+          case 38:
+            showAlcoholTooltip();
+            index = 39;
+            goToNextPage();
+            break;
+          case 39:
+            showWeightTooltip();
+            index = 40;
+            goToNextPage();
+            break;
+          case 40:
+          showBreastFeedTooltip();
+            index = 41;
+            goToNextPage();
+            break;
+          case 41:
+          
+            showBeActiveTooltip();
+            index = 42;
+            goToNextPage();
+            break;
+          case 42:
+            showLimitTherapyTooltip();
+            index = 43;
+            goToNextPage();
+            break;
+          case 43:
+            showHealthyDietTooltip();
+            index = 44;
+            goToNextPage();
+            break;
+          case 44:
+            showBirthControlTooltip();
+            index = 45;
+            goToNextPage();
+            break;
+          case 45:
+            showImportantNoteTooltip();
+            index = 46;
+            break;
+          case 46:
+          if (!isJumpingToIndex){console.log("Go To Next Section");}
 
-      break;
+          break;
 
         }
       }
-    </script>
-    
-    <!-- <div onclick="jumpToIndex()">
-     
-      <span>Jump To Index</span>
-    </div> -->
-   
-    
-
+    </script> 
     <div class="tooltip breastCancer-text hide" id="breastCancerTooltip">
       <span
         class="tooltiptext"
@@ -4802,8 +4133,8 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="stage2TooltipText"
-        >Localised: Tumor is 20-50 mm and some lymph nodes are involved. On
-        tumor larger than 50mm with no lymph nodes involved.</span
+        >Localised: Tumor is between 20-50mm and some lymph nodes are involved or
+        tumor is larger than 50mm with no lymph nodes involved.</span
       >
     </div>
     <div class="tooltip breastCancer-text hide" id="stage3Tooltip">
@@ -4909,7 +4240,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="breastCancerTreatmentTooltip3Text"
-        >Most women undergo surgery for breast cancer and many also receive additional treatment after surgery, such as chemotherapy, hormone therapy or radiation.</span
+        >Most women undergo surgery for breast cancer and many also receive additional treatment after surgery, such as chemotherapy, hormone therapy or radiation. Continue, to see available surgical options.</span
       >
     </div>
 
@@ -5117,7 +4448,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="hormoneTherapyTooltip1Text"
-        >This is used to treat breast cancers affected by hormones, like estrogen and progesterone. The breast cancer cells have receptors (proteins) that attach to estrogen and progesterone, which helps them grow. </span
+        >Hormone therapy is used to treat breast cancers affected by hormones, like estrogen and progesterone. The breast cancer cells have receptors (proteins) that attach to estrogen and progesterone, which helps them grow. </span
       >
     </div>
 
@@ -5136,7 +4467,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="hormoneTherapyTooltip2Text"
-        >Hormone therapy stops the hormones from attaching to these receptors. It's recommended for women with tumors that are hormone receptor-positive. It does not help women whose tumors don't have hormone receptors.</span
+        >Hormone therapy stops the hormones from attaching to these receptors. It is recommended for women with tumors that are hormone receptor-positive. It does not help women whose tumors don't have hormone receptors.</span
       >
     </div>
      <div
@@ -5172,7 +4503,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="hormoneTherapyTooltip4Text"
-        > It's recommended for women with tumors that are hormone receptor-positive. It does not help women whose tumors don't have hormone receptors.</span
+        > It is recommended for women with tumors that are hormone receptor-positive. It does not help women whose tumors don't have hormone receptors.</span
       >
     </div>
       <div
@@ -5354,7 +4685,7 @@ function revertToTargetedDrugTherapyTooltips(){
           box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
         "
         id="immunoTherapyTooltip1Text"
-        >Immunotherapy is a medical approach that activates a person's immune system to target and eliminate cancer cells. It's effective in treating certain types of breast cancer.</span
+        >Immunotherapy is a medical approach that activates a person's immune system to target and eliminate cancer cells. It is effective in treating certain types of breast cancer.</span
       >
     </div>
      <div
@@ -5831,27 +5162,9 @@ function revertToTargetedDrugTherapyTooltips(){
           "
           id="biopsySlide1Text"
         >
-          This procedure is the only definitive way to make a diagnosis of breast cancer. During a biopsy, your doctor uses a specialized needle device guided by X-ray or another imaging test to extract a core of tissue from the suspicious area.
+           A breast biopsy is the only definitive way to make a diagnosis of breast cancer. During a biopsy, your doctor uses a specialized needle device guided by X-ray or another imaging test to extract a core of tissue from the suspicious area.
         </span>
       </div>
-    <!--  <div class="tooltip breastCancer-text hide" id="biopsySlide2">
-        <span
-          class="tooltiptext tooltip-bottom"
-          style="
-            width: 90vw;
-            padding: 20px;
-            padding-left: 25px;
-            text-align: left;
-            border-radius: 30px;
-            box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
-          "
-          id="biopsySlide2Text"
-        >
-          During a biopsy, your doctor uses a specialized needle device guided
-          by X-ray or another imaging test to extract a core of tissue from the
-          suspicious area.
-        </span>
-      </div>-->
       <div class="tooltip breastCancer-text hide" id="biopsySlide2">
         <span
           class="tooltiptext tooltip-bottom"
@@ -5928,7 +5241,7 @@ function revertToTargetedDrugTherapyTooltips(){
           "
           id="breastUltrasoundSlide2Text"
         >
-        The ultrasound can tell if things inside are hard or soft, which helps doctors understand if there might be a problem. It's safe, painless, and important for keeping everyone healthy.
+        The ultrasound can tell if things inside are hard or soft, which helps doctors understand if there might be a problem. It is safe, painless, and important for keeping everyone healthy.
         </span>
       </div>
       <div class="tooltip breastCancer-text hide" id="breastMRISlide1">
@@ -5943,7 +5256,7 @@ function revertToTargetedDrugTherapyTooltips(){
             box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
           "
           id="breastMRISlide1Text"
-        >A breast MRI is a high-tech machine that uses strong magnets to capture very clear pictures of the inside of the chest. It's like having a super detective tool for doctors to investigate what's going on in the breast.
+        >A breast MRI is a high-tech machine that uses strong magnets to capture very clear pictures of the inside of the chest. It is like having a super detective tool for doctors to investigate what's going on in the breast.
         </span>
       </div>
       <div class="tooltip breastCancer-text hide" id="breastMRISlide2">
@@ -5958,7 +5271,7 @@ function revertToTargetedDrugTherapyTooltips(){
             box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
           "
           id="breastMRISlide2Text"
-        >When there's a mystery, this machine helps doctors solve it. It's safe, though it can be a bit noisy, and it's an essential tool for keeping an eye on your health.
+        >When there is a mystery, this machine helps doctors solve it. It is safe, though it can be a bit noisy, and it is an essential tool for keeping an eye on your health.
         </span>
       </div>
     
@@ -6189,7 +5502,7 @@ id="birthControlBreastCancerTooltip1"
     box-shadow: 0px -5px 20px 5px rgba(255, 0, 0, 0.1);
   "
   id="birthControlBreastCancerTooltip1Text"
-  >There's some evidence that hormonal contraception, which includes birth control pills and IUDs that 
+  >There is some evidence that hormonal contraception, which includes birth control pills and IUDs that 
   release hormones, increases the risk of breast cancer. But the risk is considered very small, and it decreases after you stop using hormonal contraceptives..</span
 >
 </div>
@@ -11384,44 +10697,25 @@ id="importantNoteTooltip2"
           <p class="risk-factors-text">Alcoholism</p>
         </div>
         <div id="riskFactorSmoking" style="opacity: 0">
-          <svg
-            width="100%"
-            xmlns="http://www.w3.org/2000/svg"
-            id="Layer_2"
-            data-name="Layer 2"
-            viewBox="0 0 231 231"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_2" data-name="Layer 2" viewBox="0 0 231 231">
+            <defs>
+              <style>
+                .cls-1 {
+                  fill: #fff;
+                }
+          
+                .cls-2 {
+                  fill: #e83062;
+                }
+              </style>
+            </defs>
             <g id="Layer_1-2" data-name="Layer 1">
               <g>
-                <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
+                <circle class="cls-1" cx="115.5" cy="115.5" r="115.5"/>
                 <g>
-                  <path
-                    d="M112.5,175.62c-17.19-.24-32.18-5.24-45.46-15.33-1.85-1.41-2.57-2.81-2.26-5.24,2.05-15.82,14.22-29.2,29.82-32.54,2.68-.57,3.71,.21,4.04,2.95,.81,6.65,4.36,11.52,9.96,14.97,2.46,1.51,4.99,1.31,7.36-.27,5.42-3.62,8.68-8.64,9.64-15.12,.3-2.06,1.08-2.75,3.18-2.69,2.71,.07,5.21,.99,7.59,2.16,10.72,5.25,18.32,13.29,21.92,24.82,.76,2.44,1.25,4.94,1.37,7.51,.05,1.07-.35,1.85-1.16,2.5-10.71,8.48-22.81,13.71-36.36,15.58-3.4,.47-6.82,.51-9.65,.7Zm.81-4.68c1.8-.14,4.84-.24,7.84-.65,11.54-1.58,22-5.85,31.47-12.65,1.61-1.15,2.11-2.24,1.66-4.19-2.9-12.54-10.35-21.04-22.36-25.6-1.15-.44-1.75-.35-2.13,1.05-1.62,5.97-4.97,10.8-9.88,14.56-4.46,3.42-10.8,3.53-15.38,.25-5.18-3.71-8.64-8.59-10.22-14.78-.23-.89-.54-1.14-1.49-.87-11.89,3.34-21.27,14.19-22.94,26.51-.15,1.14,.14,1.78,1.01,2.42,12.23,9.09,25.96,13.73,42.42,13.95Z"
-                    style="
-                      fill: #e83062;
-                      stroke: #e83062;
-                      stroke-miterlimit: 10;
-                      stroke-width: 2px;
-                    "
-                  />
-                  <path
-                    d="M78.62,81.75c.09,12.41,1.15,23.94,4.37,35.19,.64,2.23-.66,3.89-2.69,3.54-1.29-.22-1.79-1.16-2.1-2.29-1.35-4.88-2.43-9.82-3.15-14.83-1.09-7.6-1.45-15.25-1.4-22.91,.04-5.6,.76-11.14,2.61-16.48,3.29-9.49,10.15-15.58,19.23-18.96,15.68-5.83,30.5-4.15,43.8,6.53,5.44,4.36,8.13,10.42,9.6,17.06,1.24,5.57,1.53,11.23,1.29,16.94-.21,4.96-.34,9.91-.93,14.84-.72,6.09-1.9,12.08-3.59,17.97-.5,1.73-1.74,2.5-3.23,2.09-1.35-.38-1.99-1.71-1.52-3.39,2.61-9.37,3.91-18.93,4.22-28.65,.18-5.65,.23-11.26-.65-16.85-1.73-11.05-8.05-18.45-18.36-22.22-11.31-4.14-22.49-3.63-33.2,2.32-8.24,4.58-12.44,11.79-13.71,20.93-.46,3.3-.68,6.61-.6,9.18Z"
-                    style="
-                      fill: #e83062;
-                      stroke: #e83062;
-                      stroke-miterlimit: 10;
-                      stroke-width: 2px;
-                    "
-                  />
-                  <path
-                    d="M84.59,82.17c-.1-1.49,.07-2.93,.27-4.36,.22-1.57,1.36-2.6,2.68-2.47,1.52,.15,2.4,1.41,2.2,3.14-.03,.24-.06,.48-.08,.72-.12,1.73,.12,2.02,1.82,1.75,11.24-1.82,19.47-7.67,24.14-18.2,.73-1.65,.87-3.5,1.61-5.19,.53-1.22,1.15-2.19,2.53-2.2,1.31-.01,2.15,.8,2.41,2.08,.15,.74,.59,1.04,1.25,1.19,10.04,2.34,15.13,9.99,15.72,19.95,.65,11.03-2.81,20.72-9.86,29.09-4.48,5.32-10.2,8.54-17.34,8.47-7.2-.07-12.78-3.52-17.34-8.83-3.93-4.57-6.38-9.91-8.28-15.6-1.04-3.14-1.84-6.25-1.72-9.52Zm49.74-1.17c.09-1.46-.13-2.89-.31-4.33-.9-6.89-5.11-11.66-11.56-13.25-1.25-.31-1.78,0-2.28,1.17-2.84,6.64-7.21,12.04-13.36,15.91-4.55,2.87-9.5,4.66-14.85,5.29-1.29,.15-1.82,.49-1.49,1.98,1.27,5.79,3.48,11.11,7.18,15.77,8.03,10.11,20.75,10.18,28.8,.09,5.28-6.61,7.6-14.29,7.88-22.65Z"
-                    style="
-                      fill: #e83062;
-                      stroke: #e83062;
-                      stroke-miterlimit: 10;
-                      stroke-width: 2px;
-                    "
-                  />
+                  <path class="cls-2" d="M109.37,117.4c19.53,0,39.06,0,58.58,0,2.86,0,3.9,1.05,3.9,3.93,0,6.38,0,12.76,0,19.14,0,2.89-1.05,3.96-3.89,3.96-39.1,0-78.2,0-117.3,0-2.62,0-3.76-1.11-3.77-3.68,0-6.55,0-13.11,0-19.66,0-2.59,1.12-3.68,3.76-3.68,19.57,0,39.14,0,58.71,0Zm-56.22,20.72h87.42v-14.39H53.15v14.39Zm93.83-14.43v14.43h6.09v-14.43h-6.09Zm18.59,0h-6.1v14.42h6.1v-14.42Z"/>
+                  <path class="cls-2" d="M171.85,106.54c0,1.17,.03,2.34,0,3.51-.07,1.86-1.38,3.15-3.13,3.13-1.73-.01-3.07-1.34-3.06-3.19,.04-4.78-.04-9.53-1.28-14.2-1.92-7.22-5.45-13.46-11.08-18.44-1.64-1.45-1.85-3.27-.61-4.68,1.23-1.39,3.11-1.4,4.73,.03,7.93,6.98,12.29,15.88,13.89,26.2,.39,2.52,.47,5.09,.7,7.63-.05,0-.1,0-.15,.01Z"/>
+                  <path class="cls-2" d="M159.34,107.75c0,.82,.04,1.65,0,2.47-.11,1.76-1.47,2.99-3.17,2.96-1.68-.03-3.03-1.34-3.01-3.11,.03-3.53-.18-7.02-1.15-10.43-1.91-6.72-5.64-12.32-10.65-17.11-1.38-1.32-2.8-2.59-4.14-3.94-1.24-1.25-1.24-3.11-.08-4.34,1.11-1.17,3-1.35,4.24-.24,4.91,4.42,9.61,9.01,12.86,14.88,3.26,5.88,5.06,12.12,5.11,18.86Z"/>
                 </g>
               </g>
             </g>
@@ -11570,29 +10864,32 @@ id="importantNoteTooltip2"
           id="riskFactorExposureToRadioactivity"
           style="opacity: 0; margin-bottom: 15px"
         >
-          <svg
-            width="100%"
-            xmlns="http://www.w3.org/2000/svg"
-            id="Layer_2"
-            data-name="Layer 2"
-            viewBox="0 0 231 231"
-          >
-            <g id="Layer_1-2" data-name="Layer 1">
-              <g>
-                <circle cx="115.5" cy="115.5" r="115.5" style="fill: #fff" />
-                <text
-                  transform="translate(70.18 121.73)"
-                  style="fill: #e83062; font-size: 38.32px; font-weight: 700"
-                >
-                  <tspan x="0" y="0" style="letter-spacing: -0.04em">AGE</tspan>
-                </text>
-                <path
-                  d="M163.95,66.04c.17-2.56,.35-5.12,.49-7.68,.16-2.86,1.66-4.57,4.08-4.61,2.3-.04,4.15,1.78,4.25,4.54,.11,2.97-.02,5.95-.1,8.93-.1,3.93-.24,7.87-.39,11.8-.15,3.9-1.92,5.52-5.79,5.48-6.53-.07-13.06-.08-19.6-.15-3.46-.04-5.39-1.58-5.45-4.22-.06-2.61,1.94-4.17,5.41-4.18,3.27,0,6.53,.07,9.8,.04,.92,0,2.16,.47,2.67-.47,.54-.98-.58-1.71-1.13-2.43-7.29-9.57-16.78-16-28.32-19.26-32.18-9.1-63.76,10.35-70.29,43.19-6.23,31.31,16.89,62.19,48.68,65,25.67,2.27,47.91-11.43,57.42-35.37,.14-.36,.27-.72,.44-1.07,1.24-2.62,3.37-3.7,5.5-2.79,2.22,.95,3.14,3.17,2.21,5.81-1.7,4.81-3.86,9.4-6.69,13.68-14.78,22.37-42.03,32.97-68.55,26.63-25.24-6.04-44.71-28.2-47.76-54.36-4.16-35.74,21.25-67.51,56.91-70.91,21.31-2.03,39.23,5.14,53.81,20.74,.58,.62,1.07,1.33,1.61,2,.26-.12,.51-.24,.77-.36Z"
-                  style="fill: #e83062"
-                />
+        <svg xmlns="http://www.w3.org/2000/svg" id="Layer_2" data-name="Layer 2" viewBox="0 0 231 231">
+          <defs>
+            <style>
+              .cls-1 {
+                fill: #fff;
+              }
+        
+              .cls-2 {
+                fill: #e83062;
+              }
+            </style>
+          </defs>
+          <g id="Layer_1-2" data-name="Layer 1">
+            <g>
+              <circle class="cls-1" cx="115.5" cy="115.5" r="115.5"/>
+              <g id="_7PzLKj" data-name="7PzLKj">
+                <g>
+                  <path class="cls-2" d="M112.23,172.67c-9.03-.03-17.58-2.13-25.69-6.04-4.15-2-4.46-2.91-2.41-7.07,4.67-9.45,9.38-18.87,14.16-28.26,1.83-3.59,2.37-3.72,6.06-2.06,5.67,2.56,11.24,2.5,16.85-.19,3.06-1.47,3.83-1.17,5.47,1.92,5.16,9.71,10.13,19.52,14.78,29.49,1.45,3.11,1.18,4.08-1.99,5.71-8.53,4.38-17.64,6.52-27.22,6.5Zm.51-5.64c6.8-.39,13.89-1.33,20.63-4.25,1.96-.85,2.19-1.72,1.25-3.54-3.71-7.23-7.34-14.5-10.91-21.81-.88-1.81-1.81-2.4-3.87-1.69-4.85,1.68-9.83,1.7-14.67-.05-1.94-.7-2.83-.16-3.67,1.56-3.62,7.38-7.28,14.74-11.04,22.05-.98,1.9-.57,2.71,1.35,3.48,6.59,2.66,13.44,3.95,20.93,4.25Z"/>
+                  <path class="cls-2" d="M137.28,117.4c-5.75,0-6.95,1.35-7.56-6.5-.4-5.2-3.47-9.05-7.75-11.92-3.42-2.29-3.65-3.11-1.45-6.44,5.96-9.02,11.94-18.03,17.97-27.01,2.04-3.04,2.98-3.22,6.1-1.16,14.35,9.48,22.79,22.86,26.09,39.63,.52,2.65,.58,5.32,.63,8,.04,2.18-.99,3.3-3.06,3.5-2.76,.27-5.52,.51-8.28,.67-7.56,.44-15.13,.83-22.69,1.24Zm2.13-5.82c7.84-.47,15.31-.84,22.76-1.4,3.36-.25,3.63-.72,3.1-3.96-2.34-14.42-9.22-26.15-20.8-35.11-1.51-1.16-2.34-1.24-3.46,.51-4.45,6.91-8.99,13.77-13.6,20.58-1.15,1.69-1.15,2.8,.44,4.22,3.51,3.13,6.29,6.89,7.09,11.61,.52,3.05,1.86,4.24,4.47,3.55Z"/>
+                  <path class="cls-2" d="M87.72,117.43c-9.63-.58-19.49-1.12-29.34-1.78-4.01-.27-4.8-1.12-4.52-5.22,1.4-19.96,10.65-35.37,27.23-46.44,2.13-1.42,3.86-1.22,5.37,1.08,6.12,9.34,12.35,18.62,18.48,27.96,1.86,2.83,1.59,3.79-1.26,5.62-4.99,3.19-7.9,7.68-8.46,13.58-.5,5.22-.53,5.29-5.89,5.2-.46,0-.92,0-1.61,0Zm-2.08-5.86c1.41-.21,3.52,.83,4.03-1.86,1.09-5.67,4.04-10.25,8.33-14.01,.98-.86,.99-1.54,.3-2.58-4.81-7.22-9.59-14.45-14.33-21.72-.93-1.44-1.74-1.56-3.09-.51-11.84,9.22-18.98,21.17-21.13,36.07-.3,2.06,.26,3.08,2.52,3.2,7.73,.4,15.46,.93,23.36,1.41Z"/>
+                  <path class="cls-2" d="M112.93,100.75c7.19,.3,13.01,6.48,12.7,13.49-.31,7.01-6.58,12.88-13.38,12.52-7.27-.38-12.92-6.39-12.7-13.5,.22-6.9,6.54-12.8,13.38-12.51Zm6.9,12.84c-.06-3.9-3.48-7.24-7.36-7.17-3.91,.07-7.23,3.47-7.18,7.37,.05,3.95,3.36,7.22,7.28,7.2,4.26-.02,7.32-3.15,7.26-7.41Z"/>
+                </g>
               </g>
             </g>
-          </svg>
+          </g>
+        </svg>
           <p class="risk-factors-text">Exposure to Radioactivity</p>
         </div>
       </div>
@@ -11635,7 +10932,7 @@ id="importantNoteTooltip2"
         </svg>
       </a>
       <a class="noSelect" onclick="onNextButtonPressed()">
-        <div class="tooltip" id="next_button_and_tooltip">
+        <div class="tooltip hide" id="next_button_and_tooltip">
           <div id="nextButtonContainer" class="pulse">
             <svg
               id="nextButton"
