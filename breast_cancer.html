@@ -132,6 +132,105 @@
         border-color: transparent white transparent transparent;
       }
 
+ .tooltip-right {
+        top: -5px;
+        left: 105%;
+      }
+
+      .tooltip-right::before {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        right: 100%; /* To the left of the tooltip */
+        margin-top: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent red transparent transparent;
+      }
+
+      .tooltip-right::after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        right: 100%; /* To the left of the tooltip */
+        margin-top: -6px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent white transparent transparent;
+      }
+
+      .tooltip-top {
+        width: 100px;
+        bottom: 120%;
+        left: 50%;
+        margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+      }
+
+      .tooltip-top::after {
+        content: " ";
+        position: absolute;
+        top: 100%; /* At the bottom of the tooltip */
+        left: 50%;
+        margin-left: -6px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: white transparent transparent transparent;
+      }
+
+      .tooltip-top::before {
+        content: " ";
+        position: absolute;
+        top: 100%; /* At the bottom of the tooltip */
+        left: 50%;
+        margin-left: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: red transparent transparent transparent;
+      }
+
+      .tooltip-bottom {
+        width: 120px;
+        top: 100%;
+        left: 50%;
+        margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+      }
+
+      .tooltip-bottom::before {
+        content: " ";
+        position: absolute;
+        bottom: 100%; /* At the top of the tooltip */
+        left: 50%;
+        margin-left: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: transparent transparent red transparent;
+      }
+
+      .tooltip-bottom::after {
+        content: " ";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -6px;
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent transparent white transparent;
+      }
+
+      .corner-div {
+        position: absolute;
+        bottom: 20px;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        padding-right: 40px;
+        gap: 1rem;
+      }
+
+      .hide {
+        visibility: hidden;
+      }
+
       .content-wrapper {
         display: flex;
         justify-content: center;
@@ -287,104 +386,7 @@
         transform-origin: center;
       }
 
-      .tooltip-right {
-        top: -5px;
-        left: 105%;
-      }
-
-      .tooltip-right::before {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        right: 100%; /* To the left of the tooltip */
-        margin-top: -8px;
-        border-width: 8px;
-        border-style: solid;
-        border-color: transparent red transparent transparent;
-      }
-
-      .tooltip-right::after {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        right: 100%; /* To the left of the tooltip */
-        margin-top: -6px;
-        border-width: 6px;
-        border-style: solid;
-        border-color: transparent white transparent transparent;
-      }
-
-      .tooltip-top {
-        width: 100px;
-        bottom: 120%;
-        left: 50%;
-        margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
-      }
-
-      .tooltip-top::after {
-        content: " ";
-        position: absolute;
-        top: 100%; /* At the bottom of the tooltip */
-        left: 50%;
-        margin-left: -6px;
-        border-width: 6px;
-        border-style: solid;
-        border-color: white transparent transparent transparent;
-      }
-
-      .tooltip-top::before {
-        content: " ";
-        position: absolute;
-        top: 100%; /* At the bottom of the tooltip */
-        left: 50%;
-        margin-left: -8px;
-        border-width: 8px;
-        border-style: solid;
-        border-color: red transparent transparent transparent;
-      }
-
-      .tooltip-bottom {
-        width: 120px;
-        top: 100%;
-        left: 50%;
-        margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
-      }
-
-      .tooltip-bottom::before {
-        content: " ";
-        position: absolute;
-        bottom: 100%; /* At the top of the tooltip */
-        left: 50%;
-        margin-left: -8px;
-        border-width: 8px;
-        border-style: solid;
-        border-color: transparent transparent red transparent;
-      }
-
-      .tooltip-bottom::after {
-        content: " ";
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        margin-left: -6px;
-        border-width: 6px;
-        border-style: solid;
-        border-color: transparent transparent white transparent;
-      }
-
-      .corner-div {
-        position: absolute;
-        bottom: 20px;
-        display: flex;
-        align-items: center;
-        padding: 20px;
-        padding-right: 40px;
-        gap: 1rem;
-      }
-
-      .hide {
-        visibility: hidden;
-      }
+     
 
       .breastCancer-text {
         position: absolute;
